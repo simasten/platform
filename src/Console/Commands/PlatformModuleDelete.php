@@ -4,7 +4,7 @@ namespace Simasten\Platform\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
-use Monoland\Modular\Services\GitModule;
+use Simasten\Platform\Services\GitModule;
 use Symfony\Component\Process\Process;
 
 class PlatformModuleDelete extends Command
@@ -30,6 +30,6 @@ class PlatformModuleDelete extends Command
      */
     public function handle()
     {
-        // 
+        //
     }
 }
