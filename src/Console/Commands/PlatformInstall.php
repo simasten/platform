@@ -36,17 +36,17 @@ class PlatformInstall extends Command
         $this->removeFileAndFolder();
 
         $this->call('vendor:publish', [
-            '--tag' => 'monoland-config',
+            '--tag' => 'simasten-config',
             '--force' => true
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'monoland-frontend',
+            '--tag' => 'simasten-frontend',
             '--force' => true
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'monoland-assets',
+            '--tag' => 'simasten-assets',
             '--force' => true
         ]);
 
@@ -189,7 +189,7 @@ class PlatformInstall extends Command
         if (str_contains($content, 'SESSION_DOMAIN=null')) {
             (new Filesystem())->replaceInFile(
                 'SESSION_DOMAIN=null',
-                'SESSION_DOMAIN=.modular.test',
+                'SESSION_DOMAIN=.devsimasten.test',
                 $envFile,
             );
         }
@@ -205,7 +205,7 @@ class PlatformInstall extends Command
                 'DB_QUEUE_BATCH_TABLE=system_job_batches' . PHP_EOL .
                 'DB_QUEUE_FAILED_TABLE=system_failded_jobs' . PHP_EOL .
                 'SESSION_TABLE=system_sessions' . PHP_EOL .
-                'SANCTUM_STATEFUL_DOMAINS=hmr.modular.test:3000',
+                'SANCTUM_STATEFUL_DOMAINS=hmr.devsimasten.test:3000',
                 $envFile,
             );
         }

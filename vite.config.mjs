@@ -104,7 +104,7 @@ export default defineConfig({
 		extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
 	},
 	server: {
-		host: "hmr.modular.test",
+		host: "hmr.devsimasten.test",
 		https: true,
 		port: 3000,
 	},

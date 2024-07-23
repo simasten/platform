@@ -66,16 +66,16 @@ class ModularServiceProvider extends ServiceProvider
             __DIR__.'/../routes' => base_path('routes'),
             __DIR__.'/../seeders' => database_path('seeders'),
             __DIR__.'/../vite.config.mjs' => base_path('vite.config.mjs'),
-        ], 'monoland-config');
+        ], 'simasten-config');
 
         $this->publishes([
             __DIR__.'/../frontend' => resource_path(),
-        ], 'monoland-frontend');
+        ], 'simasten-frontend');
 
         $this->publishes([
             __DIR__.'/../assets' => resource_path('assets'),
             __DIR__.'/../avatars' => resource_path('avatars'),
-        ], 'monoland-assets');
+        ], 'simasten-assets');
     }
 
     /**
