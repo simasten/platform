@@ -36,17 +36,17 @@ class PlatformInstall extends Command
         $this->removeFileAndFolder();
 
         $this->call('vendor:publish', [
-            '--tag' => 'monoland-config',
+            '--tag' => 'simasten-config',
             '--force' => true
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'monoland-frontend',
+            '--tag' => 'simasten-frontend',
             '--force' => true
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'monoland-assets',
+            '--tag' => 'simasten-assets',
             '--force' => true
         ]);
 
