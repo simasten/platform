@@ -1,6 +1,6 @@
 {
-    "name": "monoland/modular",
-    "description": "Monoland Platform Modular",
+    "name": "simasten/platform",
+    "description": "Simasten Web Application Platform",
     "type": "library",
     "require": {
         "laravel/framework": "^11.0",
@@ -14,13 +14,13 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Monoland\\Modular\\": "src/"
+            "Simasten\\Platform\\": "src/"
         }
     },
     "extra": {
 		"laravel": {
 			"providers": [
-				"Monoland\\Modular\\PlatformServiceProvider"
+				"Simasten\\Platform\\ModularServiceProvider"
 			]
 		}
 	},

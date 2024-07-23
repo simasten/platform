@@ -1,6 +1,6 @@
 <?php
 
-namespace Monoland\Modular\Console\Commands;
+namespace Simasten\Platform\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;

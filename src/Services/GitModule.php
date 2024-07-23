@@ -1,6 +1,6 @@
 <?php
 
-namespace Monoland\Modular\Services;
+namespace Simasten\Platform\Services;
 
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;

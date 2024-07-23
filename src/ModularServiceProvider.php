@@ -1,6 +1,6 @@
 <?php
 
-namespace Monoland\Modular;
+namespace Simasten\Platform;
 
 use Laravel\Fortify\Fortify;
 use Illuminate\Support\Facades\URL;
@@ -32,7 +32,7 @@ use Monoland\Modular\Console\Commands\PlatformModuleMigrate;
 use Monoland\Modular\Console\Commands\PlatformMakeController;
 use Monoland\Modular\Console\Commands\PlatformMakeNotification;
 
-class PlatformServiceProvider extends ServiceProvider
+class ModularServiceProvider extends ServiceProvider
 {
     /**
      * boot function
