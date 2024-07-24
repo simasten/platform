@@ -23,6 +23,7 @@ use Simasten\Platform\Console\Commands\PlatformModuleSeed;
 use Simasten\Platform\Console\Commands\PlatformMakeCommand;
 use Simasten\Platform\Console\Commands\PlatformMakeReplica;
 use Simasten\Platform\Console\Commands\PlatformModuleClone;
+use Simasten\Platform\Console\Commands\PlatformMakeFrontend;
 use Simasten\Platform\Console\Commands\PlatformMakeListener;
 use Simasten\Platform\Console\Commands\PlatformMakeResource;
 use Simasten\Platform\Console\Commands\PlatformModuleDelete;
@@ -104,6 +105,7 @@ class ModularServiceProvider extends ServiceProvider
                 PlatformMakeController::class,
                 PlatformMakeEvent::class,
                 PlatformMakeExport::class,
+                PlatformMakeFrontend::class,
                 PlatformMakeImport::class,
                 PlatformMakeJob::class,
                 PlatformMakeListener::class,
