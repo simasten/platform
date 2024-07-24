@@ -179,8 +179,8 @@ class ModularServiceProvider extends ServiceProvider
                 $content                = file_get_contents($json_path);
                 $json_data              = json_decode($content, true);
                 $module_name            = $json_data['name'];
-                $json_data['path']      = $folder;
-                $modules[$module_name]  = json_decode(json_encode($json_data), false);
+                $json_data['directory'] = $folder;
+                $modules[$module_name]  = $json_data;
             }
 
             /** Scan All-Module Except System */
@@ -201,11 +201,23 @@ class ModularServiceProvider extends ServiceProvider
                     continue;
                 }
 
-                $json_data['path']      = $folder;
-                $modules[$module_name]  = json_decode(json_encode($json_data), false);
+                $json_data['directory'] = $folder;
+                $modules[$module_name]  = $json_data;
             }
 
-            return count($modules) > 0 ? $modules : [];
+            if (count($modules) === 0) {
+                return $modules;
+            }
+
+            /** Sort data by priority */
+            array_multisort(array_column($modules, 'priority'), SORT_ASC, $modules);
+
+            /** Convert array to object */
+            foreach ($modules as $key => $module) {
+                $modules[$key] = json_decode(json_encode($module), false);
+            }
+
+            return $modules;
         });
     }
 }

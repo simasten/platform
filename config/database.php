@@ -11,6 +11,21 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'oldversion' => [
+            'driver' => 'pgsql',
+            'url' => env('PG_URL'),
+            'host' => env('PG_HOST', '127.0.0.1'),
+            'port' => env('PG_PORT', '5432'),
+            'database' => env('PG_DATABASE', 'laravel'),
+            'username' => env('PG_USERNAME', 'root'),
+            'password' => env('PG_PASSWORD', ''),
+            'charset' => env('PG_CHARSET', 'utf8'),
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'search_path' => 'public',
+            'sslmode' => 'prefer',
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DB_URL'),
