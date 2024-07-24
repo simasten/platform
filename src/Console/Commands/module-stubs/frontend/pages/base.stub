@@ -1,5 +1,9 @@
 <template>
-    <page-base slug="$MODULE_LOWER$"></page-base>
+    <page-base
+        module-name="$MODULE_LOWER$"
+        module-key="$MODULE_LOWER$"
+        module-type="administrator"
+    ></page-base>
 </template>
 
 <script>

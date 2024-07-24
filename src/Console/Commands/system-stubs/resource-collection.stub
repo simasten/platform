@@ -58,7 +58,7 @@ class $CLASSNAME$ extends ResourceCollection
                 'trashed' => $request->trashed ?: false,
 
                 /** the page title */
-                'title' => $MODEL$::getPageTitle('$MODULE_LOWER$-$MODEL_LOWER$'),
+                'title' => $MODEL$::getPageTitle($request, '$MODULE_LOWER$-$MODEL_LOWER$'),
 
                 /** the usetrash flag */
                 'usetrash' => $MODEL$::hasSoftDeleted(),

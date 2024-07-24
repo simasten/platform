@@ -30,13 +30,15 @@ class $CLASSNAME$ extends JsonResource
 
                 'icon' => $MODEL$::getPageIcon('$MODULE_LOWER$-$MODEL_LOWER$'),
 
+                'key' => $MODEL$::getDataKey(),
+
                 'logs' => $request->activities ? UserLogActivity::collection($this->activitylogs) : null,
 
                 'softdelete' => $this->trashed() ?: false,
 
                 'statuses' => $MODEL$::mapStatuses($request, $this),
 
-                'title' => $MODEL$::getPageTitle('$MODULE_LOWER$-$MODEL_LOWER$'),
+                'title' => $MODEL$::getPageTitle($request, '$MODULE_LOWER$-$MODEL_LOWER$'),
             ],
         ];
     }

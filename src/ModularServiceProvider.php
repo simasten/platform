@@ -23,6 +23,7 @@ use Simasten\Platform\Console\Commands\PlatformModuleSeed;
 use Simasten\Platform\Console\Commands\PlatformMakeCommand;
 use Simasten\Platform\Console\Commands\PlatformMakeReplica;
 use Simasten\Platform\Console\Commands\PlatformModuleClone;
+use Simasten\Platform\Console\Commands\PlatformMakeFrontend;
 use Simasten\Platform\Console\Commands\PlatformMakeListener;
 use Simasten\Platform\Console\Commands\PlatformMakeResource;
 use Simasten\Platform\Console\Commands\PlatformModuleDelete;
@@ -104,6 +105,7 @@ class ModularServiceProvider extends ServiceProvider
                 PlatformMakeController::class,
                 PlatformMakeEvent::class,
                 PlatformMakeExport::class,
+                PlatformMakeFrontend::class,
                 PlatformMakeImport::class,
                 PlatformMakeJob::class,
                 PlatformMakeListener::class,
@@ -169,18 +171,6 @@ class ModularServiceProvider extends ServiceProvider
         return Cache::rememberForever('modules', function () {
             $modules = [];
 
-            /** Scan Module System */
-            $folder = base_path('modules' . DIRECTORY_SEPARATOR . 'system');
-            $json_path = $folder . DIRECTORY_SEPARATOR . 'module.json';
-
-            if (File::exists($json_path)) {
-                $content                = file_get_contents($json_path);
-                $json_data              = json_decode($content, true);
-                $module_name            = $json_data['name'];
-                $json_data['path']      = $folder;
-                $modules[$module_name]  = json_decode(json_encode($json_data), false);
-            }
-
             /** Scan All-Module Except System */
             $folders = glob(base_path('modules') . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
 
@@ -194,16 +184,23 @@ class ModularServiceProvider extends ServiceProvider
                 $content                = file_get_contents($json_path);
                 $json_data              = json_decode($content, true);
                 $module_name            = $json_data['name'];
-
-                if ($module_name === 'System') {
-                    continue;
-                }
-
-                $json_data['path']      = $folder;
-                $modules[$module_name]  = json_decode(json_encode($json_data), false);
+                $json_data['directory'] = $folder;
+                $modules[$module_name]  = $json_data;
             }
 
-            return count($modules) > 0 ? $modules : [];
+            if (count($modules) === 0) {
+                return $modules;
+            }
+
+            /** Sort data by priority */
+            array_multisort(array_column($modules, 'priority'), SORT_ASC, $modules);
+
+            /** Convert array to object */
+            foreach ($modules as $key => $module) {
+                $modules[$key] = json_decode(json_encode($module), false);
+            }
+
+            return $modules;
         });
     }
 }

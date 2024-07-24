@@ -36,7 +36,7 @@ class PlatformModuleList extends Command
                 $module->disabled ? 'true' : 'false',
                 $module->priority,
                 $module->connection,
-                $module->path
+                $module->directory
             ]);
         }
 
