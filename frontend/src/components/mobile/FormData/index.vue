@@ -8,7 +8,9 @@
 			<v-icon>arrow_back</v-icon>
 		</v-btn>
 
-		<v-toolbar-title class="text-body-2 font-weight-bold text-uppercase">{{ module.name }}</v-toolbar-title>
+		<v-toolbar-title class="text-body-2 font-weight-bold text-uppercase">{{
+			module.name
+		}}</v-toolbar-title>
 
 		<v-spacer></v-spacer>
 
@@ -39,7 +41,7 @@
 
 	<v-responsive
 		:height="navigationState ? `calc(100vh - 120px)` : `calc(100vh - 64px)`"
-		class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
+		class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
 		content-class="position-relative"
 	>
 		<v-sheet
@@ -59,7 +61,9 @@
 							size="48"
 							style="font-size: 22px"
 						>
-							<v-icon :color="`${theme}-darken-1`">{{ page.icon }}</v-icon>
+							<v-icon :color="`${theme}-darken-1`">{{
+								page.icon
+							}}</v-icon>
 						</v-avatar>
 					</v-card-text>
 				</v-sheet>
@@ -74,7 +78,11 @@
 						class="text-uppercase font-weight-bold"
 						size="x-small"
 						variant="flat"
-						style="font-size: 8px; letter-spacing: 0.3px; text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.3)"
+						style="
+							font-size: 8px;
+							letter-spacing: 0.3px;
+							text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.3);
+						"
 						>{{ title }}</v-chip
 					>
 				</div>
@@ -97,7 +105,11 @@
 		>
 			<v-list
 				class="bg-transparent"
-				:active-class="showDelete ? `bg-white elevation-4 text-grey with-delete` : `bg-white elevation-4 text-grey`"
+				:active-class="
+					showDelete
+						? `bg-white elevation-4 text-grey with-delete`
+						: `bg-white elevation-4 text-grey`
+				"
 				lines="two"
 				selectable
 				@update:selected="setSelected"
@@ -131,7 +143,10 @@
 
 				<template v-else>
 					<div
-						v-if="meta.current_page && meta.current_page < meta.last_page"
+						v-if="
+							meta.current_page &&
+							meta.current_page < meta.last_page
+						"
 						class="d-flex align-center justify-center py-2"
 						style="width: 100%"
 						v-intersect="onIntersect"
@@ -168,103 +183,104 @@
 </template>
 
 <script>
-	import { usePageStore } from "@pinia/pageStore";
-	import { storeToRefs } from "pinia";
+import { usePageStore } from "@pinia/pageStore";
+import { storeToRefs } from "pinia";
 
-	export default {
-		name: "form-data",
+export default {
+	name: "form-data",
 
-		props: {
-			chip: {
-				type: String,
-				default: "chip",
-			},
-
-			disableCreate: Boolean,
-
-			showDelete: {
-				type: Boolean,
-				default: false,
-			},
+	props: {
+		chip: {
+			type: String,
+			default: "chip",
 		},
 
-		setup() {
-			const store = usePageStore();
+		disableCreate: Boolean,
 
-			store.helpState = false;
-
-			const {
-				formStateLast,
-				hasSelected,
-				headers,
-				highlight,
-				itemsPerPage,
-				loading,
-				meta,
-				module,
-				navigationState,
-				page,
-				pageKey,
-				params,
-				parentName,
-				records,
-				railMode,
-				sidenavState,
-				selected,
-				title,
-				theme,
-				totalRecords,
-			} = storeToRefs(store);
-
-			const { getPageDatas, openFormCreate, openFormShow, setSelected } = store;
-
-			return {
-				formStateLast,
-				hasSelected,
-				headers,
-				highlight,
-				itemsPerPage,
-				loading,
-				meta,
-				module,
-				navigationState,
-				page,
-				pageKey,
-				params,
-				parentName,
-				records,
-				railMode,
-				sidenavState,
-				selected,
-				title,
-				theme,
-				totalRecords,
-
-				getPageDatas,
-				openFormCreate,
-				openFormShow,
-				setSelected,
-			};
+		showDelete: {
+			type: Boolean,
+			default: false,
 		},
+	},
 
-		methods: {
-			onIntersect: function (isIntersecting) {
-				if (isIntersecting) {
-					this.loading = true;
-					this.params.page = this.params.page + 1;
-				}
+	setup() {
+		const store = usePageStore();
+
+		store.helpState = false;
+
+		const {
+			formStateLast,
+			hasSelected,
+			headers,
+			highlight,
+			itemsPerPage,
+			loading,
+			meta,
+			module,
+			navigationState,
+			page,
+			pageKey,
+			params,
+			parentName,
+			records,
+			railMode,
+			sidenavState,
+			selected,
+			title,
+			theme,
+			totalRecords,
+		} = storeToRefs(store);
+
+		const { getPageDatas, openFormCreate, openFormShow, setSelected } =
+			store;
+
+		return {
+			formStateLast,
+			hasSelected,
+			headers,
+			highlight,
+			itemsPerPage,
+			loading,
+			meta,
+			module,
+			navigationState,
+			page,
+			pageKey,
+			params,
+			parentName,
+			records,
+			railMode,
+			sidenavState,
+			selected,
+			title,
+			theme,
+			totalRecords,
+
+			getPageDatas,
+			openFormCreate,
+			openFormShow,
+			setSelected,
+		};
+	},
+
+	methods: {
+		onIntersect: function (isIntersecting) {
+			if (isIntersecting) {
+				this.loading = true;
+				this.params.page = this.params.page + 1;
+			}
+		},
+	},
+
+	watch: {
+		params: {
+			handler: function (newOptions) {
+				this.getPageDatas(newOptions);
 			},
-		},
 
-		watch: {
-			params: {
-				handler: function (newOptions) {
-					this.getPageDatas(newOptions);
-				},
-
-				deep: true,
-				immediate: true,
-			},
+			deep: true,
+			immediate: true,
 		},
-	};
+	},
+};
 </script>
