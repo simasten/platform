@@ -171,18 +171,6 @@ class ModularServiceProvider extends ServiceProvider
         return Cache::rememberForever('modules', function () {
             $modules = [];
 
-            /** Scan Module System */
-            $folder = base_path('modules' . DIRECTORY_SEPARATOR . 'system');
-            $json_path = $folder . DIRECTORY_SEPARATOR . 'module.json';
-
-            if (File::exists($json_path)) {
-                $content                = file_get_contents($json_path);
-                $json_data              = json_decode($content, true);
-                $module_name            = $json_data['name'];
-                $json_data['directory'] = $folder;
-                $modules[$module_name]  = $json_data;
-            }
-
             /** Scan All-Module Except System */
             $folders = glob(base_path('modules') . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
 
@@ -196,11 +184,6 @@ class ModularServiceProvider extends ServiceProvider
                 $content                = file_get_contents($json_path);
                 $json_data              = json_decode($content, true);
                 $module_name            = $json_data['name'];
-
-                if ($module_name === 'System') {
-                    continue;
-                }
-
                 $json_data['directory'] = $folder;
                 $modules[$module_name]  = $json_data;
             }
