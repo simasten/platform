@@ -4,7 +4,7 @@ namespace $NAMESPACE$\$MODULE$\Models;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use $ORIGIN_MODEL$ As Model;
+use $ORIGIN_NAMESPACE$\$ORIGIN_MODULE$\Models\$ORIGIN_MODEL$ As Model;
 
 class $CLASSNAME$ extends Model
 {
