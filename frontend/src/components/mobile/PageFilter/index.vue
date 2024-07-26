@@ -13,7 +13,7 @@
                 </v-btn>
 
                 <v-toolbar-title class="text-white text-overline">
-                    {{ page.name }}
+                    {{ helpState ? "informasi" : "utilitas" }}
                 </v-toolbar-title>
 
                 <v-spacer></v-spacer>
@@ -54,7 +54,7 @@
                 content-class="position-relative"
             >
                 <div
-                    class="position-absolute text-center w-100"
+                    class="position-absolute text-center w-100 pt-1"
                     style="z-index: 1"
                 >
                     <div
@@ -67,8 +67,8 @@
                         >
                             <v-card-text class="pa-1">
                                 <v-avatar
-                                    :color="`${theme}-lighten-2`"
-                                    size="48"
+                                    :color="`${theme}-lighten-3`"
+                                    size="52"
                                     style="font-size: 22px"
                                 >
                                     <v-icon :color="`${theme}-darken-1`">{{
@@ -80,20 +80,26 @@
 
                         <div
                             :class="`text-${theme}-lighten-4`"
-                            class="text-caption text-white position-absolute py-1 font-weight-bold text-uppercase"
+                            class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
                             style="
-                                font-size: 0.7rem !important;
-                                top: 0;
+                                font-size: 0.63rem !important;
+                                top: 8px;
                                 right: 0;
+                                width: calc(50% - 30px);
                             "
                         >
-                            {{ helpState ? "informasi" : "utilitas" }}
+                            <div
+                                class="d-inline-block text-truncate"
+                                style="max-width: 100%"
+                            >
+                                {{ page.title }}
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <v-sheet
-                    class="mt-7 pt-7"
+                    class="mt-9 pt-7"
                     elevation="1"
                     min-height="200px"
                     rounded="lg"
