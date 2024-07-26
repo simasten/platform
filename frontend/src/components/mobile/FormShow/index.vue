@@ -176,6 +176,24 @@
 
                 <div
                     :class="`text-${theme}-lighten-4`"
+                    class="text-caption text-white position-absolute font-weight-bold text-uppercase text-left"
+                    style="
+                        top: 8px;
+                        left: 0;
+                        font-size: 0.63rem !important;
+                        width: calc(50% - 30px);
+                    "
+                >
+                    <div
+                        class="d-inline-block text-truncate"
+                        style="max-width: 100%"
+                    >
+                        {{ title }}
+                    </div>
+                </div>
+
+                <div
+                    :class="`text-${theme}-lighten-4`"
                     class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
                     style="
                         font-size: 0.63rem !important;
@@ -256,6 +274,7 @@ export default {
             softdelete,
             record,
             theme,
+            title,
         } = storeToRefs(store);
 
         const {
@@ -278,6 +297,7 @@ export default {
             record,
             softdelete,
             theme,
+            title,
 
             getPageData,
             openFormData,
