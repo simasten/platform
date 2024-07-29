@@ -130,18 +130,24 @@ class PlatformInstall extends Command
 
         $content = json_decode(file_get_contents($composerFile), true);
 
-        if(!array_key_exists('merge-plugin', $content['extra'])) {
+        if (!array_key_exists('repositories', $content)) {
+            $content['repositories'] = [
+                ['type' => 'path', 'url' => 'modules/*']
+            ];
+        }
+
+        if(array_key_exists('extra', $content) && !array_key_exists('merge-plugin', $content['extra'])) {
             $content['extra']['merge-plugin'] = [
                 'include' => [
                     "modules/*/composer.json"
                 ]
             ];
-
-            $content = json_encode($content, JSON_PRETTY_PRINT);
-            $content = str_replace('\/', '/', $content);
-
-            file_put_contents($composerFile, $content);
         }
+
+        $content = json_encode($content, JSON_PRETTY_PRINT);
+        $content = str_replace('\/', '/', $content);
+
+        file_put_contents($composerFile, $content);
     }
 
     /**
