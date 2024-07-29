@@ -212,7 +212,12 @@
                 min-height="calc(100vh - 175px)"
                 rounded="lg"
             >
-                <slot :combos="combos" :record="record" :theme="theme"></slot>
+                <slot
+                    :combos="combos"
+                    :record="record"
+                    :theme="theme"
+                    :store="store"
+                ></slot>
             </v-sheet>
         </v-sheet>
     </v-sheet>
@@ -307,6 +312,8 @@ export default {
             postFormDelete,
             postFormForceDelete,
             postFormRestore,
+
+            store,
         };
     },
 
