@@ -168,8 +168,13 @@
             <slot name="forminfo" :theme="theme"></slot>
         </template>
 
-        <template v-slot:helpdesk>
-            <slot name="helpdesk" :theme="theme"></slot>
+        <template v-slot:helpdesk="{ theme, parent, store }">
+            <slot
+                name="helpdesk"
+                :theme="theme"
+                :parent="parent"
+                :store="store"
+            ></slot>
         </template>
 
         <template v-slot:utility>

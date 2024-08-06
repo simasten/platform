@@ -545,6 +545,7 @@ export const usePageStore = defineStore("pageStore", {
                         headers,
                         icon,
                         key,
+                        parent,
                         recordBase,
                         usetrash,
                         statuses,
@@ -565,6 +566,10 @@ export const usePageStore = defineStore("pageStore", {
 
                     this.icon = icon;
                     this.key = key;
+
+                    this.parent =
+                        parent && Object.keys(parent).length > 0 ? parent : {};
+
                     this.logs = [];
                     this.recordBase =
                         recordBase && Object.keys(recordBase).length > 0
@@ -616,6 +621,7 @@ export const usePageStore = defineStore("pageStore", {
                         combos,
                         icon,
                         key,
+                        parent,
                         logs,
                         softdelete,
                         statuses,
@@ -626,6 +632,8 @@ export const usePageStore = defineStore("pageStore", {
                         combos && Object.keys(combos).length > 0 ? combos : {};
                     this.icon = icon;
                     this.key = key;
+                    this.parent =
+                        parent && Object.keys(parent).length > 0 ? parent : {};
                     this.logs = logs && Array.isArray(logs) ? logs : [];
                     this.softdelete = softdelete ?? false;
                     this.statuses =

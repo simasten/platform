@@ -331,6 +331,13 @@
                                     >
                                 </div>
 
+                                <slot
+                                    name="helpdesk"
+                                    :parent="parent"
+                                    :store="store"
+                                    :theme="theme"
+                                ></slot>
+
                                 <div class="text-overline mt-6">Utilitas</div>
                                 <v-divider></v-divider>
 
@@ -411,8 +418,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
-                                <slot name="helpdesk"></slot>
 
                                 <div class="text-overline mt-6">Icon</div>
                                 <v-divider></v-divider>
@@ -557,12 +562,14 @@ export default {
             highlight,
             page,
             params,
+            parent,
             sidenavState,
             search,
             trashed,
             theme,
             usetrash,
         } = storeToRefs(store);
+
         const { getPageDatas } = store;
 
         return {
@@ -571,6 +578,7 @@ export default {
             helpState,
             highlight,
             page,
+            parent,
             params,
             sidenavState,
             search,
@@ -579,6 +587,8 @@ export default {
             usetrash,
 
             getPageDatas,
+
+            store,
         };
     },
 
