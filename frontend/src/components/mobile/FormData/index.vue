@@ -106,7 +106,7 @@
             class="mt-9 pt-7"
             elevation="1"
             rounded="lg"
-            min-height="calc(100% - 44px)"
+            min-height="calc(100% - 52px)"
         >
             <v-list
                 class="bg-transparent"
@@ -139,7 +139,7 @@
                     <slot>
                         <div
                             class="d-flex align-center justify-center text-body-2 text-center text-grey"
-                            style="height: calc(100vh - 208px)"
+                            style="height: calc(100vh - 216px)"
                         >
                             Data tidak ditemukan
                         </div>

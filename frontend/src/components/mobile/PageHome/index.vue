@@ -45,10 +45,20 @@
 
                 <div
                     :class="`text-${theme}-lighten-4`"
-                    class="text-caption text-white position-absolute py-2 font-weight-bold text-uppercase"
-                    style="font-size: 0.7rem !important; top: 0; right: 0"
+                    class="text-caption text-white position-absolute font-weight-bold text-uppercase pt-1 text-right"
+                    style="
+                        font-size: 0.63rem !important;
+                        top: 8px;
+                        right: 0;
+                        width: calc(50% - 30px);
+                    "
                 >
-                    {{ page.name }}
+                    <div
+                        class="d-inline-block text-truncate"
+                        style="max-width: 100%"
+                    >
+                        {{ page.name }}
+                    </div>
                 </div>
             </div>
         </div>

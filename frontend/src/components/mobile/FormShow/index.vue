@@ -1,6 +1,11 @@
 <template>
     <v-toolbar :color="theme">
-        <v-btn icon @click="openFormData">
+        <v-btn
+            icon
+            @click="
+                manualBacknav ? $emit('click:backnav', $event) : openFormData()
+            "
+        >
             <v-icon class="with-shadow">arrow_back</v-icon>
         </v-btn>
 
@@ -259,12 +264,17 @@ export default {
         dataFromStore: Boolean,
         hideEdit: Boolean,
         hideDelete: Boolean,
+        manualBacknav: Boolean,
         width: {
             type: String,
             default: "500px",
         },
         withHelpdesk: Boolean,
         withActivityLogs: Boolean,
+    },
+
+    emits: {
+        "click:backnav": null,
     },
 
     setup(props) {
