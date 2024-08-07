@@ -336,6 +336,7 @@
                                     :parent="parent"
                                     :store="store"
                                     :theme="theme"
+                                    :mapResponseData="mapResponseData"
                                 ></slot>
 
                                 <div class="text-overline mt-6">Utilitas</div>
@@ -570,7 +571,7 @@ export default {
             usetrash,
         } = storeToRefs(store);
 
-        const { getPageDatas } = store;
+        const { getPageDatas, mapResponseData } = store;
 
         return {
             filters,
@@ -587,6 +588,7 @@ export default {
             usetrash,
 
             getPageDatas,
+            mapResponseData,
 
             store,
         };

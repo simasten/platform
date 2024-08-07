@@ -225,6 +225,7 @@
         >
             <slot
                 :combos="combos"
+                :mapResponseData="mapResponseData"
                 :record="record"
                 :theme="theme"
                 :store="store"
@@ -242,6 +243,7 @@
         <template v-slot:helpdesk>
             <slot
                 name="helpdesk"
+                :mapResponseData="mapResponseData"
                 :record="record"
                 :theme="theme"
                 :store="store"
@@ -299,6 +301,7 @@ export default {
 
         const {
             getPageData,
+            mapResponseData,
             openFormData,
             openFormEdit,
             postFormDelete,
@@ -320,6 +323,7 @@ export default {
             title,
 
             getPageData,
+            mapResponseData,
             openFormData,
             openFormEdit,
             postFormDelete,
