@@ -13,22 +13,22 @@
                 </v-btn>
 
                 <v-toolbar-title class="text-white text-overline">
-                    {{ helpState ? "informasi" : "utilitas" }}
+                    {{ sidehelpState ? "informasi" : "utilitas" }}
                 </v-toolbar-title>
 
                 <v-spacer></v-spacer>
 
                 <v-btn
-                    :color="helpState ? 'white' : `${theme}-lighten-3`"
+                    :color="sidehelpState ? 'white' : `${theme}-lighten-3`"
                     icon
                     @click="
-                        helpState = !helpState;
-                        tabSidenav = helpState ? 'helpdesk' : 'filter';
+                        sidehelpState = !sidehelpState;
+                        tabSidenav = sidehelpState ? 'helpdesk' : 'filter';
                     "
                 >
                     <v-icon
                         :style="
-                            helpState
+                            sidehelpState
                                 ? 'transform: rotate(180deg)'
                                 : 'transform: rotate(0deg)'
                         "
@@ -72,7 +72,9 @@
                                     style="font-size: 22px"
                                 >
                                     <v-icon :color="`${theme}-darken-1`">{{
-                                        helpState ? "menu_open" : "filter_list"
+                                        sidehelpState
+                                            ? "menu_open"
+                                            : "filter_list"
                                     }}</v-icon>
                                 </v-avatar>
                             </v-card-text>
@@ -559,7 +561,7 @@ export default {
         const {
             filters,
             hasSelected,
-            helpState,
+            sidehelpState,
             highlight,
             page,
             params,
@@ -576,7 +578,7 @@ export default {
         return {
             filters,
             hasSelected,
-            helpState,
+            sidehelpState,
             highlight,
             page,
             parent,

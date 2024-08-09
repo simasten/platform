@@ -3,7 +3,11 @@
         <v-btn
             icon
             v-if="parentName"
-            @click="$router.push({ name: parentName })"
+            @click="
+                manualBacknav
+                    ? $emit('click:backnav', $event)
+                    : $router.push({ name: parentName })
+            "
         >
             <v-icon>arrow_back</v-icon>
         </v-btn>
@@ -198,11 +202,16 @@ export default {
         },
 
         disableCreate: Boolean,
+        manualBacknav: Boolean,
 
         showDelete: {
             type: Boolean,
             default: false,
         },
+    },
+
+    emits: {
+        "click:backnav": null,
     },
 
     setup() {

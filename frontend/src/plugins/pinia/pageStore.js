@@ -83,7 +83,9 @@ export const usePageStore = defineStore("pageStore", {
 
         checksum: null,
         combos: {},
+        currentFile: {},
 
+        dialogFile: false,
         dockMenus: [],
         domain: "backend",
 
@@ -148,6 +150,7 @@ export const usePageStore = defineStore("pageStore", {
         search: null,
         selected: [],
         sideMenus: [],
+        sidehelpState: false,
         sidenavState: false,
         snackbar: {
             color: "red",
@@ -599,7 +602,13 @@ export const usePageStore = defineStore("pageStore", {
                         this.paramsCache.filters === this.paramsOld.filters
                     ) {
                         data.forEach((record) => {
-                            this.records.push(record);
+                            if (
+                                !this.records.find(
+                                    (rc) => rc[this.key] === record[this.key]
+                                )
+                            ) {
+                                this.records.push(record);
+                            }
                         });
                     } else {
                         this.records = data ?? [];
@@ -785,6 +794,7 @@ export const usePageStore = defineStore("pageStore", {
         openFormData() {
             this.formStateLast = JSON.parse(JSON.stringify(this.formState));
             this.record = JSON.parse(JSON.stringify(this.recordBase));
+            this.helpState = false;
 
             if (this.formState === "create") {
                 this.search = null;
@@ -1001,6 +1011,15 @@ export const usePageStore = defineStore("pageStore", {
             }).then(() => {
                 //
             });
+        },
+
+        setHelpState(state) {
+            this.helpState = state;
+        },
+
+        setSidenavState(state) {
+            this.sidehelpState = false;
+            this.sidenavState = state;
         },
 
         setSelected(item) {
