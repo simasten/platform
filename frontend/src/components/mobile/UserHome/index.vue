@@ -102,25 +102,25 @@
                     </v-divider>
 
                     <v-card-text>
-                        <v-row justify="center" dense>
+                        <v-row dense>
                             <v-col
                                 cols="3"
                                 v-for="(module, index) in modules.personal"
                                 :key="index"
                             >
                                 <v-card
-                                    :border="`border-${theme} thin`"
-                                    :color="`${theme}-lighten-5`"
                                     class="text-center"
                                     rounded="md"
                                     width="100%"
                                     @click="openModule(module)"
                                     flat
                                 >
-                                    <v-card-text class="pa-3 pb-2">
+                                    <v-card-text class="pa-3 pb-1">
                                         <v-avatar
                                             :color="theme"
                                             style="font-size: 16px"
+                                            size="48"
+                                            rounded="lg"
                                         >
                                             <v-icon
                                                 :color="highlight"
@@ -168,25 +168,24 @@
                     </v-divider>
 
                     <v-card-text>
-                        <v-row justify="center" dense>
+                        <v-row dense>
                             <v-col
                                 cols="3"
                                 v-for="(module, index) in modules.administrator"
                                 :key="index"
                             >
                                 <v-card
-                                    :border="`border-${theme} thin`"
-                                    :color="`${theme}-lighten-5`"
-                                    class="text-center"
                                     rounded="md"
                                     width="100%"
                                     @click="openModule(module)"
                                     flat
                                 >
-                                    <v-card-text class="pa-3 pb-2">
+                                    <v-card-text class="pa-3 pb-1">
                                         <v-avatar
+                                            rounded="lg"
                                             :color="theme"
                                             style="font-size: 16px"
+                                            size="48"
                                         >
                                             <v-icon
                                                 :color="highlight"

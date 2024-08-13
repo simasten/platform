@@ -146,6 +146,7 @@ export const usePageStore = defineStore("pageStore", {
         record: {},
         recordBase: {},
         records: [],
+        routePrefix: false,
 
         search: null,
         selected: [],
@@ -164,6 +165,8 @@ export const usePageStore = defineStore("pageStore", {
         theme: "teal",
         totalRecords: 0,
         trashed: null,
+
+        usesync: false,
         usetrash: false,
     }),
 
@@ -432,6 +435,10 @@ export const usePageStore = defineStore("pageStore", {
                     pagePath = `${this.buildPath}/${
                         this.$route.params[this.pageKey]
                     }`;
+                }
+
+                if (this.routePrefix) {
+                    pagePath = pagePath + this.routePrefix;
                 }
 
                 this.$http(pagePath, {

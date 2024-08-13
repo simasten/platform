@@ -133,6 +133,7 @@
                     >
                         <item-data
                             :chip="chip"
+                            :subtitle="subtitle"
                             :show-delete="showDelete"
                             :value="record"
                         ></item-data>
@@ -167,7 +168,17 @@
         <div class="py-2"></div>
     </v-responsive>
 
-    <page-filter>
+    <page-filter :withSync="withSync">
+        <template v-slot:syncdata="{ mapResponseData, parent, store, theme }">
+            <slot
+                name="syncdata"
+                :mapResponseData="mapResponseData"
+                :parent="parent"
+                :store="store"
+                :theme="theme"
+            ></slot>
+        </template>
+
         <template v-slot:forminfo>
             <slot name="forminfo" :theme="theme"></slot>
         </template>
@@ -204,10 +215,17 @@ export default {
         disableCreate: Boolean,
         manualBacknav: Boolean,
 
+        subtitle: {
+            type: String,
+            default: "updated_at",
+        },
+
         showDelete: {
             type: Boolean,
             default: false,
         },
+
+        withSync: Boolean,
     },
 
     emits: {

@@ -6,6 +6,8 @@
 
         <v-spacer></v-spacer>
 
+        <slot name="toolbar"></slot>
+
         <v-btn icon @click="gotoAccountDashboard">
             <v-icon>exit_to_app</v-icon>
         </v-btn>

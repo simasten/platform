@@ -198,6 +198,7 @@
                 </div>
 
                 <div
+                    v-if="!hideDataTag"
                     :class="`text-${theme}-lighten-4`"
                     class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
                     style="
@@ -265,8 +266,10 @@ export default {
         contentClass: String,
         dataFromStore: Boolean,
         hideEdit: Boolean,
+        hideDataTag: Boolean,
         hideDelete: Boolean,
         manualBacknav: Boolean,
+        routePrefix: String,
         width: {
             type: String,
             default: "500px",
@@ -284,6 +287,7 @@ export default {
 
         store.beforePost = props.beforePost;
         store.activityLog = props.withActivityLogs;
+        store.routePrefix = props.routePrefix;
 
         const {
             combos,

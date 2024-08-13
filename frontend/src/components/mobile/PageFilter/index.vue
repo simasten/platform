@@ -112,6 +112,25 @@
                     >
                         <v-tabs-window-item value="filter">
                             <div
+                                v-if="withSync"
+                                class="text-overline text-grey-darken-3 px-4 mt-1"
+                            >
+                                <small>sync data</small>
+                            </div>
+
+                            <v-card-text class="flex-grow-1 pt-2 bg-white">
+                                <slot
+                                    name="syncdata"
+                                    :parent="parent"
+                                    :store="store"
+                                    :theme="theme"
+                                    :mapResponseData="mapResponseData"
+                                ></slot>
+                            </v-card-text>
+
+                            <v-divider v-if="withSync" class="my-2"></v-divider>
+
+                            <div
                                 v-if="usetrash"
                                 class="text-overline text-grey-darken-3 px-4 mt-1"
                             >
@@ -554,6 +573,10 @@ import { storeToRefs } from "pinia";
 
 export default {
     name: "page-filter",
+
+    props: {
+        withSync: Boolean,
+    },
 
     setup() {
         const store = usePageStore();
