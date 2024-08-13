@@ -16,10 +16,15 @@
 
             <template v-slot:title>
                 <slot name="title">
-                    <div class="d-flex" v-if="value[chip]">
-                        {{ value[title] }}
-
-                        <v-spacer></v-spacer>
+                    <div class="d-flex" v-if="value[chip]" style="height: 24px">
+                        <div class="position-relative flex-grow-1">
+                            <div
+                                class="position-absolute text-truncate"
+                                style="top: 0; width: 100%"
+                            >
+                                {{ value[title] }}
+                            </div>
+                        </div>
 
                         <v-chip
                             :color="`${theme}-lighten-5`"
@@ -101,7 +106,7 @@ export default {
 
         subtitle: {
             type: String,
-            default: "updated_at",
+            default: "subtitle",
         },
 
         title: {

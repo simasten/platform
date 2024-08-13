@@ -211,7 +211,7 @@ export default {
 
         subtitle: {
             type: String,
-            default: "updated_at",
+            default: "subtitle",
         },
 
         showDelete: {
