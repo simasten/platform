@@ -108,11 +108,21 @@
 
     <form-help mode="edit" :withActivityLogs="withActivityLogs">
         <template v-slot:forminfo>
-            <slot name="forminfo" :theme="theme"></slot>
+            <slot
+                name="forminfo"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </template>
 
         <template v-slot:helpdesk>
-            <slot name="helpdesk" :theme="theme"></slot>
+            <slot
+                name="helpdesk"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </template>
     </form-help>
 </template>
@@ -128,6 +138,7 @@ export default {
         beforePost: Function,
         hideUpdate: Boolean,
         dataFromStore: Boolean,
+        routePrefix: String,
         withHelpdesk: Boolean,
         withActivityLogs: Boolean,
     },
@@ -137,6 +148,7 @@ export default {
 
         store.beforePost = props.beforePost;
         store.activityLog = props.withActivityLogs;
+        store.routePrefix = props.routePrefix;
 
         const {
             combos,
