@@ -87,7 +87,7 @@
                             flat
                             @click="openPage(page)"
                         >
-                            <v-card-text class="pa-3 pb-2">
+                            <v-card-text class="pa-3 pb-1">
                                 <v-avatar
                                     :color="theme"
                                     size="36"
@@ -103,14 +103,15 @@
 
                             <v-card-text
                                 :class="`text-${theme}-darken-1`"
-                                class="pa-1 pb-2"
+                                class="px-2 py-1"
                                 style="max-height: 38px"
                             >
                                 <div
-                                    class="text-caption d-flex align-center justify-center overflow-hidden w-100 h-100"
+                                    class="text-caption d-flex align-center justify-center overflow-hidden w-100"
                                     style="
                                         font-size: 72% !important;
-                                        line-height: 1.25em;
+                                        line-height: 1.1em;
+                                        height: 24px;
                                     "
                                 >
                                     {{ page.name }}
