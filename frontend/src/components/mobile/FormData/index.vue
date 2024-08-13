@@ -169,7 +169,7 @@
     </v-responsive>
 
     <page-filter :withSync="withSync">
-        <template v-slot:syncdata="{ mapResponseData, parent, store, theme }">
+        <template v-slot:syncdata="{ mapResponseData, parent }">
             <slot
                 name="syncdata"
                 :mapResponseData="mapResponseData"
@@ -180,21 +180,15 @@
         </template>
 
         <template v-slot:forminfo>
-            <slot name="forminfo" :theme="theme"></slot>
+            <slot name="forminfo" :store="store" :theme="theme"></slot>
         </template>
 
-        <template v-slot:helpdesk="{ mapResponseData, parent, store, theme }">
-            <slot
-                name="helpdesk"
-                :mapResponseData="mapResponseData"
-                :parent="parent"
-                :store="store"
-                :theme="theme"
-            ></slot>
+        <template v-slot:helpdesk>
+            <slot name="helpdesk" :store="store" :theme="theme"></slot>
         </template>
 
         <template v-slot:utility>
-            <slot name="utility" :theme="theme"></slot>
+            <slot name="utility" :store="store" :theme="theme"></slot>
         </template>
     </page-filter>
 </template>
@@ -289,6 +283,8 @@ export default {
             openFormCreate,
             openFormShow,
             setSelected,
+
+            store,
         };
     },
 
