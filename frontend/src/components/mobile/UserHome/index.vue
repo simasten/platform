@@ -115,7 +115,7 @@
                                     @click="openModule(module)"
                                     flat
                                 >
-                                    <v-card-text class="pa-3 pb-1">
+                                    <v-card-text class="pa-3 pb-1 text-center">
                                         <v-avatar
                                             :color="theme"
                                             style="font-size: 16px"
@@ -180,7 +180,7 @@
                                     @click="openModule(module)"
                                     flat
                                 >
-                                    <v-card-text class="pa-3 pb-1">
+                                    <v-card-text class="pa-3 pb-1 text-center">
                                         <v-avatar
                                             rounded="lg"
                                             :color="theme"

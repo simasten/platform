@@ -116,8 +116,8 @@
                 class="bg-transparent"
                 :active-class="
                     showDelete
-                        ? `bg-white elevation-4 text-grey with-delete`
-                        : `bg-white elevation-4 text-grey`
+                        ? `bg-white elevation-6 text-grey with-delete`
+                        : `bg-white elevation-6 text-grey`
                 "
                 lines="two"
                 selectable

@@ -214,7 +214,7 @@
                         </v-row>
                     </v-card-text>
 
-                    <v-card-text class="d-flex pt-0">
+                    <v-card-text class="d-flex pt-0 px-2 pb-2">
                         <v-spacer></v-spacer>
 
                         <v-btn
@@ -227,6 +227,7 @@
                         >
 
                         <v-btn
+                            :disabled="!fileupload"
                             variant="text"
                             @click="
                                 dialogUpload = false;

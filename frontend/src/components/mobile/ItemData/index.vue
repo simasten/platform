@@ -56,25 +56,25 @@
 
             <v-btn
                 :color="`${theme}`"
-                elevation="4"
                 size="small"
                 variant="flat"
+                rounded="lg"
                 icon
                 @click="openFormShow"
             >
-                <v-icon class="with-shadow" color="white">folder</v-icon>
+                <v-icon color="white">folder</v-icon>
             </v-btn>
 
             <v-btn
                 v-if="showDelete"
                 :color="`${highlight}-darken-2`"
                 class="ml-4"
-                elevation="4"
                 size="small"
                 variant="flat"
+                rounded="lg"
                 icon
             >
-                <v-icon class="with-shadow" color="white">delete</v-icon>
+                <v-icon color="white">delete</v-icon>
             </v-btn>
         </div>
     </div>
