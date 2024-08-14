@@ -20,7 +20,12 @@
             </v-progress-circular>
         </v-overlay>
 
-        <v-snackbar :color="snackbar.color" v-model="snackbar.state" multi-line>
+        <v-snackbar
+            :color="snackbar.color"
+            :timeout="1500"
+            v-model="snackbar.state"
+            multi-line
+        >
             {{ snackbar.text }}
 
             <template v-slot:actions>
