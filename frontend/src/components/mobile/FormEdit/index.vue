@@ -58,13 +58,22 @@
                 <v-sheet :color="`${theme}`" elevation="4" rounded="pill">
                     <v-card-text class="pa-1">
                         <v-avatar
-                            :color="`${highlight}-lighten-2`"
+                            :color="`${
+                                Object.hasOwn(record, 'color')
+                                    ? record.color
+                                    : highlight
+                            }-lighten-2`"
                             size="52"
                             style="font-size: 22px"
                         >
-                            <v-icon :color="`${theme}-darken-1`">{{
-                                page.icon
-                            }}</v-icon>
+                            <v-icon
+                                :color="`${
+                                    Object.hasOwn(record, 'highlight')
+                                        ? record.highlight
+                                        : theme + '-darken-1'
+                                }`"
+                                >{{ record.icon ?? page.icon }}</v-icon
+                            >
                         </v-avatar>
                     </v-card-text>
                 </v-sheet>
