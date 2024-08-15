@@ -161,7 +161,7 @@ export default {
 
 			const parseURL = new URL(this.datapath);
 
-			parseURL.searchParams.append("path", params.path ?? params.siasn);
+			parseURL.searchParams.append("path", params.path ?? params.source);
 
 			parseURL.searchParams.append(
 				"disk",
