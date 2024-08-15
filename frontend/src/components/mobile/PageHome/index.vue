@@ -71,7 +71,7 @@
             min-height="calc(100% - 52px)"
             rounded="lg"
         >
-            <v-card-text>
+            <v-card-text :class="dockMenus.length <= 0 ? 'py-2' : ''">
                 <v-row dense>
                     <v-col
                         cols="3"
