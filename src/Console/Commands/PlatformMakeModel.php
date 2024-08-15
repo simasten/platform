@@ -15,6 +15,7 @@ class PlatformMakeModel extends Command
     protected $signature = 'module:make-model
         {model}
         {--all}
+        {--ignore-migration}
         {--parent=}
         {--module=}
     ';
@@ -65,12 +66,12 @@ class PlatformMakeModel extends Command
         /** SET FILE OUTPUT */
         $filepath = base_path(
             'modules' .
-            DIRECTORY_SEPARATOR .
-            str($module->name)->lower() .
-            DIRECTORY_SEPARATOR .
-            'src' .
-            DIRECTORY_SEPARATOR .
-            'Models'
+                DIRECTORY_SEPARATOR .
+                str($module->name)->lower() .
+                DIRECTORY_SEPARATOR .
+                'src' .
+                DIRECTORY_SEPARATOR .
+                'Models'
         );
 
         /** CHECK FOLDER EXISTS */
@@ -100,11 +101,13 @@ class PlatformMakeModel extends Command
 
         /** CHECK ALL-FLAG */
         if ($this->option('all')) {
-            /** MAKE MIGRATION */
-            $this->call('module:make-migration', [
-                'name' => 'Create' . str($classname)->plural()->toString(),
-                '--module' => $this->option('module')
-            ]);
+            if (!$this->option('ignore-migration')) {
+                /** MAKE MIGRATION */
+                $this->call('module:make-migration', [
+                    'name' => 'Create' . str($classname)->plural()->toString(),
+                    '--module' => $this->option('module')
+                ]);
+            }
 
             /** MAKE RESOURCE */
             $this->call('module:make-resource', [
