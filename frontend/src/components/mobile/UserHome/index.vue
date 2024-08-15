@@ -115,15 +115,15 @@
                                     @click="openModule(module)"
                                     flat
                                 >
-                                    <v-card-text class="pa-3 pb-1 text-center">
+                                    <v-card-text class="pa-2 pb-1 text-center">
                                         <v-avatar
-                                            :color="theme"
+                                            :color="module.color"
                                             style="font-size: 16px"
-                                            size="48"
+                                            size="52"
                                             rounded="lg"
                                         >
                                             <v-icon
-                                                :color="highlight"
+                                                :color="module.highlight"
                                                 :icon="module.icon"
                                                 size="large"
                                             ></v-icon>
@@ -180,15 +180,15 @@
                                     @click="openModule(module)"
                                     flat
                                 >
-                                    <v-card-text class="pa-3 pb-1 text-center">
+                                    <v-card-text class="pa-2 pb-1 text-center">
                                         <v-avatar
                                             rounded="lg"
-                                            :color="theme"
+                                            :color="module.color"
                                             style="font-size: 16px"
-                                            size="48"
+                                            size="52"
                                         >
                                             <v-icon
-                                                :color="highlight"
+                                                :color="module.highlight"
                                                 :icon="module.icon"
                                                 size="large"
                                             ></v-icon>
