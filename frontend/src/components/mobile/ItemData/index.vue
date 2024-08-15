@@ -9,7 +9,9 @@
             <template v-slot:prepend>
                 <v-avatar :color="`${theme}-lighten-4`">
                     <v-icon class="with-shadow" color="white">{{
-                        icon ?? page.icon
+                        Object.hasOwn(value, "icon")
+                            ? value["icon"]
+                            : icon ?? page.icon
                     }}</v-icon>
                 </v-avatar>
             </template>
