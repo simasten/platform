@@ -103,13 +103,13 @@
 
                             <v-card-text
                                 :class="`text-${theme}-darken-1`"
-                                class="px-2 py-1"
+                                class="pa-1"
                                 style="max-height: 38px"
                             >
                                 <div
                                     class="text-caption d-flex align-center justify-center overflow-hidden w-100"
                                     style="
-                                        font-size: 72% !important;
+                                        font-size: 9px !important;
                                         line-height: 1.1em;
                                         height: 24px;
                                     "
