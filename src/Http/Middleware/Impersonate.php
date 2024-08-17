@@ -5,6 +5,7 @@ namespace Simasten\Platform\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Module\System\Models\SystemUser;
 use Symfony\Component\HttpFoundation\Response;
 
 class Impersonate
@@ -17,7 +18,9 @@ class Impersonate
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->hasSession() && $request->session()->has('impersonate_source_id')) {
-            Auth::guard('web')->onceUsingId($request->session()->get('impersonate_source_id'));
+            Auth::setUser(
+                SystemUser::find($request->session()->get('impersonate_source_id'))
+            );
         }
 
         return $next($request);

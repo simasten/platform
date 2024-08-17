@@ -106,6 +106,7 @@ export const usePageStore = defineStore("pageStore", {
         initialized: false,
         itemsPerPage: 10,
         isMobile: false,
+        impersonated: false,
 
         key: null,
 
@@ -516,25 +517,31 @@ export const usePageStore = defineStore("pageStore", {
             }
 
             this.$http(`account/api/user-modules`).then((response) => {
-                if ("auth" in response) {
-                    this.auth = response.auth;
-                    this.$storage.setItem("auth", response.auth);
-
-                    this.theme =
-                        "theme" in this.auth ? this.auth.theme : "teal";
-                }
-
-                if (
-                    "checksum" in response &&
-                    response.checksum !== this.checksum
-                ) {
-                    this.checksum = response.checksum;
-                    this.$storage.setItem("checksum", response.checksum);
-
-                    this.modules = response.modules;
-                    this.$storage.setItem("modules", response.modules);
-                }
+                this.mapUserModule(response);
             });
+        },
+
+        mapUserModule(response) {
+            if ("auth" in response) {
+                this.auth = response.auth;
+                this.$storage.setItem("auth", response.auth);
+
+                this.theme = "theme" in this.auth ? this.auth.theme : "teal";
+            }
+
+            if ("checksum" in response && response.checksum !== this.checksum) {
+                this.checksum = response.checksum;
+                this.$storage.setItem("checksum", response.checksum);
+
+                this.modules = response.modules;
+                this.$storage.setItem("modules", response.modules);
+            }
+
+            this.impersonated = false;
+
+            if ("impersonated" in response) {
+                this.impersonated = true;
+            }
         },
 
         mapResponseData(response) {

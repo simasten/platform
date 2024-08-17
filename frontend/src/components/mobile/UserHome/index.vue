@@ -7,6 +7,18 @@
 
             <v-spacer></v-spacer>
 
+            <v-btn
+                icon
+                v-if="impersonated"
+                @click="
+                    $emit('click:impersonateLeave', {
+                        mapUserModule: mapUserModule,
+                    })
+                "
+            >
+                <v-icon>no_accounts</v-icon>
+            </v-btn>
+
             <v-btn icon>
                 <v-icon class="with-shadow">power_settings_new</v-icon>
 
@@ -240,26 +252,39 @@ export default {
         },
     },
 
+    emits: {
+        "click:impersonateLeave": null,
+    },
+
     setup(props) {
         const store = usePageStore();
 
         store.pageName = props.pageName;
         store.pageKey = props.pageKey;
 
-        const { auth, highlight, modules, navigationState, railMode, theme } =
-            storeToRefs(store);
+        const {
+            auth,
+            highlight,
+            impersonated,
+            modules,
+            navigationState,
+            railMode,
+            theme,
+        } = storeToRefs(store);
 
-        const { getUserModules, signOut } = store;
+        const { getUserModules, mapUserModule, signOut } = store;
 
         return {
             auth,
             highlight,
+            impersonated,
             modules,
             navigationState,
             railMode,
             theme,
 
             getUserModules,
+            mapUserModule,
             signOut,
         };
     },
