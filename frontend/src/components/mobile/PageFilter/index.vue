@@ -54,31 +54,31 @@
                 content-class="position-relative"
             >
                 <div
-                    class="position-absolute text-center w-100 pt-1"
+                    class="position-absolute text-center w-100"
                     style="z-index: 1"
                 >
                     <div
                         class="d-flex flex-column align-center justify-center position-relative"
                     >
-                        <v-sheet
-                            :color="`${theme}`"
-                            elevation="4"
-                            rounded="pill"
-                        >
-                            <v-card-text class="pa-1">
-                                <v-avatar
-                                    :color="`${theme}-lighten-3`"
-                                    size="52"
-                                    style="font-size: 22px"
+                        <div class="text-blue-grey mx-auto" style="width: 64px">
+                            <div class="circle">
+                                <div
+                                    class="position-relative h-100 w-100 text-white"
                                 >
-                                    <v-icon :color="`${theme}-darken-1`">{{
-                                        sidehelpState
-                                            ? "menu_open"
-                                            : "filter_list"
-                                    }}</v-icon>
-                                </v-avatar>
-                            </v-card-text>
-                        </v-sheet>
+                                    <v-avatar
+                                        :color="`${theme}-lighten-4`"
+                                        elevation="6"
+                                        size="52"
+                                    >
+                                        <v-icon color="grey-darken-2">{{
+                                            sidehelpState
+                                                ? "menu_open"
+                                                : "filter_list"
+                                        }}</v-icon>
+                                    </v-avatar>
+                                </div>
+                            </div>
+                        </div>
 
                         <div
                             :class="`text-${theme}-lighten-4`"
@@ -101,7 +101,7 @@
                 </div>
 
                 <v-sheet
-                    class="mt-9 pt-7"
+                    class="mt-9 pt-7 overflow-hidden"
                     elevation="1"
                     min-height="200px"
                     rounded="lg"

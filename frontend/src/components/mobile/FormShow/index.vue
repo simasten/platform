@@ -160,24 +160,26 @@
         content-class="position-relative"
     >
         <v-sheet
-            class="position-absolute text-center w-100 pt-1"
+            class="position-absolute text-center w-100"
             color="transparent"
             style="z-index: 1"
         >
             <div class="d-flex justify-center position-relative">
-                <v-sheet :color="`${theme}`" elevation="4" rounded="pill">
-                    <v-card-text class="pa-1">
-                        <v-avatar
-                            :color="`${highlight}-lighten-2`"
-                            size="52"
-                            style="font-size: 22px"
-                        >
-                            <v-icon :color="`${theme}-darken-1`">{{
-                                page.icon
-                            }}</v-icon>
-                        </v-avatar>
-                    </v-card-text>
-                </v-sheet>
+                <div class="text-blue-grey mx-auto" style="width: 64px">
+                    <div class="circle">
+                        <div class="position-relative h-100 w-100 text-white">
+                            <v-avatar
+                                :color="`${theme}-lighten-4`"
+                                elevation="6"
+                                size="52"
+                            >
+                                <v-icon color="grey-darken-2">{{
+                                    page.icon
+                                }}</v-icon>
+                            </v-avatar>
+                        </div>
+                    </div>
+                </div>
 
                 <div
                     :class="`text-${theme}-lighten-4`"

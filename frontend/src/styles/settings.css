@@ -2,6 +2,41 @@ html {
     overflow-y: hidden;
 }
 
+.circle {
+	position: absolute;
+	top: -50%;
+	width: 64px;
+	height: 64px;
+	border: 6px solid currentColor;
+	border-radius: 50%;
+	background: currentColor;
+	transition: 0.25s;
+}
+
+.circle::before {
+	content: "";
+	position: absolute;
+	top: 58%;
+	left: -20px;
+	width: 20px;
+	height: 20px;
+	border-top-right-radius: 20px;
+	background: transparent;
+	box-shadow: 0 -10px 0 0 currentColor;
+}
+
+.circle::after {
+	content: "";
+	position: absolute;
+	top: 58%;
+	right: -20px;
+	width: 20px;
+	height: 20px;
+	border-top-left-radius: 20px;
+	background: transparent;
+	box-shadow: 0 -10px 0 0 currentColor;
+}
+
 .v-icon.with-shadow {
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
