@@ -50,7 +50,7 @@
 
             <v-responsive
                 height="calc(100vh - 64px)"
-                class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
+                class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
                 content-class="position-relative"
             >
                 <div
