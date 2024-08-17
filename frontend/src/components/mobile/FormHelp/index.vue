@@ -6,7 +6,7 @@
         width="360"
         disable-resize-watcher
     >
-        <v-sheet class="position-relative" color="transparent" height="100vh">
+        <v-sheet class="position-relative" color="transparent" height="100dvh">
             <v-toolbar :color="theme">
                 <v-btn icon @click="helpState = false">
                     <v-icon>close</v-icon>
@@ -25,7 +25,7 @@
             ></v-sheet>
 
             <v-responsive
-                height="calc(100vh - 64px)"
+                height="calc(100dvh - 64px)"
                 class="bg-transparent overflow-x-hidden overflow-y-auto px-4 scrollbar-none"
                 content-class="position-relative"
             >

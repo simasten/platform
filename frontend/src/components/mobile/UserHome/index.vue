@@ -47,7 +47,7 @@
 
         <v-sheet
             :height="
-                navigationState ? `calc(100vh - 120px)` : `calc(100vh - 64px)`
+                navigationState ? `calc(100dvh - 120px)` : `calc(100dvh - 64px)`
             "
             class="bg-transparent overflow-x-hidden overflow-y-auto px-4 pb-4 position-relative"
         >

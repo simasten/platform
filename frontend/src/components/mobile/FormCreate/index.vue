@@ -45,7 +45,7 @@
     ></v-sheet>
 
     <v-responsive
-        height="calc(100vh - 64px)"
+        height="calc(100dvh - 64px)"
         class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
         content-class="position-relative"
     >
