@@ -7,16 +7,8 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn
-                icon
-                v-if="impersonated"
-                @click="
-                    $emit('click:impersonateLeave', {
-                        mapUserModule: mapUserModule,
-                    })
-                "
-            >
-                <v-icon>no_accounts</v-icon>
+            <v-btn icon @click="$emit('click:notification')">
+                <v-icon>notifications</v-icon>
             </v-btn>
 
             <v-btn icon>
@@ -61,7 +53,7 @@
             :height="
                 navigationState ? `calc(100dvh - 120px)` : `calc(100dvh - 64px)`
             "
-            class="bg-transparent overflow-x-hidden overflow-y-auto px-4 pb-4 position-relative"
+            class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4 pb-4 position-relative"
         >
             <v-sheet
                 class="position-absolute"
@@ -92,7 +84,13 @@
                 </div>
             </v-sheet>
 
-            <v-card class="mt-9 pt-9" elevation="1" rounded="lg" flat>
+            <v-card
+                class="mt-9 pt-9"
+                elevation="1"
+                min-height="calc(100vh - 172px)"
+                rounded="lg"
+                flat
+            >
                 <v-card-text class="text-center">
                     <div class="text-body-2 font-weight-medium text-uppercase">
                         {{ auth.username }}
@@ -100,135 +98,8 @@
                     <div class="text-caption">{{ auth.usermail }}</div>
                 </v-card-text>
 
-                <template
-                    v-if="modules.personal && modules.personal.length > 0"
-                >
-                    <v-divider>
-                        <v-chip
-                            :color="theme"
-                            density="comfortable"
-                            size="small"
-                            variant="flat"
-                            >personal</v-chip
-                        >
-                    </v-divider>
-
-                    <v-card-text>
-                        <v-row dense>
-                            <v-col
-                                cols="3"
-                                v-for="(module, index) in modules.personal"
-                                :key="index"
-                            >
-                                <v-card
-                                    class="text-center"
-                                    rounded="md"
-                                    width="100%"
-                                    @click="openModule(module)"
-                                    flat
-                                >
-                                    <v-card-text class="pa-2 pb-1 text-center">
-                                        <v-avatar
-                                            :color="module.color"
-                                            style="font-size: 16px"
-                                            size="52"
-                                            rounded="lg"
-                                        >
-                                            <v-icon
-                                                :color="module.highlight"
-                                                :icon="module.icon"
-                                                size="large"
-                                            ></v-icon>
-                                        </v-avatar>
-                                    </v-card-text>
-
-                                    <v-card-text
-                                        :class="`text-${theme}-darken-1`"
-                                        class="pa-1 pb-2"
-                                        style="max-height: 38px"
-                                    >
-                                        <div
-                                            class="text-caption d-flex align-center justify-center overflow-hidden w-100 h-100"
-                                            style="
-                                                font-size: 72% !important;
-                                                line-height: 1.25em;
-                                            "
-                                        >
-                                            {{ module.name }}
-                                        </div>
-                                    </v-card-text>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </template>
-
-                <template
-                    v-if="
-                        modules.administrator &&
-                        modules.administrator.length > 0
-                    "
-                >
-                    <v-divider>
-                        <v-chip
-                            :color="theme"
-                            density="comfortable"
-                            size="small"
-                            variant="flat"
-                            >administrator</v-chip
-                        >
-                    </v-divider>
-
-                    <v-card-text>
-                        <v-row dense>
-                            <v-col
-                                cols="3"
-                                v-for="(module, index) in modules.administrator"
-                                :key="index"
-                            >
-                                <v-card
-                                    rounded="md"
-                                    width="100%"
-                                    @click="openModule(module)"
-                                    flat
-                                >
-                                    <v-card-text class="pa-2 pb-1 text-center">
-                                        <v-avatar
-                                            rounded="lg"
-                                            :color="module.color"
-                                            style="font-size: 16px"
-                                            size="52"
-                                        >
-                                            <v-icon
-                                                :color="module.highlight"
-                                                :icon="module.icon"
-                                                size="large"
-                                            ></v-icon>
-                                        </v-avatar>
-                                    </v-card-text>
-
-                                    <v-card-text
-                                        :class="`text-${theme}-darken-1`"
-                                        class="pa-1 pb-2"
-                                        style="max-height: 38px"
-                                    >
-                                        <div
-                                            class="text-caption d-flex align-center justify-center overflow-hidden w-100 h-100"
-                                            style="
-                                                font-size: 72% !important;
-                                                line-height: 1.25em;
-                                            "
-                                        >
-                                            {{ module.name }}
-                                        </div>
-                                    </v-card-text>
-                                </v-card>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </template>
+                <slot></slot>
             </v-card>
-            <slot></slot>
         </v-sheet>
     </v-responsive>
 </template>
@@ -253,7 +124,7 @@ export default {
     },
 
     emits: {
-        "click:impersonateLeave": null,
+        "click:notification": null,
     },
 
     setup(props) {
@@ -262,41 +133,21 @@ export default {
         store.pageName = props.pageName;
         store.pageKey = props.pageKey;
 
-        const {
-            auth,
-            highlight,
-            impersonated,
-            modules,
-            navigationState,
-            railMode,
-            theme,
-        } = storeToRefs(store);
+        const { auth, highlight, modules, navigationState, railMode, theme } =
+            storeToRefs(store);
 
-        const { getUserModules, mapUserModule, signOut } = store;
+        const { signOut } = store;
 
         return {
             auth,
             highlight,
-            impersonated,
             modules,
             navigationState,
             railMode,
             theme,
 
-            getUserModules,
-            mapUserModule,
             signOut,
         };
-    },
-
-    created() {
-        this.getUserModules();
-    },
-
-    methods: {
-        openModule: function (module) {
-            this.$router.push({ name: module.slug + "-dashboard" });
-        },
     },
 };
 </script>

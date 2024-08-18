@@ -28,7 +28,7 @@ export const usePageStore = defineStore("pageStore", {
                 {
                     dock: false,
                     enabled: true,
-                    icon: "dashboard",
+                    icon: "space_dashboard",
                     name: "Beranda",
                     order: 1,
                     parent: true,
@@ -36,6 +36,19 @@ export const usePageStore = defineStore("pageStore", {
                     path: "dashboard",
                     side: true,
                     slug: "account-dashboard",
+                },
+
+                {
+                    dock: false,
+                    enabled: true,
+                    icon: "apps",
+                    name: "Layanan",
+                    order: 1,
+                    parent: true,
+                    parent_path: null,
+                    path: "services",
+                    side: true,
+                    slug: "account-apps",
                 },
 
                 {
@@ -49,19 +62,6 @@ export const usePageStore = defineStore("pageStore", {
                     path: "activity",
                     side: true,
                     slug: "account-activity",
-                },
-
-                {
-                    dock: false,
-                    enabled: true,
-                    icon: "notifications",
-                    name: "Notifikasi",
-                    order: 3,
-                    parent: true,
-                    parent_path: null,
-                    path: "notification",
-                    side: true,
-                    slug: "account-notification",
                 },
 
                 {
