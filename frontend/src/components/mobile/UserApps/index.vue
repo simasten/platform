@@ -1,5 +1,5 @@
 <template>
-    <v-responsive class="h-100 w-100 overflow-x-hidden overflow-y-auto">
+    <v-responsive class="h-100 w-100 overflow-hidden">
         <v-toolbar :color="`${theme}`">
             <v-toolbar-title class="text-body-2 font-weight-bold"
                 >SiMASTEN</v-toolbar-title

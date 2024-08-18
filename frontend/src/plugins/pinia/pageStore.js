@@ -191,7 +191,7 @@ export const usePageStore = defineStore("pageStore", {
             this.checksum = this.$storage.getItem("checksum");
             this.modules = this.$storage.getItem("modules");
 
-            if ("account" in this.modules) {
+            if (this.modules && "account" in this.modules) {
                 this.accountBase = this.modules.account[0];
                 this.appsMenus = this.accountBase.pages.reduce(
                     (carry, page) => {
@@ -459,7 +459,7 @@ export const usePageStore = defineStore("pageStore", {
                         ? this.auth.highlight
                         : "deep-orange";
 
-                if ("account" in response.modules) {
+                if (response.modules && "account" in response.modules) {
                     this.accountBase = response.modules.account[0];
                     this.appsMenus = this.accountBase.pages.reduce(
                         (carry, page) => {
