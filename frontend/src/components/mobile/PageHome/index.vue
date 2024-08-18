@@ -205,7 +205,7 @@ export default {
         };
     },
 
-    mounted() {
+    created() {
         this.getDashboard((response) => {
             this.$emit("initialized", { record: response });
         });
