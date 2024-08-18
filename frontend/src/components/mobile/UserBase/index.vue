@@ -45,7 +45,7 @@
             :color="`${theme}-darken-1`"
         >
             <v-btn
-                v-for="(page, index) in accountBase.pages"
+                v-for="(page, index) in appsMenus"
                 :key="index"
                 style="width: 25%"
                 :to="{ name: page.slug }"
@@ -81,7 +81,7 @@ export default {
 
         const {
             auth,
-            accountBase,
+            appsMenus,
             geoInitialized,
             navigationState,
             overlay,
@@ -93,7 +93,7 @@ export default {
 
         return {
             auth,
-            accountBase,
+            appsMenus,
             geoInitialized,
             navigationState,
             overlay,
