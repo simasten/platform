@@ -13,7 +13,7 @@
         </v-btn>
 
         <v-toolbar-title class="text-body-2 font-weight-bold text-uppercase">{{
-            module.name
+            page.name ?? module.name
         }}</v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -104,7 +104,7 @@
                         class="d-inline-block text-truncate"
                         style="max-width: 100%"
                     >
-                        {{ page.title }}
+                        SEMUA DATA
                     </div>
                 </div>
             </div>
