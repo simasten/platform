@@ -60,25 +60,9 @@
                     <div
                         class="d-flex flex-column align-center justify-center position-relative"
                     >
-                        <div class="text-blue-grey mx-auto" style="width: 64px">
-                            <div class="circle">
-                                <div
-                                    class="position-relative h-100 w-100 text-white"
-                                >
-                                    <v-avatar
-                                        :color="`${theme}-lighten-4`"
-                                        elevation="6"
-                                        size="52"
-                                    >
-                                        <v-icon color="grey-darken-2">{{
-                                            sidehelpState
-                                                ? "menu_open"
-                                                : "filter_list"
-                                        }}</v-icon>
-                                    </v-avatar>
-                                </div>
-                            </div>
-                        </div>
+                        <form-icon
+                            :icon="sidehelpState ? 'menu_open' : 'filter_list'"
+                        ></form-icon>
 
                         <div
                             :class="`text-${theme}-lighten-4`"
