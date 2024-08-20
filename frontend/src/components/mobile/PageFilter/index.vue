@@ -101,7 +101,7 @@
                 </div>
 
                 <v-sheet
-                    class="mt-9 pt-7 overflow-hidden"
+                    class="mt-9 pt-9 overflow-hidden"
                     elevation="1"
                     min-height="200px"
                     rounded="lg"

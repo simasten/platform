@@ -32,7 +32,7 @@
             </div>
         </v-sheet>
 
-        <v-sheet class="mt-9 pt-7" elevation="1" rounded="lg">
+        <v-sheet class="mt-9 pt-9" elevation="1" rounded="lg">
             <slot></slot>
         </v-sheet>
     </v-sheet>

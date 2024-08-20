@@ -77,7 +77,7 @@
                 </v-sheet>
 
                 <v-sheet
-                    class="mt-9 pt-7"
+                    class="mt-9 pt-9"
                     elevation="1"
                     min-height="200px"
                     rounded="lg"
