@@ -21,7 +21,7 @@ export default createVuetify({
                 component: (props) =>
                     h(VLigatureIcon, {
                         ...props,
-                        class: "material-icons-outlined",
+                        class: "material-symbols-outlined",
                     }),
             },
         },

@@ -41,6 +41,11 @@ html {
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
+.v-icon--size-dialog {
+    font-size: 64px;
+    font-variation-settings: 'wght' 300;
+}
+
 .font-brand {
     font-family: "Madimi One", serif;
     font-weight: 400;
