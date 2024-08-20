@@ -14,30 +14,38 @@
             <v-btn icon>
                 <v-icon class="with-shadow">power_settings_new</v-icon>
 
-                <form-confirm icon="power_settings_new" title="keluar">
-                    <v-card-text>
+                <form-confirm icon="door_back" title="Keluar dari SiMASTEN?">
+                    <div class="text-caption text-grey-darken-1">
                         Saat Anda keluar dari aplikasi ini, semua data temporer
                         yang tersimpan pada perangkat ini juga akan di hapus.
-                    </v-card-text>
+                    </div>
 
                     <template v-slot:actions="{ isActive }">
-                        <v-spacer></v-spacer>
+                        <v-row dense>
+                            <v-col cols="6">
+                                <v-btn
+                                    :color="theme"
+                                    rounded="pill"
+                                    variant="outlined"
+                                    block
+                                    @click="isActive.value = false"
+                                    >BATAL</v-btn
+                                >
+                            </v-col>
 
-                        <v-btn
-                            :color="`${theme}-lighten-2`"
-                            class="text-white mr-2"
-                            variant="flat"
-                            @click="isActive.value = false"
-                            >batal</v-btn
-                        >
-
-                        <v-btn
-                            :color="`${theme}`"
-                            class="text-white"
-                            variant="flat"
-                            @click="signOut(() => (isActive.value = false))"
-                            >keluar</v-btn
-                        >
+                            <v-col cols="6">
+                                <v-btn
+                                    :color="theme"
+                                    rounded="pill"
+                                    variant="flat"
+                                    block
+                                    @click="
+                                        signOut(() => (isActive.value = false))
+                                    "
+                                    >KELUAR</v-btn
+                                >
+                            </v-col>
+                        </v-row>
                     </template>
                 </form-confirm>
             </v-btn>

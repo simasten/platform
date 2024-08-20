@@ -90,35 +90,42 @@
             <v-btn v-if="!hideDelete" color="orange" icon>
                 <v-icon class="with-shadow">delete</v-icon>
 
-                <v-dialog activator="parent" max-width="360" persistent>
-                    <template v-slot:default="{ isActive }">
-                        <v-card
-                            prepend-icon="delete"
-                            text="Proses ini akan juga menghapus semua data yang terkait pada data ini."
-                            title="Hapus data ini?"
-                        >
-                            <template v-slot:actions>
-                                <v-spacer></v-spacer>
+                <form-confirm icon="delete" title="Hapus data ini?">
+                    <div class="text-caption text-grey-darken-1">
+                        Proses ini akan juga menghapus semua data yang terkait
+                        pada data ini.
+                    </div>
 
+                    <template v-slot:actions="{ isActive }">
+                        <v-row dense>
+                            <v-col cols="6">
                                 <v-btn
-                                    color="grey"
-                                    text="Batal"
+                                    :color="theme"
+                                    rounded="pill"
+                                    variant="outlined"
+                                    block
                                     @click="isActive.value = false"
-                                ></v-btn>
+                                    >BATAL</v-btn
+                                >
+                            </v-col>
 
+                            <v-col cols="6">
                                 <v-btn
-                                    color="deep-orange"
-                                    text="Hapus"
+                                    :color="theme"
+                                    rounded="pill"
+                                    variant="flat"
+                                    block
                                     @click="
                                         postFormDelete(
                                             () => (isActive.value = false)
                                         )
                                     "
-                                ></v-btn>
-                            </template>
-                        </v-card>
+                                    >HAPUS</v-btn
+                                >
+                            </v-col>
+                        </v-row>
                     </template>
-                </v-dialog>
+                </form-confirm>
 
                 <v-tooltip activator="parent" location="bottom"
                     >Hapus</v-tooltip
@@ -221,7 +228,7 @@
         </v-sheet>
 
         <v-sheet
-            class="mt-9 pt-7"
+            class="position-relative mt-9 pt-9"
             min-height="200px"
             elevation="1"
             rounded="lg"
