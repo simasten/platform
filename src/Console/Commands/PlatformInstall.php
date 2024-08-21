@@ -136,7 +136,7 @@ class PlatformInstall extends Command
             ];
         }
 
-        if(array_key_exists('extra', $content) && !array_key_exists('merge-plugin', $content['extra'])) {
+        if (array_key_exists('extra', $content) && !array_key_exists('merge-plugin', $content['extra'])) {
             $content['extra']['merge-plugin'] = [
                 'include' => [
                     "modules/*/composer.json"
@@ -199,22 +199,6 @@ class PlatformInstall extends Command
                 $envFile,
             );
         }
-
-        if (str_contains($content, 'BCRYPT_ROUNDS=12') && !str_contains($content, 'AUTH_MODEL=Module\System\Models\SystemUser')) {
-            (new Filesystem())->replaceInFile(
-                'BCRYPT_ROUNDS=12',
-                'BCRYPT_ROUNDS=12' . PHP_EOL .
-                'AUTH_MODEL=Module\System\Models\SystemUser' . PHP_EOL .
-                'AUTH_PASSWORD_RESET_TOKEN_TABLE=system_password_reset_tokens' . PHP_EOL .
-                'DB_CACHE_TABLE=system_cache' . PHP_EOL .
-                'DB_QUEUE_TABLE=system_jobs' . PHP_EOL .
-                'DB_QUEUE_BATCH_TABLE=system_job_batches' . PHP_EOL .
-                'DB_QUEUE_FAILED_TABLE=system_failded_jobs' . PHP_EOL .
-                'SESSION_TABLE=system_sessions' . PHP_EOL .
-                'SANCTUM_STATEFUL_DOMAINS=hmr.devsimasten.test:3000',
-                $envFile,
-            );
-        }
     }
 
     /**
@@ -225,7 +209,8 @@ class PlatformInstall extends Command
     protected function runComposerUpdate(): void
     {
         $process = new Process([
-            'composer', 'update'
+            'composer',
+            'update'
         ]);
 
         $process->setWorkingDirectory(base_path());

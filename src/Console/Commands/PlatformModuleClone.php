@@ -33,11 +33,15 @@ class PlatformModuleClone extends Command
         $directory = $this->option('directory') ?: File::basename($this->argument('repository'));
 
         if (File::isDirectory(base_path('modules' . DIRECTORY_SEPARATOR . $directory))) {
-            $this->error('folder already exists');
+            $this->info('module already exists');
+            return;
         }
 
         $process = new Process([
-            'git', 'clone', $this->argument('repository'), $this->option('directory')
+            'git',
+            'clone',
+            $this->argument('repository'),
+            $this->option('directory')
         ]);
 
         $process->setWorkingDirectory(base_path() . DIRECTORY_SEPARATOR . 'modules');
