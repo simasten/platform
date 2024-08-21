@@ -14,7 +14,10 @@ class PlatformMakeReplica extends Command
      */
     protected $signature = 'module:make-replica
         {name}
+        {--all}
         {--origin=}
+        {--origin-module=}
+        {--parent=}
         {--module=}
     ';
 
@@ -57,6 +60,12 @@ class PlatformMakeReplica extends Command
             return;
         }
 
+        if (is_array($modules) && $this->option('origin-module') && array_key_exists($this->option('origin-module'), $modules)) {
+            $originModule = $modules[$this->option('origin-module')];
+        } else {
+            $originModule = $module;
+        }
+
         /** SET FILE OUTPUT */
         $filepath = base_path(
             'modules' . 
@@ -68,9 +77,11 @@ class PlatformMakeReplica extends Command
             'Models'
         );
 
-        $filename = $this->argument('name') . '.php';
+        $modelname = $this->argument('name');
+        $classname = $module->name . $modelname;
+        $filename = $classname . '.php';
         $fileOutput = $filepath . DIRECTORY_SEPARATOR . $filename;
-        
+
         /** CHECK MODEL IS EXISTS */
         if ($fileSystem->exists($fileOutput)) {
             $this->error('The model already exists.');
@@ -80,11 +91,53 @@ class PlatformMakeReplica extends Command
         /** CREATE FILE BASE ON STUB */
         $fileSystem->put(
             $fileOutput,
-            $this->getStubContents($module, $fileSystem->get($stubFile))
+            $this->getStubContents($module, $originModule, $fileSystem->get($stubFile))
         );
 
         /** MESSAGE FILE CREATING IS COMPLETED */
         $this->info('The ' . $this->argument('name') . ' model has been created.');
+
+        /** CHECK ALL-FLAG */
+        if ($this->option('all')) {
+            /** MAKE RESOURCE */
+            $this->call('module:make-resource', [
+                'name' => $modelname . 'Resource',
+                '--model' => $classname,
+                '--module' => $this->option('module')
+            ]);
+
+            /** MAKE COLLECTION */
+            $this->call('module:make-resource', [
+                'name' => $modelname . 'Collection',
+                '--collection' => true,
+                '--model' => $classname,
+                '--module' => $this->option('module')
+            ]);
+
+            /** MAKE SHOW RESOURCE */
+            $this->call('module:make-resource', [
+                'name' => $modelname . 'ShowResource',
+                '--show' => true,
+                '--model' => $classname,
+                '--module' => $this->option('module')
+            ]);
+
+            /** MAKE CONTROLLER */
+            $this->call('module:make-controller', array_merge([
+                'name' => $classname . 'Controller',
+                '--model' => $classname,
+                '--module' => $this->option('module')
+            ], $this->option('parent') ? [
+                '--parent' => $this->option('parent'),
+            ] : []));
+
+            /** MAKE POLICY */
+            $this->call('module:make-policy', [
+                'name' => $classname . 'Policy',
+                '--model' => $classname,
+                '--module' => $this->option('module')
+            ]);
+        }
     }
 
     /**
@@ -94,7 +147,7 @@ class PlatformMakeReplica extends Command
      *
      * @return string
      */
-    protected function getStubContents($module, $stubFile): string
+    protected function getStubContents($module, $originModule, $stubFile): string
     {
         $searches = [
             '$CLASSNAME$',
@@ -102,16 +155,20 @@ class PlatformMakeReplica extends Command
             '$MODEL_LOWER$',
             '$MODULE$',
             '$MODULE_LOWER$',
-            '$ORIGIN_MODEL$'
+            '$ORIGIN_NAMESPACE$',
+            '$ORIGIN_MODEL$',
+            '$ORIGIN_MODULE$'
         ];
 
         $replacements = [
-            str($this->argument('name'))->studly()->toString(),
+            str($module->name . $this->argument('name'))->studly()->toString(),
             str($module->namespace)->studly()->toString(),
             str($this->argument('name'))->studly()->replace(str($module->name)->studly()->toString(), '')->lower()->toString(),
             str($module->name)->studly()->toString(),
             str($module->name)->lower()->toString(),
+            str($originModule->namespace)->studly()->toString(),
             str($this->option('origin'))->studly()->toString(),
+            str($originModule->name)->studly()->toString(),
         ];
 
         return str_replace(

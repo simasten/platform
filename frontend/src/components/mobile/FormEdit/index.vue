@@ -45,8 +45,8 @@
     ></v-sheet>
 
     <v-responsive
-        height="calc(100vh - 64px)"
-        class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
+        height="calc(100dvh - 64px)"
+        class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
         content-class="position-relative"
     >
         <v-sheet
@@ -55,37 +55,40 @@
             style="z-index: 1"
         >
             <div class="d-flex justify-center position-relative">
-                <v-sheet :color="`${theme}`" elevation="4" rounded="pill">
-                    <v-card-text class="pa-1">
-                        <v-avatar
-                            :color="`${highlight}-lighten-2`"
-                            size="48"
-                            style="font-size: 22px"
-                        >
-                            <v-icon :color="`${theme}-darken-1`">{{
-                                page.icon
-                            }}</v-icon>
-                        </v-avatar>
-                    </v-card-text>
-                </v-sheet>
+                <form-icon></form-icon>
 
                 <div
                     :class="`text-${theme}-lighten-4`"
-                    class="text-caption text-white position-absolute py-1 font-weight-bold text-uppercase"
-                    style="font-size: 0.7rem !important; top: 0; right: 0"
+                    class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
+                    style="
+                        font-size: 0.63rem !important;
+                        top: 8px;
+                        right: 0;
+                        width: calc(50% - 30px);
+                    "
                 >
-                    edit: {{ record[key] }}
+                    <div
+                        class="d-inline-block text-truncate"
+                        style="max-width: 100%"
+                    >
+                        edit: {{ record[key] }}
+                    </div>
                 </div>
             </div>
         </v-sheet>
 
         <v-sheet
-            class="mt-7 pt-7"
+            class="mt-9 pt-9"
             elevation="1"
             min-height="200px"
             rounded="lg"
         >
-            <slot :combos="combos" :record="record"></slot>
+            <slot
+                :combos="combos"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </v-sheet>
 
         <div class="py-2"></div>
@@ -93,11 +96,21 @@
 
     <form-help mode="edit" :withActivityLogs="withActivityLogs">
         <template v-slot:forminfo>
-            <slot name="forminfo" :theme="theme"></slot>
+            <slot
+                name="forminfo"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </template>
 
         <template v-slot:helpdesk>
-            <slot name="helpdesk" :theme="theme"></slot>
+            <slot
+                name="helpdesk"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </template>
     </form-help>
 </template>
@@ -113,6 +126,7 @@ export default {
         beforePost: Function,
         hideUpdate: Boolean,
         dataFromStore: Boolean,
+        routePrefix: String,
         withHelpdesk: Boolean,
         withActivityLogs: Boolean,
     },
@@ -122,6 +136,7 @@ export default {
 
         store.beforePost = props.beforePost;
         store.activityLog = props.withActivityLogs;
+        store.routePrefix = props.routePrefix;
 
         const {
             combos,
@@ -149,6 +164,8 @@ export default {
             getPageData,
             openFormData,
             postFormEdit,
+
+            store,
         };
     },
 

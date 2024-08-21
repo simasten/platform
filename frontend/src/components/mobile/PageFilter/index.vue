@@ -6,29 +6,29 @@
         width="360"
         disable-resize-watcher
     >
-        <v-sheet class="position-relative" color="transparent" height="100vh">
+        <v-sheet class="position-relative" color="transparent" height="100dvh">
             <v-toolbar :color="theme">
                 <v-btn icon @click="sidenavState = false">
                     <v-icon>close</v-icon>
                 </v-btn>
 
                 <v-toolbar-title class="text-white text-overline">
-                    {{ page.name }}
+                    {{ sidehelpState ? "informasi" : "utilitas" }}
                 </v-toolbar-title>
 
                 <v-spacer></v-spacer>
 
                 <v-btn
-                    :color="helpState ? 'white' : `${theme}-lighten-3`"
+                    :color="sidehelpState ? 'white' : `${theme}-lighten-3`"
                     icon
                     @click="
-                        helpState = !helpState;
-                        tabSidenav = helpState ? 'helpdesk' : 'filter';
+                        sidehelpState = !sidehelpState;
+                        tabSidenav = sidehelpState ? 'helpdesk' : 'filter';
                     "
                 >
                     <v-icon
                         :style="
-                            helpState
+                            sidehelpState
                                 ? 'transform: rotate(180deg)'
                                 : 'transform: rotate(0deg)'
                         "
@@ -49,8 +49,8 @@
             ></v-sheet>
 
             <v-responsive
-                height="calc(100vh - 64px)"
-                class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
+                height="calc(100dvh - 64px)"
+                class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
                 content-class="position-relative"
             >
                 <div
@@ -60,40 +60,32 @@
                     <div
                         class="d-flex flex-column align-center justify-center position-relative"
                     >
-                        <v-sheet
-                            :color="`${theme}`"
-                            elevation="4"
-                            rounded="pill"
-                        >
-                            <v-card-text class="pa-1">
-                                <v-avatar
-                                    :color="`${theme}-lighten-2`"
-                                    size="48"
-                                    style="font-size: 22px"
-                                >
-                                    <v-icon :color="`${theme}-darken-1`">{{
-                                        helpState ? "menu_open" : "filter_list"
-                                    }}</v-icon>
-                                </v-avatar>
-                            </v-card-text>
-                        </v-sheet>
+                        <form-icon
+                            :icon="sidehelpState ? 'menu_open' : 'filter_list'"
+                        ></form-icon>
 
                         <div
                             :class="`text-${theme}-lighten-4`"
-                            class="text-caption text-white position-absolute py-1 font-weight-bold text-uppercase"
+                            class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
                             style="
-                                font-size: 0.7rem !important;
-                                top: 0;
+                                font-size: 0.63rem !important;
+                                top: 8px;
                                 right: 0;
+                                width: calc(50% - 30px);
                             "
                         >
-                            {{ helpState ? "informasi" : "utilitas" }}
+                            <div
+                                class="d-inline-block text-truncate"
+                                style="max-width: 100%"
+                            >
+                                {{ page.title }}
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <v-sheet
-                    class="mt-7 pt-7"
+                    class="mt-9 pt-9 overflow-hidden"
                     elevation="1"
                     min-height="200px"
                     rounded="lg"
@@ -103,6 +95,23 @@
                         v-model="tabSidenav"
                     >
                         <v-tabs-window-item value="filter">
+                            <div
+                                v-if="withSync"
+                                class="text-overline text-grey-darken-3 px-4 mt-1"
+                            >
+                                <small>sync data</small>
+                            </div>
+
+                            <v-card-text class="flex-grow-1 pt-2 bg-white">
+                                <slot
+                                    name="syncdata"
+                                    :parent="parent"
+                                    :mapResponseData="mapResponseData"
+                                ></slot>
+                            </v-card-text>
+
+                            <v-divider v-if="withSync" class="my-2"></v-divider>
+
                             <div
                                 v-if="usetrash"
                                 class="text-overline text-grey-darken-3 px-4 mt-1"
@@ -325,6 +334,8 @@
                                     >
                                 </div>
 
+                                <slot name="helpdesk"></slot>
+
                                 <div class="text-overline mt-6">Utilitas</div>
                                 <v-divider></v-divider>
 
@@ -405,8 +416,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
-                                <slot name="helpdesk"></slot>
 
                                 <div class="text-overline mt-6">Icon</div>
                                 <v-divider></v-divider>
@@ -541,30 +550,37 @@ import { storeToRefs } from "pinia";
 export default {
     name: "page-filter",
 
+    props: {
+        withSync: Boolean,
+    },
+
     setup() {
         const store = usePageStore();
 
         const {
             filters,
             hasSelected,
-            helpState,
+            sidehelpState,
             highlight,
             page,
             params,
+            parent,
             sidenavState,
             search,
             trashed,
             theme,
             usetrash,
         } = storeToRefs(store);
-        const { getPageDatas } = store;
+
+        const { getPageDatas, mapResponseData } = store;
 
         return {
             filters,
             hasSelected,
-            helpState,
+            sidehelpState,
             highlight,
             page,
+            parent,
             params,
             sidenavState,
             search,
@@ -573,6 +589,9 @@ export default {
             usetrash,
 
             getPageDatas,
+            mapResponseData,
+
+            store,
         };
     },
 

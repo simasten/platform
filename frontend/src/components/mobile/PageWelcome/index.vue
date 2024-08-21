@@ -8,14 +8,14 @@
             ></v-sheet>
         </div>
 
-        <v-sheet class="position-relative" color="transparent" height="100vh">
-            <v-card-text style="height: 100vh">
+        <v-sheet class="position-relative" color="transparent" height="100dvh">
+            <v-card-text style="height: 100dvh">
                 <v-card-text
                     class="d-flex flex-column align-center justify-center mt-12 mb-4"
                 >
                     <img
                         src="/assets/pwa-192x192.png"
-                        style="height: 13vh; width: 12vh; position: absolute"
+                        style="height: 13dvh; width: 12dvh; position: absolute"
                     />
                 </v-card-text>
 

@@ -6,14 +6,14 @@
         width="360"
         disable-resize-watcher
     >
-        <v-sheet class="position-relative" color="transparent" height="100vh">
+        <v-sheet class="position-relative" color="transparent" height="100dvh">
             <v-toolbar :color="theme">
                 <v-btn icon @click="helpState = false">
                     <v-icon>close</v-icon>
                 </v-btn>
 
                 <v-toolbar-title class="text-white text-overline">
-                    {{ page.name }}
+                    informasi
                 </v-toolbar-title>
             </v-toolbar>
 
@@ -25,7 +25,7 @@
             ></v-sheet>
 
             <v-responsive
-                height="calc(100vh - 64px)"
+                height="calc(100dvh - 64px)"
                 class="bg-transparent overflow-x-hidden overflow-y-auto px-4 scrollbar-none"
                 content-class="position-relative"
             >
@@ -35,40 +35,49 @@
                     style="z-index: 1"
                 >
                     <div class="d-flex justify-center position-relative">
-                        <v-sheet
-                            :color="`${theme}`"
-                            elevation="4"
-                            rounded="pill"
+                        <div
+                            class="position-relative text-blue-grey mx-auto"
+                            style="width: 64px"
                         >
-                            <v-card-text class="pa-1">
-                                <v-avatar
-                                    :color="`${theme}-lighten-2`"
-                                    size="48"
-                                    style="font-size: 22px"
+                            <div class="circle">
+                                <div
+                                    class="position-relative h-100 w-100 text-white"
                                 >
-                                    <v-icon :color="`${theme}-darken-1`"
-                                        >menu_open</v-icon
+                                    <v-avatar
+                                        :color="`${theme}-lighten-4`"
+                                        elevation="6"
+                                        size="52"
                                     >
-                                </v-avatar>
-                            </v-card-text>
-                        </v-sheet>
+                                        <v-icon color="grey-darken-2"
+                                            >menu_open</v-icon
+                                        >
+                                    </v-avatar>
+                                </div>
+                            </div>
+                        </div>
 
                         <div
                             :class="`text-${theme}-lighten-4`"
-                            class="text-caption text-white position-absolute py-1 font-weight-bold text-uppercase"
+                            class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
                             style="
-                                font-size: 0.7rem !important;
-                                top: 0;
+                                font-size: 0.63rem !important;
+                                top: 8px;
                                 right: 0;
+                                width: calc(50% - 30px);
                             "
                         >
-                            informasi
+                            <div
+                                class="d-inline-block text-truncate"
+                                style="max-width: 100%"
+                            >
+                                {{ page.title }}
+                            </div>
                         </div>
                     </div>
                 </v-sheet>
 
                 <v-sheet
-                    class="mt-7 pt-7"
+                    class="mt-9 pt-9"
                     elevation="1"
                     min-height="200px"
                     rounded="lg"

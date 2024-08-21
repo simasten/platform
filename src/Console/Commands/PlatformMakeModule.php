@@ -3,6 +3,7 @@
 namespace Simasten\Platform\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Cache;
 
 class PlatformMakeModule extends Command
@@ -161,14 +162,33 @@ class PlatformMakeModule extends Command
         Cache::rememberForever('modules', function () {
             $modules = [];
 
-            $files = glob(
-                base_path('modules' . DIRECTORY_SEPARATOR . "*" . DIRECTORY_SEPARATOR . 'module.json')
-            );
+            /** Scan All-Module Except System */
+            $folders = glob(base_path('modules') . DIRECTORY_SEPARATOR . '*', GLOB_ONLYDIR);
 
-            foreach ($files as $file) {
-                $arr = json_decode(file_get_contents($file), true);
+            foreach ($folders as $folder) {
+                $json_path = $folder . DIRECTORY_SEPARATOR . 'module.json';
 
-                $modules[$arr['name']] = json_decode(json_encode($arr), false);
+                if (!File::exists($json_path)) {
+                    continue;
+                }
+
+                $content                = file_get_contents($json_path);
+                $json_data              = json_decode($content, true);
+                $module_name            = $json_data['name'];
+                $json_data['directory'] = $folder;
+                $modules[$module_name]  = $json_data;
+            }
+
+            if (count($modules) === 0) {
+                return $modules;
+            }
+
+            /** Sort data by priority */
+            array_multisort(array_column($modules, 'priority'), SORT_ASC, $modules);
+
+            /** Convert array to object */
+            foreach ($modules as $key => $module) {
+                $modules[$key] = json_decode(json_encode($module), false);
             }
 
             return $modules;

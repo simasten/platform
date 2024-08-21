@@ -18,8 +18,10 @@
     ></v-sheet>
 
     <v-responsive
-        :height="navigationState ? `calc(100vh - 120px)` : `calc(100vh - 64px)`"
-        class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
+        :height="
+            navigationState ? `calc(100dvh - 120px)` : `calc(100dvh - 64px)`
+        "
+        class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
         content-class="position-relative"
     >
         <slot

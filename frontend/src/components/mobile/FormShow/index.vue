@@ -1,6 +1,11 @@
 <template>
     <v-toolbar :color="theme">
-        <v-btn icon @click="openFormData">
+        <v-btn
+            icon
+            @click="
+                manualBacknav ? $emit('click:backnav', $event) : openFormData()
+            "
+        >
             <v-icon class="with-shadow">arrow_back</v-icon>
         </v-btn>
 
@@ -85,35 +90,42 @@
             <v-btn v-if="!hideDelete" color="orange" icon>
                 <v-icon class="with-shadow">delete</v-icon>
 
-                <v-dialog activator="parent" max-width="360" persistent>
-                    <template v-slot:default="{ isActive }">
-                        <v-card
-                            prepend-icon="delete"
-                            text="Proses ini akan juga menghapus semua data yang terkait pada data ini."
-                            title="Hapus data ini?"
-                        >
-                            <template v-slot:actions>
-                                <v-spacer></v-spacer>
+                <form-confirm icon="delete" title="Hapus data ini?">
+                    <div class="text-caption text-grey-darken-1">
+                        Proses ini akan juga menghapus semua data yang terkait
+                        pada data ini.
+                    </div>
 
+                    <template v-slot:actions="{ isActive }">
+                        <v-row dense>
+                            <v-col cols="6">
                                 <v-btn
-                                    color="grey"
-                                    text="Batal"
+                                    :color="theme"
+                                    rounded="pill"
+                                    variant="outlined"
+                                    block
                                     @click="isActive.value = false"
-                                ></v-btn>
+                                    >BATAL</v-btn
+                                >
+                            </v-col>
 
+                            <v-col cols="6">
                                 <v-btn
-                                    color="deep-orange"
-                                    text="Hapus"
+                                    :color="theme"
+                                    rounded="pill"
+                                    variant="flat"
+                                    block
                                     @click="
                                         postFormDelete(
                                             () => (isActive.value = false)
                                         )
                                     "
-                                ></v-btn>
-                            </template>
-                        </v-card>
+                                    >HAPUS</v-btn
+                                >
+                            </v-col>
+                        </v-row>
                     </template>
-                </v-dialog>
+                </form-confirm>
 
                 <v-tooltip activator="parent" location="bottom"
                     >Hapus</v-tooltip
@@ -150,8 +162,8 @@
     ></v-sheet>
 
     <v-responsive
-        height="calc(100vh - 64px)"
-        class="bg-transparent overflow-x-hidden overflow-y-auto px-4"
+        height="calc(100dvh - 64px)"
+        class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
         content-class="position-relative"
     >
         <v-sheet
@@ -160,37 +172,60 @@
             style="z-index: 1"
         >
             <div class="d-flex justify-center position-relative">
-                <v-sheet :color="`${theme}`" elevation="4" rounded="pill">
-                    <v-card-text class="pa-1">
-                        <v-avatar
-                            :color="`${highlight}-lighten-2`"
-                            size="48"
-                            style="font-size: 22px"
-                        >
-                            <v-icon :color="`${theme}-darken-1`">{{
-                                page.icon
-                            }}</v-icon>
-                        </v-avatar>
-                    </v-card-text>
-                </v-sheet>
+                <form-icon></form-icon>
 
                 <div
                     :class="`text-${theme}-lighten-4`"
-                    class="text-caption text-white position-absolute py-1 font-weight-bold text-uppercase"
-                    style="font-size: 0.7rem !important; top: 0; right: 0"
+                    class="text-caption text-white position-absolute font-weight-bold text-uppercase text-left"
+                    style="
+                        top: 8px;
+                        left: 0;
+                        font-size: 0.63rem !important;
+                        width: calc(50% - 30px);
+                    "
                 >
-                    show: {{ record[key] }}
+                    <div
+                        class="d-inline-block text-truncate"
+                        style="max-width: 100%"
+                    >
+                        {{ title }}
+                    </div>
+                </div>
+
+                <div
+                    v-if="!hideDataTag"
+                    :class="`text-${theme}-lighten-4`"
+                    class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
+                    style="
+                        font-size: 0.63rem !important;
+                        top: 8px;
+                        right: 0;
+                        width: calc(50% - 30px);
+                    "
+                >
+                    <div
+                        class="d-inline-block text-truncate"
+                        style="max-width: 100%"
+                    >
+                        show: {{ record[key] }}
+                    </div>
                 </div>
             </div>
         </v-sheet>
 
         <v-sheet
-            class="mt-7 pt-7"
+            class="position-relative mt-9 pt-9"
             min-height="200px"
             elevation="1"
             rounded="lg"
         >
-            <slot :combos="combos" :record="record" :theme="theme"></slot>
+            <slot
+                :combos="combos"
+                :mapResponseData="mapResponseData"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </v-sheet>
 
         <div class="py-2"></div>
@@ -202,7 +237,13 @@
         </template>
 
         <template v-slot:helpdesk>
-            <slot name="helpdesk" :record="record" :theme="theme"></slot>
+            <slot
+                name="helpdesk"
+                :mapResponseData="mapResponseData"
+                :record="record"
+                :theme="theme"
+                :store="store"
+            ></slot>
         </template>
     </form-help>
 </template>
@@ -220,7 +261,10 @@ export default {
         contentClass: String,
         dataFromStore: Boolean,
         hideEdit: Boolean,
+        hideDataTag: Boolean,
         hideDelete: Boolean,
+        manualBacknav: Boolean,
+        routePrefix: String,
         width: {
             type: String,
             default: "500px",
@@ -229,11 +273,16 @@ export default {
         withActivityLogs: Boolean,
     },
 
+    emits: {
+        "click:backnav": null,
+    },
+
     setup(props) {
         const store = usePageStore();
 
         store.beforePost = props.beforePost;
         store.activityLog = props.withActivityLogs;
+        store.routePrefix = props.routePrefix;
 
         const {
             combos,
@@ -246,10 +295,12 @@ export default {
             softdelete,
             record,
             theme,
+            title,
         } = storeToRefs(store);
 
         const {
             getPageData,
+            mapResponseData,
             openFormData,
             openFormEdit,
             postFormDelete,
@@ -268,13 +319,17 @@ export default {
             record,
             softdelete,
             theme,
+            title,
 
             getPageData,
+            mapResponseData,
             openFormData,
             openFormEdit,
             postFormDelete,
             postFormForceDelete,
             postFormRestore,
+
+            store,
         };
     },
 

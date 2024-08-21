@@ -20,7 +20,12 @@
             </v-progress-circular>
         </v-overlay>
 
-        <v-snackbar :color="snackbar.color" v-model="snackbar.state" multi-line>
+        <v-snackbar
+            :color="snackbar.color"
+            :timeout="1500"
+            v-model="snackbar.state"
+            multi-line
+        >
             {{ snackbar.text }}
 
             <template v-slot:actions>
@@ -39,28 +44,17 @@
             :base-color="`${theme}-lighten-2`"
             :color="`${theme}-darken-1`"
         >
-            <v-btn style="width: 25%" :to="{ name: 'account-dashboard' }">
-                <v-icon>space_dashboard</v-icon>
+            <v-btn
+                v-for="(page, index) in appsMenus"
+                :key="index"
+                style="width: 25%"
+                :to="{ name: page.slug }"
+            >
+                <v-icon>{{ page.icon }}</v-icon>
 
-                <div style="margin-top: 2px; font-size: 88%">Beranda</div>
-            </v-btn>
-
-            <v-btn style="width: 25%" :to="{ name: 'account-activity' }">
-                <v-icon>summarize</v-icon>
-
-                <div style="margin-top: 2px; font-size: 88%">Aktifitas</div>
-            </v-btn>
-
-            <v-btn style="width: 25%" :to="{ name: 'account-notification' }">
-                <v-icon>notifications</v-icon>
-
-                <div style="margin-top: 2px; font-size: 88%">Notifikasi</div>
-            </v-btn>
-
-            <v-btn style="width: 25%" :to="{ name: 'account-setting' }">
-                <v-icon>perm_identity</v-icon>
-
-                <div style="margin-top: 2px; font-size: 88%">Setting</div>
+                <div style="margin-top: 2px; font-size: 88%">
+                    {{ page.name }}
+                </div>
             </v-btn>
         </v-bottom-navigation>
     </v-layout>
@@ -87,6 +81,7 @@ export default {
 
         const {
             auth,
+            appsMenus,
             geoInitialized,
             navigationState,
             overlay,
@@ -98,6 +93,7 @@ export default {
 
         return {
             auth,
+            appsMenus,
             geoInitialized,
             navigationState,
             overlay,

@@ -10,6 +10,7 @@ use Module\System\Traits\Searchable;
 use Module\System\Traits\HasPageSetup;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use $NAMESPACE$\$MODULE$\Http\Resources\$MODEL$Resource;
 
 class $MODULE$$MODEL$ extends Model
 {
@@ -74,7 +75,7 @@ class $MODULE$$MODEL$ extends Model
 
             DB::connection($model->connection)->commit();
 
-            // return new $MODEL$Resource($model);
+            return new $MODEL$Resource($model);
         } catch (\Exception $e) {
             DB::connection($model->connection)->rollBack();
 
@@ -102,7 +103,7 @@ class $MODULE$$MODEL$ extends Model
 
             DB::connection($model->connection)->commit();
 
-            // return new $MODEL$Resource($model);
+            return new $MODEL$Resource($model);
         } catch (\Exception $e) {
             DB::connection($model->connection)->rollBack();
 
@@ -128,7 +129,7 @@ class $MODULE$$MODEL$ extends Model
 
             DB::connection($model->connection)->commit();
 
-            return response()->json(['success' => true]);
+            return new $MODEL$Resource($model);
         } catch (\Exception $e) {
             DB::connection($model->connection)->rollBack();
 
@@ -154,7 +155,7 @@ class $MODULE$$MODEL$ extends Model
 
             DB::connection($model->connection)->commit();
 
-            return response()->json(['success' => true]);
+            return new $MODEL$Resource($model);
         } catch (\Exception $e) {
             DB::connection($model->connection)->rollBack();
 
@@ -180,7 +181,7 @@ class $MODULE$$MODEL$ extends Model
 
             DB::connection($model->connection)->commit();
 
-            return response()->json(['success' => true]);
+            return new $MODEL$Resource($model);
         } catch (\Exception $e) {
             DB::connection($model->connection)->rollBack();
 
