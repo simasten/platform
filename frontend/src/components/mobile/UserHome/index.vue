@@ -1,9 +1,8 @@
 <template>
     <v-app-bar
-        scroll-behavior="hide"
+        scroll-behavior="hide elevate"
         scroll-threshold="64"
         :color="`${theme}`"
-        flat
     >
         <v-toolbar-title class="text-body-2 font-weight-bold"
             >SiMASTEN</v-toolbar-title
