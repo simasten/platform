@@ -3,9 +3,11 @@
         <div class="circle">
             <div class="position-relative h-100 w-100 text-white">
                 <v-avatar :color="`${theme}-lighten-4`" elevation="6" size="52">
-                    <v-icon color="grey-darken-2">{{
-                        icon ?? page.icon
-                    }}</v-icon>
+                    <slot>
+                        <v-icon color="grey-darken-2">{{
+                            icon ?? page.icon
+                        }}</v-icon>
+                    </slot>
                 </v-avatar>
             </div>
         </div>

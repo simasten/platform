@@ -84,8 +84,6 @@ export const usePageStore = defineStore("pageStore", {
         parentKey: null,
         parentName: null,
 
-        pulse: {},
-
         railMode: false,
         record: {},
         recordBase: {},
@@ -367,9 +365,8 @@ export const usePageStore = defineStore("pageStore", {
                 `${
                     this.module.prefix ? this.module.prefix + "/" : ""
                 }api/dashboard`
-            ).then(({ record, pulse }) => {
+            ).then(({ record }) => {
                 this.record = record;
-                this.pulse = pulse;
 
                 if (typeof callback === "function") {
                     callback(record);

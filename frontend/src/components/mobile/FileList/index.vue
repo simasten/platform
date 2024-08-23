@@ -17,6 +17,16 @@
                         >document</v-toolbar-title
                     >
 
+                    <!-- rotare -->
+                    <v-btn size="small" icon @click="$refs.pdf.rotateRight()">
+                        <v-icon size="x-large">rotate_right</v-icon>
+                    </v-btn>
+
+                    <!-- download -->
+                    <v-btn size="small" icon @click="$refs.pdf.download()">
+                        <v-icon size="x-large">download_for_offline</v-icon>
+                    </v-btn>
+
                     <v-btn size="small" icon @click="$refs.pdf.zoomIn()">
                         <v-icon size="x-large">add_circle</v-icon>
                     </v-btn>

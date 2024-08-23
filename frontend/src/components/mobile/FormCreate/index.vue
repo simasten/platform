@@ -1,5 +1,10 @@
 <template>
-    <v-toolbar :color="theme">
+    <v-app-bar
+        :color="`${theme}`"
+        scroll-behavior="hide"
+        scroll-threshold="64"
+        flat
+    >
         <v-btn icon @click="openFormData">
             <v-icon class="with-shadow">arrow_back</v-icon>
         </v-btn>
@@ -36,15 +41,63 @@
                 >Informasi</v-tooltip
             >
         </v-btn>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-sheet
         :color="`${theme}`"
-        class="mx-auto position-absolute w-100 rounded-b-xl"
-        height="192"
+        class="mx-auto position-fixed w-100 rounded-b-xl"
+        height="256"
     ></v-sheet>
 
-    <v-responsive
+    <v-main>
+        <v-sheet class="bg-transparent position-relative px-4 pt-9 pb-4">
+            <v-sheet
+                class="position-absolute"
+                color="transparent"
+                width="calc(100% - 32px)"
+                style="top: 0; z-index: 1"
+            >
+                <div class="d-flex justify-center">
+                    <form-icon></form-icon>
+
+                    <div
+                        :class="`text-${theme}-lighten-4`"
+                        class="text-caption text-white position-absolute font-weight-bold text-uppercase text-right"
+                        style="
+                            font-size: 0.63rem !important;
+                            top: 8px;
+                            right: 0;
+                            width: calc(50% - 30px);
+                        "
+                    >
+                        <div
+                            class="d-inline-block text-truncate"
+                            style="max-width: 100%"
+                        >
+                            create
+                        </div>
+                    </div>
+                </div>
+            </v-sheet>
+
+            <v-sheet
+                class="position-relative pt-7"
+                elevation="1"
+                min-height="calc(100dvh - 172px)"
+                rounded="lg"
+                flat
+            >
+                <slot
+                    :combos="combos"
+                    :record="record"
+                    :theme="theme"
+                    :store="store"
+                ></slot>
+            </v-sheet>
+        </v-sheet>
+    </v-main>
+
+    <!-- <v-responsive
         height="calc(100dvh - 64px)"
         class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4"
         content-class="position-relative"
@@ -92,7 +145,7 @@
         </v-sheet>
 
         <div class="py-2"></div>
-    </v-responsive>
+    </v-responsive> -->
 
     <form-help mode="create" :withActivityLogs="false">
         <template v-slot:forminfo>

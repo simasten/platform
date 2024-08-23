@@ -1,8 +1,6 @@
 <template>
     <v-layout :class="`bg-${theme}-lighten-4`">
-        <v-main>
-            <router-view key="userbase" />
-        </v-main>
+        <router-view key="userbase" />
 
         <v-overlay
             :model-value="overlay"
@@ -112,6 +110,12 @@ export default {
         }
 
         this.initModule({ mobile: true });
+    },
+
+    mounted() {
+        // setTimeout(() => {
+        //     console.log(this.$refs.apps.getLayoutItem("bottom"));
+        // }, 500);
     },
 };
 </script>

@@ -1,5 +1,6 @@
 html {
-    overflow-y: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .circle {
@@ -67,6 +68,10 @@ html {
 
 .v-navigation-drawer {
     transition-property: box-shadow, transform, visibility, width, left, right, top, bottom;
+}
+
+.v-navigation-drawer--right + .v-navigation-drawer__scrim {
+    z-index: 1008 !important;
 }
 
 .v-timeline-item__body {

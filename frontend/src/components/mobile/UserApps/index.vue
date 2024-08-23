@@ -1,67 +1,62 @@
 <template>
-    <v-responsive class="h-100 w-100 overflow-hidden">
-        <v-toolbar :color="`${theme}`">
-            <v-toolbar-title class="text-body-2 font-weight-bold"
-                >SiMASTEN</v-toolbar-title
-            >
-
-            <v-spacer></v-spacer>
-
-            <v-btn
-                icon
-                v-if="impersonated"
-                @click="
-                    $emit('click:impersonateLeave', {
-                        mapUserModule: mapUserModule,
-                    })
-                "
-            >
-                <v-icon>no_accounts</v-icon>
-            </v-btn>
-        </v-toolbar>
-
-        <v-sheet
-            :color="`${theme}`"
-            class="mx-auto position-absolute w-100 rounded-b-xl"
-            height="192"
-        ></v-sheet>
-
-        <v-sheet
-            :height="
-                navigationState ? `calc(100dvh - 120px)` : `calc(100dvh - 64px)`
-            "
-            class="bg-transparent overflow-x-hidden overflow-y-auto scrollbar-none px-4 pb-4 position-relative"
+    <v-app-bar
+        scroll-behavior="hide"
+        scroll-threshold="64"
+        :color="`${theme}`"
+        flat
+    >
+        <v-toolbar-title class="text-body-2 font-weight-bold"
+            >SiMASTEN</v-toolbar-title
         >
+
+        <v-spacer></v-spacer>
+
+        <v-btn
+            icon
+            v-if="impersonated"
+            @click="
+                $emit('click:impersonateLeave', {
+                    mapUserModule: mapUserModule,
+                })
+            "
+        >
+            <v-icon>no_accounts</v-icon>
+        </v-btn>
+    </v-app-bar>
+
+    <v-sheet
+        :color="`${theme}`"
+        class="mx-auto position-fixed w-100 rounded-b-xl"
+        height="256"
+    ></v-sheet>
+
+    <v-main>
+        <v-sheet class="bg-transparent position-relative px-4 pt-9 pb-4">
             <v-sheet
                 class="position-absolute"
                 color="transparent"
                 width="calc(100% - 32px)"
-                style="z-index: 1"
+                style="top: 0; z-index: 1"
             >
                 <div class="d-flex justify-center">
-                    <v-avatar
-                        :color="`${theme}`"
-                        class="pa-1 elevation-4"
-                        rounded="pill"
-                        size="72"
-                    >
-                        <v-avatar
-                            :color="`${theme}-lighten-3`"
-                            rounded="pill"
-                            size="64"
-                        >
-                            <v-img
-                                :src="
-                                    auth.avatar ??
-                                    `/avatars/${auth.gender}-avatar.svg`
-                                "
-                            ></v-img>
-                        </v-avatar>
-                    </v-avatar>
+                    <form-icon>
+                        <v-img
+                            :src="
+                                auth.avatar ??
+                                `/avatars/${auth.gender}-avatar.svg`
+                            "
+                        ></v-img>
+                    </form-icon>
                 </div>
             </v-sheet>
 
-            <v-card class="mt-9 pt-9" elevation="1" rounded="lg" flat>
+            <v-sheet
+                class="position-relative pt-7"
+                elevation="1"
+                min-height="calc(100dvh - 172px)"
+                rounded="lg"
+                flat
+            >
                 <v-card-text class="text-center">
                     <div class="text-body-2 font-weight-medium text-uppercase">
                         {{ auth.username }}
@@ -196,10 +191,9 @@
                         </v-row>
                     </v-card-text>
                 </template>
-            </v-card>
-            <slot></slot>
+            </v-sheet>
         </v-sheet>
-    </v-responsive>
+    </v-main>
 </template>
 
 <script>

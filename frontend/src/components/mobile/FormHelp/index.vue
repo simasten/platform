@@ -1,10 +1,11 @@
 <template>
     <v-navigation-drawer
-        v-model="helpState"
         :color="`${theme}-lighten-4`"
         location="right"
         width="360"
+        v-model="helpState"
         disable-resize-watcher
+        style="height: 100%; top: 0; z-index: 1009"
     >
         <v-sheet class="position-relative" color="transparent" height="100dvh">
             <v-toolbar :color="theme">
@@ -77,9 +78,9 @@
                 </v-sheet>
 
                 <v-sheet
-                    class="mt-9 pt-9"
+                    class="mt-9 pt-7"
                     elevation="1"
-                    min-height="200px"
+                    min-height="calc(100dvh - 116px)"
                     rounded="lg"
                 >
                     <v-card-text>

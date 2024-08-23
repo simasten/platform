@@ -244,6 +244,11 @@ export default {
             return this.pdfViewer.currentPageNumber;
         },
 
+        // TODO:
+        download() {
+            //
+        },
+
         rotateLeft: debounce(function () {
             this.pdfViewer.pagesRotation =
                 parseInt(this.pdfViewer.pagesRotation) - 90;

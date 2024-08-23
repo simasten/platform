@@ -1,10 +1,11 @@
 <template>
     <v-navigation-drawer
-        v-model="sidenavState"
         :color="`${theme}-lighten-4`"
         location="right"
         width="360"
+        v-model="sidenavState"
         disable-resize-watcher
+        style="height: 100%; top: 0; z-index: 1009"
     >
         <v-sheet class="position-relative" color="transparent" height="100dvh">
             <v-toolbar :color="theme">
@@ -85,9 +86,9 @@
                 </div>
 
                 <v-sheet
-                    class="mt-9 pt-9 overflow-hidden"
+                    class="mt-9 pt-7 overflow-hidden"
                     elevation="1"
-                    min-height="200px"
+                    min-height="calc(100dvh - 116px)"
                     rounded="lg"
                 >
                     <v-tabs-window

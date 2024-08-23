@@ -1,8 +1,6 @@
 <template>
     <v-layout :class="`bg-${theme}-lighten-4`">
-        <v-main>
-            <router-view key="pagebase" />
-        </v-main>
+        <router-view key="pagebase" />
 
         <v-overlay
             :model-value="overlay"
