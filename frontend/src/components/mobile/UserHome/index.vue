@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
         scroll-behavior="hide elevate"
-        scroll-threshold="80"
+        scroll-threshold="64"
         :color="`${theme}`"
     >
         <v-toolbar-title class="text-body-2 font-weight-bold"

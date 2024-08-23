@@ -2,7 +2,7 @@
     <v-app-bar
         :color="`${theme}`"
         scroll-behavior="hide elevate"
-        scroll-threshold="80"
+        scroll-threshold="64"
     >
         <v-btn icon @click="openFormData">
             <v-icon class="with-shadow">arrow_back</v-icon>
