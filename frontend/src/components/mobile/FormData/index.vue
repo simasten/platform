@@ -6,10 +6,10 @@
     >
         <v-btn
             icon
-            v-if="parentName"
+            v-if="parentName || navbackTo"
             @click="
-                manualBacknav
-                    ? $emit('click:backnav', $event)
+                navbackTo
+                    ? $router.push({ name: navbackTo })
                     : $router.push({ name: parentName })
             "
         >
@@ -97,9 +97,13 @@
             </v-sheet>
 
             <v-sheet
+                :min-height="
+                    parentName || navbackTo
+                        ? `calc(100dvh - 116px)`
+                        : `calc(100dvh - 172px)`
+                "
                 class="position-relative pt-7"
                 elevation="1"
-                min-height="calc(100dvh - 172px)"
                 rounded="lg"
                 flat
             >
@@ -189,13 +193,14 @@ export default {
     name: "form-data",
 
     props: {
+        navbackTo: String,
+
         chip: {
             type: String,
             default: "chip",
         },
 
         disableCreate: Boolean,
-        manualBacknav: Boolean,
 
         subtitle: {
             type: String,
@@ -210,14 +215,14 @@ export default {
         withSync: Boolean,
     },
 
-    emits: {
-        "click:backnav": null,
-    },
-
-    setup() {
+    setup(props) {
         const store = usePageStore();
 
         store.helpState = false;
+
+        if (store.parentName || props.navbackTo) {
+            store.navigationState = false;
+        }
 
         const {
             formStateLast,
@@ -274,6 +279,12 @@ export default {
 
             store,
         };
+    },
+
+    beforeUnmount() {
+        if (this.parentName || this.navbackTo) {
+            this.navigationState = true;
+        }
     },
 
     methods: {

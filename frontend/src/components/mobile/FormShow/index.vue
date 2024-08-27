@@ -7,7 +7,7 @@
         <v-btn
             icon
             @click="
-                manualBacknav ? $emit('click:backnav', $event) : openFormData()
+                navbackTo ? $router.push({ name: navbackTo }) : openFormData()
             "
         >
             <v-icon class="with-shadow">arrow_back</v-icon>
@@ -212,7 +212,7 @@
             <v-sheet
                 class="position-relative pt-7"
                 elevation="1"
-                min-height="calc(100dvh - 172px)"
+                min-height="calc(100dvh - 116px)"
                 rounded="lg"
                 flat
             >
@@ -259,7 +259,7 @@ export default {
         hideEdit: Boolean,
         hideDataTag: Boolean,
         hideDelete: Boolean,
-        manualBacknav: Boolean,
+        navbackTo: String,
         routePrefix: String,
         width: {
             type: String,
@@ -269,16 +269,13 @@ export default {
         withActivityLogs: Boolean,
     },
 
-    emits: {
-        "click:backnav": null,
-    },
-
     setup(props) {
         const store = usePageStore();
 
         store.beforePost = props.beforePost;
         store.activityLog = props.withActivityLogs;
         store.routePrefix = props.routePrefix;
+        store.navigationState = false;
 
         const {
             combos,
@@ -331,6 +328,10 @@ export default {
 
     mounted() {
         this.getPageData(this.dataFromStore);
+    },
+
+    beforeUnmount() {
+        this.navigationState = true;
     },
 };
 </script>
