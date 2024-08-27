@@ -2,7 +2,7 @@
     <v-app-bar
         :color="`${theme}`"
         scroll-behavior="hide elevate"
-        scroll-threshold="64"
+        scroll-threshold="87"
     >
         <v-btn
             icon
@@ -24,9 +24,7 @@
                 <v-icon class="with-shadow">restore</v-icon>
 
                 <form-confirm icon="restore" title="pulihkan">
-                    <v-card-text>
-                        Proses ini akan memulihkan data ini dari status trashed.
-                    </v-card-text>
+                    Proses ini akan memulihkan data ini dari status trashed.
 
                     <template v-slot:actions="{ isActive }">
                         <v-spacer></v-spacer>
@@ -54,10 +52,8 @@
                 <v-icon class="with-shadow">delete_forever</v-icon>
 
                 <form-confirm icon="delete_forever" title="Hapus Permanen?">
-                    <v-card-text>
-                        Proses ini akan menghapus data secara permanen, proses
-                        ini tidak dapat di pulihkan setelah di lakukan.
-                    </v-card-text>
+                    Proses ini akan menghapus data secara permanen, proses ini
+                    tidak dapat di pulihkan setelah di lakukan.
 
                     <template v-slot:actions="{ isActive }">
                         <v-spacer></v-spacer>
@@ -95,10 +91,8 @@
                 <v-icon class="with-shadow">delete</v-icon>
 
                 <form-confirm icon="delete" title="Hapus data ini?">
-                    <div class="text-caption text-grey-darken-1">
-                        Proses ini akan juga menghapus semua data yang terkait
-                        pada data ini.
-                    </div>
+                    Proses ini akan juga menghapus semua data yang terkait pada
+                    data ini.
 
                     <template v-slot:actions="{ isActive }">
                         <v-row dense>

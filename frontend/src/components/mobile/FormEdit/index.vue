@@ -2,9 +2,14 @@
     <v-app-bar
         :color="`${theme}`"
         scroll-behavior="hide elevate"
-        scroll-threshold="64"
+        scroll-threshold="87"
     >
-        <v-btn icon @click="openFormData">
+        <v-btn
+            icon
+            @click="
+                manualBacknav ? $emit('click:backnav', $event) : openFormData()
+            "
+        >
             <v-icon class="with-shadow">arrow_back</v-icon>
         </v-btn>
 
@@ -128,9 +133,14 @@ export default {
         beforePost: Function,
         hideUpdate: Boolean,
         dataFromStore: Boolean,
+        manualBacknav: Boolean,
         routePrefix: String,
         withHelpdesk: Boolean,
         withActivityLogs: Boolean,
+    },
+
+    emits: {
+        "click:backnav": null,
     },
 
     setup(props) {

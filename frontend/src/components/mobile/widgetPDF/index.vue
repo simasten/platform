@@ -1,6 +1,10 @@
 <template>
     <v-sheet class="position-relative" :height="height">
-        <v-overlay :value="!FILELOADED">
+        <v-overlay
+            :model-value="!FILELOADED"
+            class="align-center justify-center"
+            persistent
+        >
             <v-progress-circular indeterminate size="64"></v-progress-circular>
         </v-overlay>
 
@@ -9,7 +13,17 @@
             :height="height"
             :width="width"
             class="page-wrapper position-absolute overflow-auto bg-grey-lighten-2"
-        ></v-responsive>
+        >
+            <div
+                class="d-flex align-center justify-center h-100 pa-4"
+                v-if="ERRORSTATE"
+            >
+                <v-alert border="start" border-color="deep-orange accent-1">
+                    <div class="font-weight-bold">ERROR: {{ ERRORCODE }}</div>
+                    {{ ERRORMESSAGE }}
+                </v-alert>
+            </div>
+        </v-responsive>
     </v-sheet>
 </template>
 
@@ -69,14 +83,12 @@ export default {
         const l10n = null;
         const progress = 0;
 
-        let FILELOADED = false;
         let pageNumber = 0;
         let pageCount = 0;
 
         const { currentFile } = storeToRefs(store);
 
         return {
-            FILELOADED,
             pageNumber,
             pageCount,
 
@@ -91,6 +103,13 @@ export default {
             progress,
         };
     },
+
+    data: () => ({
+        ERRORSTATE: false,
+        ERRORCODE: 0,
+        ERRORMESSAGE: null,
+        FILELOADED: false,
+    }),
 
     mounted() {
         this.init();
@@ -162,6 +181,8 @@ export default {
                 params.path ? "simasten" : "siasn"
             );
 
+            this.ERRORSTATE = false;
+
             this.pdfLoadingTask = pdfjsLib.getDocument({
                 url: parseURL.href,
                 // maxImageSize: MAX_IMAGE_SIZE,
@@ -194,17 +215,20 @@ export default {
                     this.pdfHistory.initialize({
                         fingerprint: pdfDocument.fingerprints[0],
                     });
-
-                    this.FILELOADED = true;
                 })
                 .catch((error) => {
-                    this.FILELOADED = true;
+                    this.ERRORSTATE = true;
 
-                    if (error.status === 413) {
-                        this.$emit("fileNotExists", null);
-                    } else {
-                        this.$emit("error", "Jenis file tidak sesuai.");
+                    if ("message" in error) {
+                        this.ERRORMESSAGE = error.message;
                     }
+
+                    if ("status" in error) {
+                        this.ERRORCODE = error.status;
+                    }
+                })
+                .finally(() => {
+                    this.FILELOADED = true;
                 });
         },
 
