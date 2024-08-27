@@ -103,7 +103,11 @@ export default {
             this.$http(this.dataUrl, {
                 method: "GET",
                 params: { ...this.dataParams, findOn: val },
-            }).then((results) => (this.records = results));
+            })
+                .then((results) => (this.records = results))
+                .catch(() => {
+                    this.records = [];
+                });
         }, 500),
 
         setSelected: function (selected) {
