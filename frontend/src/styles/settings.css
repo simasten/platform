@@ -3,39 +3,88 @@ html {
     scrollbar-width: none;
 }
 
+.json-key {
+    color: brown;
+}
+
+.json-value {
+    color: navy;
+}
+
+.json-string {
+    color: olive;
+}
+
+@media only screen and (max-width: 600px) {
+    .circle {
+        position: absolute;
+        top: -50%;
+        width: 64px;
+        height: 64px;
+        border: 6px solid currentColor;
+        border-radius: 50%;
+        background: currentColor;
+        transition: 0.25s;
+    }
+    
+    .circle::before {
+        content: "";
+        position: absolute;
+        top: 58%;
+        left: -20px;
+        width: 20px;
+        height: 20px;
+        border-top-right-radius: 20px;
+        background: transparent;
+        box-shadow: 0 -10px 0 0 currentColor;
+    }
+    
+    .circle::after {
+        content: "";
+        position: absolute;
+        top: 58%;
+        right: -20px;
+        width: 20px;
+        height: 20px;
+        border-top-left-radius: 20px;
+        background: transparent;
+        box-shadow: 0 -10px 0 0 currentColor;
+    }
+}
+
 .circle {
-	position: absolute;
-	top: -50%;
-	width: 64px;
-	height: 64px;
-	border: 6px solid currentColor;
-	border-radius: 50%;
-	background: currentColor;
-	transition: 0.25s;
+    position: absolute;
+    top: -50%;
+    width: 76px;
+    height: 76px;
+    border: 6px solid currentColor;
+    border-radius: 50%;
+    background: currentColor;
+    transition: 0.25s;
 }
 
 .circle::before {
-	content: "";
-	position: absolute;
-	top: 58%;
-	left: -20px;
-	width: 20px;
-	height: 20px;
-	border-top-right-radius: 20px;
-	background: transparent;
-	box-shadow: 0 -10px 0 0 currentColor;
+    content: "";
+    position: absolute;
+    top: 58%;
+    left: -20px;
+    width: 20px;
+    height: 20px;
+    border-top-right-radius: 20px;
+    background: transparent;
+    box-shadow: 0 -10px 0 0 currentColor;
 }
 
 .circle::after {
-	content: "";
-	position: absolute;
-	top: 58%;
-	right: -20px;
-	width: 20px;
-	height: 20px;
-	border-top-left-radius: 20px;
-	background: transparent;
-	box-shadow: 0 -10px 0 0 currentColor;
+    content: "";
+    position: absolute;
+    top: 58%;
+    right: -20px;
+    width: 20px;
+    height: 20px;
+    border-top-left-radius: 20px;
+    background: transparent;
+    box-shadow: 0 -10px 0 0 currentColor;
 }
 
 .v-icon.with-shadow {
@@ -51,6 +100,11 @@ html {
     font-family: "Madimi One", serif;
     font-weight: 400;
     font-style: normal;
+    color: #50585D;
+}
+
+.font-brand .sub-color {
+    color: #008FD7;
 }
 
 .scrollbar-none {

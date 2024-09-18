@@ -1,11 +1,9 @@
 <template>
-    <div class="text-blue-grey mx-auto" style="width: 64px">
+    <div :class="`text-${theme}-lighten-5`" class="mx-auto" style="width: 76px">
         <div class="circle">
             <div class="position-relative h-100 w-100 text-white">
-                <v-avatar :color="`${theme}-lighten-4`" elevation="6" size="52">
-                    <v-icon color="grey-darken-2">{{
-                        icon ?? page.icon
-                    }}</v-icon>
+                <v-avatar :color="`${theme}`" elevation="6" size="64">
+                    <v-icon color="white">{{ icon ?? page.icon }}</v-icon>
                 </v-avatar>
             </div>
         </div>

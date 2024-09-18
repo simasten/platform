@@ -111,11 +111,5 @@ export default {
 
         this.initModule({ mobile: true });
     },
-
-    mounted() {
-        // setTimeout(() => {
-        //     console.log(this.$refs.apps.getLayoutItem("bottom"));
-        // }, 500);
-    },
 };
 </script>

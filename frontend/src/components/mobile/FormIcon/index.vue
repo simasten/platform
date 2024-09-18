@@ -1,5 +1,5 @@
 <template>
-    <div class="text-blue-grey mx-auto" style="width: 64px">
+    <div :class="`text-${theme}`" class="mx-auto" style="width: 64px">
         <div class="circle">
             <div class="position-relative h-100 w-100 text-white">
                 <v-avatar :color="`${theme}-lighten-4`" elevation="6" size="52">

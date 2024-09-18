@@ -193,14 +193,14 @@ export default {
     name: "form-data",
 
     props: {
-        navbackTo: String,
-
         chip: {
             type: String,
             default: "chip",
         },
 
         disableCreate: Boolean,
+
+        navbackTo: String,
 
         subtitle: {
             type: String,

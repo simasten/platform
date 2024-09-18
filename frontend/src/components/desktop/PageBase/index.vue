@@ -1,5 +1,5 @@
 <template>
-    <v-layout :class="`bg-${theme}-darken-2`">
+    <v-layout :class="`bg-${theme}-lighten-5`">
         <v-system-bar color="transparent" height="4"></v-system-bar>
 
         <v-navigation-drawer
@@ -75,19 +75,7 @@
             </template>
         </v-navigation-drawer>
 
-        <v-main
-            :style="
-                railMode ? `--v-layout-left: 64px` : `--v-layout-left: 260px`
-            "
-        >
-            <div
-                :class="`bg-transparent`"
-                class="rounded-lg overflow-hidden"
-                style="height: calc(100dvh - 8px); width: calc(100% - 4px)"
-            >
-                <router-view key="pagebase" />
-            </div>
-        </v-main>
+        <router-view key="pagebase" />
 
         <v-overlay
             :model-value="overlay"

@@ -1,5 +1,5 @@
 <template>
-    <v-layout :class="`bg-${theme}-lighten-4`">
+    <v-layout :class="`bg-${theme}-lighten-5`">
         <router-view key="pagebase" />
 
         <v-overlay

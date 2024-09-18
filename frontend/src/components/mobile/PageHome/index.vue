@@ -64,7 +64,7 @@
             <v-sheet
                 class="position-relative pt-7"
                 elevation="1"
-                min-height="calc(100dvh - 116px)"
+                min-height="calc(100dvh - 172px)"
                 rounded="lg"
                 flat
             >

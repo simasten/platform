@@ -1,17 +1,31 @@
 <template>
-    <v-layout :class="`bg-${theme}-darken-2`">
-        <v-system-bar color="transparent" height="4"></v-system-bar>
-
+    <v-layout :class="`bg-${theme}-lighten-5`">
         <v-navigation-drawer
-            color="transparent"
-            style="height: calc(100dvh - 8px); padding-left: 4px"
-            rail-width="60"
+            color="white"
+            rail-width="68"
             disable-resize-watcher
             permanent
             :rail="railMode"
         >
             <template v-slot:prepend>
-                <v-toolbar :color="theme" rounded="t-lg">
+                <div class="d-flex align-center px-1" style="height: 72px">
+                    <img src="/assets/pwa-60x60.png" style="margin-left: 0px" />
+
+                    <div class="d-flex flex-column pl-3">
+                        <div class="text-h5 font-brand">
+                            SiMAS<span class="sub-color">TEN</span>
+                        </div>
+
+                        <div
+                            class="text-caption text-grey"
+                            style="line-height: 1"
+                        >
+                            version 3.0.0
+                        </div>
+                    </div>
+                </div>
+                <v-divider></v-divider>
+                <!-- <v-toolbar :color="theme" rounded="t-lg">
                     <v-avatar class="ml-2 mr-1" :color="`${theme}-lighten-3`">
                         <v-img
                             :src="
@@ -29,29 +43,31 @@
                             <small>{{ auth.usermail }}</small>
                         </div>
                     </v-toolbar-title>
-                </v-toolbar>
+                </v-toolbar> -->
             </template>
 
             <template v-slot:default>
                 <div
-                    :class="`bg-${theme}`"
-                    class="position-relative h-100 rounded-b-lg overflow-hidden"
+                    class="position-relative bg-white h-100 py-2 px-1 overflow-hidden"
                 >
                     <v-list
-                        :active-class="`bg-${theme}-lighten-5`"
-                        :class="`bg-${theme}-lighten-5`"
-                        class="h-100 rounded-t-lg"
+                        :active-class="`bg-${theme}-darken-1`"
+                        class="h-100"
                         nav
                     >
-                        <v-list-item :to="{ name: 'account-dashboard' }">
+                        <v-list-item
+                            v-for="(page, index) in appsMenus"
+                            :key="index"
+                            :to="{ name: page.slug }"
+                        >
                             <template v-slot:prepend="{ isActive }">
                                 <v-icon
                                     :color="
                                         isActive
-                                            ? `${theme}-darken-2`
-                                            : `${theme}-darken-1`
+                                            ? `white`
+                                            : `${theme}-lighten-2`
                                     "
-                                    icon="space_dashboard"
+                                    :icon="page.icon"
                                 ></v-icon>
                             </template>
 
@@ -59,82 +75,10 @@
                                 <v-list-item-title
                                     :class="
                                         isActive
-                                            ? `text-${theme}-darken-2`
-                                            : `text-${theme}-darken-1`
+                                            ? `white`
+                                            : `text-${theme}-lighten-2`
                                     "
-                                    >Dashboard</v-list-item-title
-                                >
-                            </template>
-                        </v-list-item>
-
-                        <v-list-item :to="{ name: 'account-activity' }">
-                            <template v-slot:prepend="{ isActive }">
-                                <v-icon
-                                    :color="
-                                        isActive
-                                            ? `${theme}-darken-2`
-                                            : `${theme}-darken-1`
-                                    "
-                                    icon="summarize"
-                                ></v-icon>
-                            </template>
-
-                            <template v-slot:default="{ isActive }">
-                                <v-list-item-title
-                                    :class="
-                                        isActive
-                                            ? `text-${theme}-darken-2`
-                                            : `text-${theme}-darken-1`
-                                    "
-                                    >Aktifitas</v-list-item-title
-                                >
-                            </template>
-                        </v-list-item>
-
-                        <v-list-item :to="{ name: 'account-notification' }">
-                            <template v-slot:prepend="{ isActive }">
-                                <v-icon
-                                    :color="
-                                        isActive
-                                            ? `${theme}-darken-2`
-                                            : `${theme}-darken-1`
-                                    "
-                                    icon="notifications"
-                                ></v-icon>
-                            </template>
-
-                            <template v-slot:default="{ isActive }">
-                                <v-list-item-title
-                                    :class="
-                                        isActive
-                                            ? `text-${theme}-darken-2`
-                                            : `text-${theme}-darken-1`
-                                    "
-                                    >Notifikasi</v-list-item-title
-                                >
-                            </template>
-                        </v-list-item>
-
-                        <v-list-item :to="{ name: 'account-setting' }">
-                            <template v-slot:prepend="{ isActive }">
-                                <v-icon
-                                    :color="
-                                        isActive
-                                            ? `${theme}-darken-2`
-                                            : `${theme}-darken-1`
-                                    "
-                                    icon="perm_identity"
-                                ></v-icon>
-                            </template>
-
-                            <template v-slot:default="{ isActive }">
-                                <v-list-item-title
-                                    :class="
-                                        isActive
-                                            ? `text-${theme}-darken-2`
-                                            : `text-${theme}-darken-1`
-                                    "
-                                    >Pengaturan</v-list-item-title
+                                    >{{ page.name }}</v-list-item-title
                                 >
                             </template>
                         </v-list-item>
@@ -143,19 +87,7 @@
             </template>
         </v-navigation-drawer>
 
-        <v-main
-            :style="
-                railMode ? `--v-layout-left: 64px` : `--v-layout-left: 260px`
-            "
-        >
-            <div
-                :class="`bg-transparent`"
-                class="rounded-lg overflow-hidden"
-                style="height: calc(100dvh - 8px); width: calc(100% - 4px)"
-            >
-                <router-view key="userbase" />
-            </div>
-        </v-main>
+        <router-view key="userbase" />
 
         <v-overlay
             :model-value="overlay"
@@ -173,12 +105,17 @@
             </v-progress-circular>
         </v-overlay>
 
-        <v-snackbar v-model="snackbar.state" multi-line>
+        <v-snackbar
+            :color="snackbar.color"
+            :timeout="1500"
+            v-model="snackbar.state"
+            multi-line
+        >
             {{ snackbar.text }}
 
             <template v-slot:actions>
                 <v-btn
-                    :color="snackbar.color"
+                    color="white"
                     variant="text"
                     @click="snackbar.state = false"
                 >
@@ -208,11 +145,23 @@ export default {
 
         store.moduleName = props.moduleName;
 
-        const { auth, overlay, railMode, snackbar, theme } = storeToRefs(store);
+        const {
+            auth,
+            appsMenus,
+            geoInitialized,
+            navigationState,
+            overlay,
+            railMode,
+            snackbar,
+            theme,
+        } = storeToRefs(store);
         const { initModule } = store;
 
         return {
             auth,
+            appsMenus,
+            geoInitialized,
+            navigationState,
             overlay,
             railMode,
             snackbar,

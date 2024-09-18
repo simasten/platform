@@ -22,7 +22,7 @@
 
                     <v-toolbar-title
                         class="text-body-2 font-weight-bold text-uppercase"
-                        >Search</v-toolbar-title
+                        >{{ title }}</v-toolbar-title
                     >
 
                     <template v-slot:extension>
@@ -87,6 +87,7 @@ export default {
             default: "two",
         },
         theme: String,
+        title: String,
     },
 
     emits: {
@@ -96,7 +97,12 @@ export default {
     data: () => ({
         dialogStatus: false,
         records: [],
+        htmlTag: [],
     }),
+
+    mounted() {
+        this.htmlTag = document.getElementsByTagName("html");
+    },
 
     methods: {
         onSearchData: debounce(function (val) {
@@ -120,7 +126,13 @@ export default {
         dialogStatus: function (status) {
             if (!status) {
                 this.records = [];
+                this.htmlTag[0].style.overflowY = "scroll";
+
+                return;
             }
+
+            this.htmlTag[0].style.overflowY = "hidden";
+            this.onSearchData(null);
         },
     },
 };
