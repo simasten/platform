@@ -130,7 +130,7 @@
                     </v-chip>
                 </v-divider>
 
-                <slot :record="record" :theme="theme"></slot>
+                <slot :record="record" :store="store" :theme="theme"></slot>
             </v-sheet>
         </v-sheet>
     </v-main>
@@ -170,9 +170,7 @@ export default {
             dockMenus,
             highlight,
             module,
-            navigationState,
             page,
-            pulse,
             railMode,
             record,
             theme,
@@ -181,18 +179,17 @@ export default {
         const { getDashboard } = store;
 
         return {
-            getDashboard,
-
             auth,
             highlight,
             module,
-            navigationState,
             page,
-            pulse,
             railMode,
             record,
             dockMenus,
             theme,
+
+            getDashboard,
+            store,
         };
     },
 

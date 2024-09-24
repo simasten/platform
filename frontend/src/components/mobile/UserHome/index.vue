@@ -63,42 +63,9 @@
     ></v-sheet>
 
     <v-main>
-        <v-sheet class="bg-transparent position-relative px-4 pt-9 pb-4">
-            <v-sheet
-                class="position-absolute"
-                color="transparent"
-                width="calc(100% - 32px)"
-                style="top: 0; z-index: 1"
-            >
-                <div class="d-flex justify-center">
-                    <form-icon>
-                        <v-img
-                            :src="
-                                auth.avatar ??
-                                `/avatars/${auth.gender}-avatar.svg`
-                            "
-                        ></v-img>
-                    </form-icon>
-                </div>
-            </v-sheet>
-
-            <v-sheet
-                class="position-relative pt-7"
-                elevation="1"
-                min-height="calc(100dvh - 172px)"
-                rounded="lg"
-                flat
-            >
-                <v-card-text class="text-center">
-                    <div class="text-body-2 font-weight-medium text-uppercase">
-                        {{ auth.username }}
-                    </div>
-                    <div class="text-caption">{{ auth.usermail }}</div>
-                </v-card-text>
-
-                <slot></slot>
-            </v-sheet>
-        </v-sheet>
+        <v-container class="pt-0">
+            <slot :record="record" :store="store" :theme="theme"></slot>
+        </v-container>
     </v-main>
 </template>
 
@@ -132,10 +99,17 @@ export default {
         store.pageName = props.pageName;
         store.pageKey = props.pageKey;
 
-        const { auth, highlight, modules, navigationState, railMode, theme } =
-            storeToRefs(store);
+        const {
+            auth,
+            highlight,
+            modules,
+            navigationState,
+            record,
+            railMode,
+            theme,
+        } = storeToRefs(store);
 
-        const { signOut } = store;
+        const { getUserDashboard, initPage, signOut } = store;
 
         return {
             auth,
@@ -143,10 +117,22 @@ export default {
             modules,
             navigationState,
             railMode,
+            record,
             theme,
 
+            getUserDashboard,
+            initPage,
             signOut,
+            store,
         };
+    },
+
+    created() {
+        this.initPage();
+    },
+
+    beforeMount() {
+        this.getUserDashboard();
     },
 };
 </script>

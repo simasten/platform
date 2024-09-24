@@ -501,6 +501,12 @@ export const usePageStore = defineStore("pageStore", {
             });
         },
 
+        getUserDashboard() {
+            this.$http(`account/api/dashboard`).then((response) => {
+                this.mapResponseData(response);
+            });
+        },
+
         getUserModules() {
             if (!this.page || (this.page && this.page.slug !== this.pageName)) {
                 this.initPage();
@@ -784,15 +790,14 @@ export const usePageStore = defineStore("pageStore", {
             this.formStateLast = JSON.parse(JSON.stringify(this.formState));
             this.formState = "create";
 
-            if (this.sidenavState) {
-                this.sidenavState = false;
-
-                setTimeout(() => {
-                    this.$router.push({ name: this.page.slug + "-create" });
-                }, 300);
-            } else {
+            // if (this.sidenavState) {
+            //     this.sidenavState = false;
+            setTimeout(() => {
                 this.$router.push({ name: this.page.slug + "-create" });
-            }
+            }, 300);
+            // } else {
+            //     this.$router.push({ name: this.page.slug + "-create" });
+            // }
         },
 
         openFormData() {

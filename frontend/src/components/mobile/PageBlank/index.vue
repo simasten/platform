@@ -80,9 +80,11 @@ export default {
 
     props: {
         maxWidth: {
-            type: String,
+            type: [String, Number],
             default: "500px",
         },
+
+        navbackTo: String,
 
         pagePath: {
             type: String,

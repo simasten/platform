@@ -1,5 +1,63 @@
 <template>
-    <v-sheet color="transparent" class="position-relative">
+    <v-app-bar
+        :color="`${theme}-lighten-5`"
+        :order="1"
+        height="72"
+        scroll-behavior="hide elevate"
+        scroll-threshold="87"
+    >
+        <v-btn
+            icon
+            @click="
+                navbackTo ? $router.push({ name: navbackTo }) : openFormData()
+            "
+        >
+            <v-icon>arrow_back</v-icon>
+        </v-btn>
+
+        <v-toolbar-title class="text-body-2 font-weight-bold text-uppercase">{{
+            page.name
+        }}</v-toolbar-title>
+
+        <v-spacer></v-spacer>
+
+        <v-btn v-if="!hideSave" icon @click="postFormCreate">
+            <v-icon>save</v-icon>
+
+            <v-tooltip activator="parent" location="bottom">Simpan</v-tooltip>
+        </v-btn>
+
+        <v-btn v-if="withHelpdesk" icon @click="helpState = !helpState">
+            <v-icon
+                :style="
+                    helpState
+                        ? 'transform: rotate(180deg)'
+                        : 'transform: rotate(0deg)'
+                "
+                >{{ helpState ? "close" : "menu_open" }}</v-icon
+            >
+
+            <v-tooltip activator="parent" location="bottom"
+                >Informasi</v-tooltip
+            >
+        </v-btn>
+    </v-app-bar>
+
+    <v-main style="min-height: 100dvh">
+        <v-container>
+            <page-paper :max-width="maxWidth">
+                <v-card-text>
+                    <slot
+                        :combos="combos"
+                        :record="record"
+                        :theme="theme"
+                        :store="store"
+                    ></slot>
+                </v-card-text>
+            </page-paper>
+        </v-container>
+    </v-main>
+    <!-- <v-sheet color="transparent" class="position-relative">
         <v-toolbar :color="theme">
             <v-btn
                 color="white"
@@ -106,9 +164,9 @@
                 ></slot>
             </v-sheet>
         </v-sheet>
-    </v-sheet>
+    </v-sheet> -->
 
-    <form-help mode="create" :withActivityLogs="false">
+    <form-help mode="create" :withActivityLogs="withActivityLogs">
         <template v-slot:forminfo>
             <slot name="forminfo" :theme="theme"></slot>
         </template>
@@ -128,9 +186,6 @@ export default {
 
     props: {
         beforePost: Function,
-
-        contentClass: String,
-
         hideSave: Boolean,
 
         maxWidth: {
@@ -138,11 +193,8 @@ export default {
             default: "560px",
         },
 
-        width: {
-            type: String,
-            default: "500px",
-        },
-
+        navbackTo: String,
+        withActivityLogs: Boolean,
         withHelpdesk: Boolean,
     },
 

@@ -1,12 +1,17 @@
 <template>
     <v-layout :class="`bg-blue-grey-lighten-5`">
-        <v-main>
+        <v-main class="position-relative welcome-page playing">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+
             <v-container
                 class="d-flex align-center justify-center"
                 style="min-height: 100dvh"
             >
                 <v-sheet color="transparent" max-width="840" width="100%">
                     <v-sheet
+                        color="rgba(255,255,255,0.95)"
                         class="position-relative pa-8"
                         rounded="xl"
                         width="100%"
@@ -17,8 +22,8 @@
                             style="top: 24px"
                         >
                             <img
-                                src="/assets/pwa-192x192.png"
-                                style="margin-left: -9px; width: 76px"
+                                src="/assets/pwa-76x76.png"
+                                style="margin-left: -2px"
                             />
 
                             <div class="ml-2 text-h4 font-brand">

@@ -5,12 +5,12 @@
         v-model="sidenavState"
         width="360"
         disable-resize-watcher
-        style="height: calc(100dvh)"
+        style="height: calc(100dvh); z-index: 1009"
     >
         <template v-slot:prepend>
             <v-toolbar color="white" height="74">
                 <v-toolbar-title class="text-overline">
-                    {{ helpState ? "INFORMASI" : "UTILITAS" }}
+                    {{ helpState ? "UTILITAS" : "INFORMASI" }}
                 </v-toolbar-title>
 
                 <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
                     icon
                     @click="
                         helpState = !helpState;
-                        tabSidenav = helpState ? 'helpdesk' : 'filter';
+                        tabSidenav = helpState ? 'filter' : 'helpdesk';
                     "
                 >
                     <v-icon
@@ -28,8 +28,8 @@
                                 ? 'transform: rotate(180deg)'
                                 : 'transform: rotate(0deg)'
                         "
-                        >menu_open</v-icon
-                    >
+                        >{{ helpState ? "menu_open" : "filter_list" }}
+                    </v-icon>
                 </v-btn>
             </v-toolbar>
 
@@ -47,215 +47,6 @@
                         class="overflow-hidden rounded-lg"
                         v-model="tabSidenav"
                     >
-                        <v-tabs-window-item class="mt-2" value="filter">
-                            <div
-                                v-if="usetrash"
-                                class="text-overline text-grey-darken-3 px-5 mt-1"
-                            >
-                                <small>mode data</small>
-                            </div>
-
-                            <v-card-text v-if="usetrash" class="px-5 pt-0 pb-2">
-                                <div
-                                    class="d-flex align-center justify-center bg-grey-lighten-4 rounded-lg py-1"
-                                >
-                                    <div
-                                        class="caption flex-grow-1 text-center"
-                                        :class="
-                                            trashed
-                                                ? 'font-weight-normal text-grey'
-                                                : 'font-weight-medium'
-                                        "
-                                    >
-                                        Default
-                                    </div>
-                                    <v-switch
-                                        :disabled="hasSelected"
-                                        density="compact"
-                                        v-model="trashed"
-                                        hide-details
-                                        inset
-                                    ></v-switch>
-                                    <div
-                                        class="caption flex-grow-1 text-center"
-                                        :class="
-                                            trashed
-                                                ? 'font-weight-medium'
-                                                : 'font-weight-normal text-grey'
-                                        "
-                                    >
-                                        Trashed
-                                    </div>
-                                </div>
-                            </v-card-text>
-
-                            <v-divider v-if="usetrash" class="my-2"></v-divider>
-
-                            <div
-                                class="text-overline text-grey-darken-3 px-5 mt-1"
-                            >
-                                <small>pencarian data</small>
-                            </div>
-
-                            <v-card-text class="px-5 pt-0 pb-2">
-                                <v-text-field
-                                    :disabled="hasSelected"
-                                    density="comfortable"
-                                    placeholder="Cari Data"
-                                    v-model="search"
-                                    clearable
-                                    hide-details
-                                ></v-text-field>
-                            </v-card-text>
-
-                            <v-divider
-                                class="my-2"
-                                v-if="
-                                    filters && Object.keys(filters).length > 0
-                                "
-                            ></v-divider>
-
-                            <template
-                                v-for="(filter, indexFilter) in filters"
-                                :key="indexFilter"
-                            >
-                                <div
-                                    class="d-flex text-overline text-grey-darken-3 px-5 align-center mt-2"
-                                >
-                                    <small
-                                        class="text-grey-darken-3 cursor-default"
-                                        >filter {{ filter.title }}</small
-                                    >
-
-                                    <v-spacer></v-spacer>
-
-                                    <v-menu :disabled="hasSelected">
-                                        <template v-slot:activator="{ props }">
-                                            <span
-                                                :class="
-                                                    hasSelected
-                                                        ? 'text-grey-lighten-2'
-                                                        : 'text-blue'
-                                                "
-                                                class="cursor-pointer mr-2"
-                                                v-bind="props"
-                                                >({{ filter.operator }})</span
-                                            >
-                                        </template>
-
-                                        <v-list
-                                            density="compact"
-                                            v-model:selected="filter.operator"
-                                            selectable
-                                        >
-                                            <v-list-item
-                                                v-for="(
-                                                    operator, index
-                                                ) in filter.operators"
-                                                :key="index"
-                                                :title="operator"
-                                                :value="operator"
-                                                density="compact"
-                                            >
-                                            </v-list-item>
-                                        </v-list>
-                                    </v-menu>
-
-                                    <span class="mr-2 text-grey-lighten-2"
-                                        >|</span
-                                    >
-
-                                    <v-btn
-                                        class="text-white"
-                                        :color="
-                                            filter.used
-                                                ? 'orange'
-                                                : 'grey-lighten-2'
-                                        "
-                                        :disabled="
-                                            !(
-                                                filter.value &&
-                                                filter.value !== ''
-                                            )
-                                        "
-                                        density="compact"
-                                        size="small"
-                                        icon="cancel"
-                                        flat
-                                        @click="
-                                            () => {
-                                                filter.value = null;
-                                                filter.used = false;
-                                            }
-                                        "
-                                    ></v-btn>
-                                </div>
-
-                                <v-card-text class="px-5 pt-1 pb-2">
-                                    <v-number-input
-                                        v-if="filter.type === 'NumberInput'"
-                                        :disabled="hasSelected"
-                                        density="comfortable"
-                                        control-variant="default"
-                                        v-model="filter.value"
-                                        @update:modelValue="
-                                            () =>
-                                                (filter.used =
-                                                    filter.value &&
-                                                    filter.value !== '')
-                                        "
-                                        hide-details
-                                        inset
-                                    ></v-number-input>
-
-                                    <v-date-input
-                                        v-if="filter.type === 'DateInput'"
-                                        :disabled="hasSelected"
-                                        density="comfortable"
-                                        prepend-icon=""
-                                        v-model="filter.value"
-                                        @update:modelValue="
-                                            () =>
-                                                (filter.used =
-                                                    filter.value &&
-                                                    filter.value !== '')
-                                        "
-                                        hide-details
-                                        readonly
-                                    ></v-date-input>
-
-                                    <v-select
-                                        v-if="filter.type === 'Select'"
-                                        :disabled="hasSelected"
-                                        :items="filter.data"
-                                        density="comfortable"
-                                        v-model="filter.value"
-                                        hide-details
-                                        @update:modelValue="
-                                            () =>
-                                                (filter.used =
-                                                    filter.value &&
-                                                    filter.value !== '')
-                                        "
-                                    ></v-select>
-                                </v-card-text>
-                            </template>
-
-                            <slot name="utility"></slot>
-
-                            <v-card-text class="flex-grow-1 bg-white">
-                                <v-btn
-                                    :color="theme"
-                                    :disabled="hasSelected"
-                                    rounded="pill"
-                                    block
-                                    flat
-                                    @click="applyFilterData"
-                                    >terapkan filter</v-btn
-                                >
-                            </v-card-text>
-                        </v-tabs-window-item>
-
                         <v-tabs-window-item value="helpdesk">
                             <v-card-text class="px-5">
                                 <div class="text-overline">Form Data</div>
@@ -470,6 +261,215 @@
                                 </table>
                             </v-card-text>
                         </v-tabs-window-item>
+
+                        <v-tabs-window-item class="mt-2" value="filter">
+                            <div
+                                v-if="usetrash"
+                                class="text-overline text-grey-darken-3 px-5 mt-1"
+                            >
+                                <small>mode data</small>
+                            </div>
+
+                            <v-card-text v-if="usetrash" class="px-5 pt-0 pb-2">
+                                <div
+                                    class="d-flex align-center justify-center bg-grey-lighten-4 rounded-lg py-1"
+                                >
+                                    <div
+                                        class="caption flex-grow-1 text-center"
+                                        :class="
+                                            trashed
+                                                ? 'font-weight-normal text-grey'
+                                                : 'font-weight-medium'
+                                        "
+                                    >
+                                        Default
+                                    </div>
+                                    <v-switch
+                                        :disabled="hasSelected"
+                                        density="compact"
+                                        v-model="trashed"
+                                        hide-details
+                                        inset
+                                    ></v-switch>
+                                    <div
+                                        class="caption flex-grow-1 text-center"
+                                        :class="
+                                            trashed
+                                                ? 'font-weight-medium'
+                                                : 'font-weight-normal text-grey'
+                                        "
+                                    >
+                                        Trashed
+                                    </div>
+                                </div>
+                            </v-card-text>
+
+                            <v-divider v-if="usetrash" class="my-2"></v-divider>
+
+                            <div
+                                class="text-overline text-grey-darken-3 px-5 mt-1"
+                            >
+                                <small>pencarian data</small>
+                            </div>
+
+                            <v-card-text class="px-5 pt-0 pb-2">
+                                <v-text-field
+                                    :disabled="hasSelected"
+                                    density="comfortable"
+                                    placeholder="Cari Data"
+                                    v-model="search"
+                                    clearable
+                                    hide-details
+                                ></v-text-field>
+                            </v-card-text>
+
+                            <v-divider
+                                class="my-2"
+                                v-if="
+                                    filters && Object.keys(filters).length > 0
+                                "
+                            ></v-divider>
+
+                            <template
+                                v-for="(filter, indexFilter) in filters"
+                                :key="indexFilter"
+                            >
+                                <div
+                                    class="d-flex text-overline text-grey-darken-3 px-5 align-center mt-2"
+                                >
+                                    <small
+                                        class="text-grey-darken-3 cursor-default"
+                                        >filter {{ filter.title }}</small
+                                    >
+
+                                    <v-spacer></v-spacer>
+
+                                    <v-menu :disabled="hasSelected">
+                                        <template v-slot:activator="{ props }">
+                                            <span
+                                                :class="
+                                                    hasSelected
+                                                        ? 'text-grey-lighten-2'
+                                                        : 'text-blue'
+                                                "
+                                                class="cursor-pointer mr-2"
+                                                v-bind="props"
+                                                >({{ filter.operator }})</span
+                                            >
+                                        </template>
+
+                                        <v-list
+                                            density="compact"
+                                            v-model:selected="filter.operator"
+                                            selectable
+                                        >
+                                            <v-list-item
+                                                v-for="(
+                                                    operator, index
+                                                ) in filter.operators"
+                                                :key="index"
+                                                :title="operator"
+                                                :value="operator"
+                                                density="compact"
+                                            >
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+
+                                    <span class="mr-2 text-grey-lighten-2"
+                                        >|</span
+                                    >
+
+                                    <v-btn
+                                        class="text-white"
+                                        :color="
+                                            filter.used
+                                                ? 'orange'
+                                                : 'grey-lighten-2'
+                                        "
+                                        :disabled="
+                                            !(
+                                                filter.value &&
+                                                filter.value !== ''
+                                            )
+                                        "
+                                        density="compact"
+                                        size="small"
+                                        icon="cancel"
+                                        flat
+                                        @click="
+                                            () => {
+                                                filter.value = null;
+                                                filter.used = false;
+                                            }
+                                        "
+                                    ></v-btn>
+                                </div>
+
+                                <v-card-text class="px-5 pt-1 pb-2">
+                                    <v-number-input
+                                        v-if="filter.type === 'NumberInput'"
+                                        :disabled="hasSelected"
+                                        density="comfortable"
+                                        control-variant="default"
+                                        v-model="filter.value"
+                                        @update:modelValue="
+                                            () =>
+                                                (filter.used =
+                                                    filter.value &&
+                                                    filter.value !== '')
+                                        "
+                                        hide-details
+                                        inset
+                                    ></v-number-input>
+
+                                    <v-date-input
+                                        v-if="filter.type === 'DateInput'"
+                                        :disabled="hasSelected"
+                                        density="comfortable"
+                                        prepend-icon=""
+                                        v-model="filter.value"
+                                        @update:modelValue="
+                                            () =>
+                                                (filter.used =
+                                                    filter.value &&
+                                                    filter.value !== '')
+                                        "
+                                        hide-details
+                                        readonly
+                                    ></v-date-input>
+
+                                    <v-select
+                                        v-if="filter.type === 'Select'"
+                                        :disabled="hasSelected"
+                                        :items="filter.data"
+                                        density="comfortable"
+                                        v-model="filter.value"
+                                        hide-details
+                                        @update:modelValue="
+                                            () =>
+                                                (filter.used =
+                                                    filter.value &&
+                                                    filter.value !== '')
+                                        "
+                                    ></v-select>
+                                </v-card-text>
+                            </template>
+
+                            <slot name="utility"></slot>
+
+                            <v-card-text class="flex-grow-1 bg-white">
+                                <v-btn
+                                    :color="theme"
+                                    :disabled="hasSelected"
+                                    rounded="pill"
+                                    block
+                                    flat
+                                    @click="applyFilterData"
+                                    >terapkan filter</v-btn
+                                >
+                            </v-card-text>
+                        </v-tabs-window-item>
                     </v-tabs-window>
                 </v-sheet>
             </v-sheet>
@@ -518,7 +518,7 @@ export default {
     },
 
     data: () => ({
-        tabSidenav: "filter",
+        tabSidenav: "helpdesk",
     }),
 
     methods: {

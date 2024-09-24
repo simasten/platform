@@ -24,26 +24,6 @@
                         </div>
                     </div>
                 </div>
-                <v-divider></v-divider>
-                <!-- <v-toolbar :color="theme" rounded="t-lg">
-                    <v-avatar class="ml-2 mr-1" :color="`${theme}-lighten-3`">
-                        <v-img
-                            :src="
-                                auth.avatar ??
-                                `/avatars/${auth.gender}-avatar.svg`
-                            "
-                        ></v-img>
-                    </v-avatar>
-
-                    <v-toolbar-title class="text-white" v-if="auth">
-                        <div class="text-body-2">
-                            {{ auth.username }}
-                        </div>
-                        <div class="text-caption" style="line-height: 1">
-                            <small>{{ auth.usermail }}</small>
-                        </div>
-                    </v-toolbar-title>
-                </v-toolbar> -->
             </template>
 
             <template v-slot:default>
@@ -92,6 +72,7 @@
         <v-overlay
             :model-value="overlay"
             class="align-center justify-center"
+            opacity="0.2"
             scroll-strategy="block"
             persistent
         >

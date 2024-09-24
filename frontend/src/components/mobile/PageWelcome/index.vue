@@ -1,6 +1,10 @@
 <template>
     <v-layout :class="`bg-blue-grey-lighten-5`">
-        <v-main>
+        <v-main class="position-relative welcome-page playing">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+
             <v-sheet
                 color="transparent"
                 class="mx-auto text-center position-relative px-8 pb-9"
@@ -23,6 +27,7 @@
                 </div>
 
                 <v-sheet
+                    color="rgba(255, 255, 255, 0.95)"
                     rounded="lg"
                     class="mx-auto overflow-hidden pa-4"
                     width="100%"

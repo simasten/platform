@@ -1,46 +1,38 @@
 <template>
     <v-layout :class="`bg-${theme}-lighten-5`">
-        <v-system-bar color="transparent" height="4"></v-system-bar>
-
         <v-navigation-drawer
-            color="transparent"
-            style="height: calc(100dvh - 8px); padding-left: 4px"
-            rail-width="60"
+            color="white"
+            rail-width="68"
             disable-resize-watcher
             permanent
             :rail="railMode"
         >
             <template v-slot:prepend>
-                <v-toolbar :color="theme" rounded="t-lg">
-                    <v-avatar class="ml-2 mr-1" :color="`${theme}-lighten-3`">
-                        <v-img
-                            :src="
-                                auth.avatar ??
-                                `/avatars/${auth.gender}-avatar.svg`
-                            "
-                        ></v-img>
-                    </v-avatar>
+                <div class="d-flex align-center px-1" style="height: 72px">
+                    <img src="/assets/pwa-60x60.png" style="margin-left: 0px" />
 
-                    <v-toolbar-title class="text-white" v-if="auth">
-                        <div class="text-body-2">
-                            {{ auth.username }}
+                    <div class="d-flex flex-column pl-3">
+                        <div class="text-h5 font-brand">
+                            SiMAS<span class="sub-color">TEN</span>
                         </div>
-                        <div class="text-caption" style="line-height: 1">
-                            <small>{{ auth.usermail }}</small>
+
+                        <div
+                            class="text-caption text-grey"
+                            style="line-height: 1"
+                        >
+                            version 3.0.0
                         </div>
-                    </v-toolbar-title>
-                </v-toolbar>
+                    </div>
+                </div>
             </template>
 
             <template v-slot:default>
                 <div
-                    :class="`bg-${theme}`"
-                    class="position-relative h-100 rounded-b-lg overflow-hidden"
+                    class="position-relative bg-white h-100 py-2 px-1 overflow-hidden"
                 >
                     <v-list
-                        :active-class="`bg-${theme}-lighten-5`"
-                        :class="`bg-${theme}-lighten-5`"
-                        class="h-100 rounded-t-lg"
+                        :active-class="`bg-${theme}-darken-1`"
+                        class="h-100"
                         nav
                     >
                         <v-list-item
@@ -52,8 +44,8 @@
                                 <v-icon
                                     :color="
                                         isActive
-                                            ? `${theme}-darken-2`
-                                            : `${theme}-darken-1`
+                                            ? `white`
+                                            : `${theme}-lighten-2`
                                     "
                                     :icon="item.icon"
                                 ></v-icon>
@@ -63,8 +55,8 @@
                                 <v-list-item-title
                                     :class="
                                         isActive
-                                            ? `text-${theme}-darken-2`
-                                            : `text-${theme}-darken-1`
+                                            ? `white`
+                                            : `text-${theme}-lighten-2`
                                     "
                                     >{{ item.name }}</v-list-item-title
                                 >
@@ -80,6 +72,7 @@
         <v-overlay
             :model-value="overlay"
             class="align-center justify-center"
+            opacity="0.2"
             scroll-strategy="block"
             persistent
         >
@@ -93,12 +86,17 @@
             </v-progress-circular>
         </v-overlay>
 
-        <v-snackbar v-model="snackbar.state" multi-line>
+        <v-snackbar
+            :color="snackbar.color"
+            :timeout="1500"
+            v-model="snackbar.state"
+            multi-line
+        >
             {{ snackbar.text }}
 
             <template v-slot:actions>
                 <v-btn
-                    :color="snackbar.color"
+                    color="white"
                     variant="text"
                     @click="snackbar.state = false"
                 >
