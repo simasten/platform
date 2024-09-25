@@ -803,7 +803,7 @@ export const usePageStore = defineStore("pageStore", {
         openFormData() {
             this.formStateLast = JSON.parse(JSON.stringify(this.formState));
             this.record = JSON.parse(JSON.stringify(this.recordBase));
-            this.helpState = false;
+            // this.helpState = false;
 
             if (this.formState === "create") {
                 this.search = null;

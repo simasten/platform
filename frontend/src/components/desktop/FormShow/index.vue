@@ -152,14 +152,12 @@
     <v-main style="min-height: 100dvh">
         <v-container>
             <page-paper :max-width="maxWidth">
-                <v-card-text>
-                    <slot
-                        :combos="combos"
-                        :record="record"
-                        :theme="theme"
-                        :store="store"
-                    ></slot>
-                </v-card-text>
+                <slot
+                    :combos="combos"
+                    :record="record"
+                    :theme="theme"
+                    :store="store"
+                ></slot>
             </page-paper>
         </v-container>
     </v-main>

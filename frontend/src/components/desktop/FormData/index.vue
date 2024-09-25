@@ -183,7 +183,9 @@ export default {
             pageKey,
             params,
             parentName,
+            record,
             records,
+            recordBase,
             railMode,
             sidenavState,
             selected,
@@ -209,7 +211,9 @@ export default {
             pageKey,
             params,
             parentName,
+            record,
             records,
+            recordBase,
             railMode,
             sidenavState,
             selected,
@@ -246,6 +250,18 @@ export default {
         params: {
             handler: function (newOptions) {
                 this.getPageDatas(newOptions);
+            },
+
+            deep: true,
+            immediate: true,
+        },
+
+        selected: {
+            handler: function (selected) {
+                this.record =
+                    selected.length > 0
+                        ? JSON.parse(JSON.stringify(selected[0]))
+                        : JSON.parse(JSON.stringify(this.recordBase));
             },
 
             deep: true,

@@ -20,19 +20,14 @@
             <v-tooltip activator="parent" location="bottom">Simpan</v-tooltip>
         </v-btn>
 
-        <v-btn
-            v-if="withHelpdesk"
-            :color="helpState ? 'white' : `${theme}-lighten-3`"
-            icon
-            @click="helpState = !helpState"
-        >
+        <v-btn v-if="withHelpdesk" icon @click="helpState = !helpState">
             <v-icon
                 :style="
                     helpState
                         ? 'transform: rotate(180deg)'
                         : 'transform: rotate(0deg)'
                 "
-                >menu_open</v-icon
+                >{{ helpState ? "close" : "menu_open" }}</v-icon
             >
 
             <v-tooltip activator="parent" location="bottom"
@@ -44,14 +39,12 @@
     <v-main style="min-height: 100dvh">
         <v-container>
             <page-paper :max-width="maxWidth">
-                <v-card-text>
-                    <slot
-                        :combos="combos"
-                        :record="record"
-                        :theme="theme"
-                        :store="store"
-                    ></slot>
-                </v-card-text>
+                <slot
+                    :combos="combos"
+                    :record="record"
+                    :theme="theme"
+                    :store="store"
+                ></slot>
             </page-paper>
         </v-container>
     </v-main>
