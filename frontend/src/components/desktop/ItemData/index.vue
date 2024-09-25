@@ -3,7 +3,7 @@
         <td>
             <v-checkbox-btn
                 :model-value="isSelected(internalItem)"
-                color="primary"
+                color="blue-grey"
                 @update:model-value="toggleSelect(internalItem)"
             ></v-checkbox-btn>
         </td>
@@ -16,7 +16,11 @@
             :isSelected="isSelected"
             :toggleSelect="toggleSelect"
         >
-            <td v-for="(column, colIndex) in headers" :key="colIndex">
+            <td
+                v-for="(column, colIndex) in headers"
+                :key="colIndex"
+                @click="toggleSelect(internalItem)"
+            >
                 {{ item[column.value] }}
             </td>
         </slot>

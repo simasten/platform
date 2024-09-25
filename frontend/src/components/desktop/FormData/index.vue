@@ -92,7 +92,6 @@
                     select-strategy="single"
                     return-object
                     show-select
-                    @click:row="clickOnRow"
                     @update:options="loadItems"
                 >
                     <template
@@ -234,9 +233,9 @@ export default {
     },
 
     methods: {
-        clickOnRow: function (event, { item }) {
-            this.setSelected(item);
-        },
+        // clickOnRow: function (event, { item }) {
+        //     this.setSelected(item);
+        // },
 
         loadItems: function (tableOptions) {
             this.getPageDatas(tableOptions);
