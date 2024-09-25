@@ -61,6 +61,21 @@
                                     >
                                 </div>
 
+                                <template v-if="withSync">
+                                    <div class="text-overline mt-6">
+                                        SYNC Data
+                                    </div>
+                                    <v-divider></v-divider>
+
+                                    <v-card-text class="mt-3 pa-0">
+                                        <slot
+                                            name="syncdata"
+                                            :parent="parent"
+                                            :mapResponseData="mapResponseData"
+                                        ></slot>
+                                    </v-card-text>
+                                </template>
+
                                 <div class="text-overline mt-6">Utilitas</div>
                                 <v-divider></v-divider>
 
@@ -484,6 +499,10 @@ import { storeToRefs } from "pinia";
 export default {
     name: "page-filter",
 
+    props: {
+        withSync: Boolean,
+    },
+
     setup() {
         const store = usePageStore();
 
@@ -493,13 +512,15 @@ export default {
             helpState,
             page,
             params,
+            parent,
             sidenavState,
             search,
             trashed,
             theme,
             usetrash,
         } = storeToRefs(store);
-        const { getPageDatas } = store;
+
+        const { getPageDatas, mapResponseData } = store;
 
         return {
             filters,
@@ -507,6 +528,7 @@ export default {
             helpState,
             page,
             params,
+            parent,
             sidenavState,
             search,
             trashed,
@@ -514,6 +536,7 @@ export default {
             usetrash,
 
             getPageDatas,
+            mapResponseData,
         };
     },
 
