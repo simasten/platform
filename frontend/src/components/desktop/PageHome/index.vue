@@ -43,7 +43,7 @@
                             : { maxWidth: '640px' }
                     "
                 >
-                    <v-row justify="center" align="center" dense>
+                    <v-row justify="center" dense>
                         <v-col
                             v-for="(page, index) in dockMenus"
                             class="d-flex justify-center"

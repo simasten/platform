@@ -171,8 +171,25 @@ html {
     }
 }
 
+.v-icon {
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: width, height;
+}
+
 .v-icon.with-shadow {
     text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.v-icon--wght-200 {
+    font-variation-settings: 'wght' 200;
+}
+
+.v-icon--wght-250 {
+    font-variation-settings: 'wght' 250;
+}
+
+.v-icon--wght-300 {
+    font-variation-settings: 'wght' 300;
 }
 
 .v-icon--size-dialog {
