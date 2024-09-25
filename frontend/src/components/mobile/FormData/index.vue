@@ -120,7 +120,7 @@
                 >
                     <template v-for="(record, index) in records">
                         <slot
-                            name="mobile"
+                            name="listItem"
                             :index="index"
                             :record="record"
                             :showDelete="showDelete"

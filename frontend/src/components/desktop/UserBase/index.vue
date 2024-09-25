@@ -1,34 +1,20 @@
 <template>
     <v-layout :class="`bg-${theme}-lighten-5`">
         <v-navigation-drawer
-            color="white"
-            rail-width="68"
+            :color="`${theme}-darken-1`"
+            rail-width="65"
             disable-resize-watcher
             permanent
             :rail="railMode"
         >
             <template v-slot:prepend>
-                <div class="d-flex align-center px-1" style="height: 72px">
-                    <img src="/assets/pwa-60x60.png" style="margin-left: 0px" />
-
-                    <div class="d-flex flex-column pl-3">
-                        <div class="text-h5 font-brand">
-                            SiMAS<span class="sub-color">TEN</span>
-                        </div>
-
-                        <div
-                            class="text-caption text-grey"
-                            style="line-height: 1"
-                        >
-                            version 3.0.0
-                        </div>
-                    </div>
-                </div>
+                <part-logo></part-logo>
             </template>
 
             <template v-slot:default>
                 <div
-                    class="position-relative bg-white h-100 py-2 px-1 overflow-hidden"
+                    :class="`bg-${theme}-darken-1`"
+                    class="position-relative h-100 py-2 px-1 overflow-hidden"
                 >
                     <v-list
                         :active-class="`bg-${theme}-darken-1`"

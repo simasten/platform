@@ -897,7 +897,9 @@ export const usePageStore = defineStore("pageStore", {
                     (rc) => rc[this.key] === record[this.key]
                 );
 
-                this.records.splice(index, 1);
+                if (index !== -1) {
+                    this.records.splice(index, 1);
+                }
 
                 this.openFormData();
 
@@ -924,7 +926,11 @@ export const usePageStore = defineStore("pageStore", {
                     (rc) => rc[this.key] === record[this.key]
                 );
 
-                this.records[index] = record;
+                if (index !== -1) {
+                    Object.keys(record).forEach((key) => {
+                        this.records[index][key] = record[key];
+                    });
+                }
 
                 this.openFormData();
 
@@ -955,7 +961,9 @@ export const usePageStore = defineStore("pageStore", {
                     (rc) => rc[this.key] === record[this.key]
                 );
 
-                this.records.splice(index, 1);
+                if (index !== -1) {
+                    this.records.splice(index, 1);
+                }
 
                 this.openFormData();
 
@@ -986,7 +994,9 @@ export const usePageStore = defineStore("pageStore", {
                     (rc) => rc[this.key] === record[this.key]
                 );
 
-                this.records.splice(index, 1);
+                if (index !== -1) {
+                    this.records.splice(index, 1);
+                }
 
                 this.openFormData();
 

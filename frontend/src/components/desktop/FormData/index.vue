@@ -94,7 +94,36 @@
                     show-select
                     @click:row="clickOnRow"
                     @update:options="loadItems"
-                ></v-data-table-server>
+                >
+                    <template
+                        v-slot:item="{
+                            internalItem,
+                            isSelected,
+                            toggleSelect,
+                            item,
+                            index,
+                        }"
+                    >
+                        <slot
+                            name="tableRow"
+                            :headers="headers"
+                            :item="item"
+                            :index="index"
+                            :internalItem="internalItem"
+                            :isSelected="isSelected"
+                            :toggleSelect="toggleSelect"
+                        >
+                            <item-data
+                                :headers="headers"
+                                :item="item"
+                                :index="index"
+                                :internalItem="internalItem"
+                                :isSelected="isSelected"
+                                :toggleSelect="toggleSelect"
+                            ></item-data>
+                        </slot>
+                    </template>
+                </v-data-table-server>
             </page-paper>
         </v-container>
     </v-main>
