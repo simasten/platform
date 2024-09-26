@@ -47,66 +47,18 @@
                         <v-col
                             v-for="(page, index) in dockMenus"
                             class="d-flex justify-center"
-                            cols="2"
-                            lg="1"
+                            cols="1"
+                            sm="2"
                             :key="index"
                         >
-                            <v-hover>
-                                <template
-                                    v-slot:default="{ isHovering, props }"
-                                >
-                                    <v-sheet
-                                        v-bind="props"
-                                        :color="`${theme}-lighten-5`"
-                                        class="mt-4 cursor-pointer border-thin"
-                                        width="84"
-                                        rounded="lg"
-                                        @click="openPage(page)"
-                                    >
-                                        <v-sheet
-                                            class="position-relative text-center"
-                                            style="margin-top: 40px"
-                                        >
-                                            <div
-                                                class="d-flex justify-center position-absolute w-100"
-                                            >
-                                                <v-avatar
-                                                    :color="`${highlight}-darken-1`"
-                                                    :class="
-                                                        isHovering
-                                                            ? 'elevation-6'
-                                                            : 'elevation-2'
-                                                    "
-                                                    class="position-absolute"
-                                                    rounded="lg"
-                                                    size="56"
-                                                    style="bottom: 0"
-                                                >
-                                                    <v-icon
-                                                        :color="
-                                                            isHovering
-                                                                ? `${theme}-darken-2`
-                                                                : `${theme}-lighten-1`
-                                                        "
-                                                        :icon="page.icon"
-                                                        size="26"
-                                                    ></v-icon>
-                                                </v-avatar>
-                                            </div>
-                                        </v-sheet>
-
-                                        <v-card-text
-                                            class="px-2 py-2 d-flex align-center justify-center text-center text-caption"
-                                            style="
-                                                line-height: 1.1;
-                                                height: 42px;
-                                            "
-                                        >
-                                            {{ page.name }}
-                                        </v-card-text>
-                                    </v-sheet>
-                                </template>
-                            </v-hover>
+                            <widget-apps
+                                :color="`${highlight}-darken-1`"
+                                :highlight="`white`"
+                                :icon="page.icon"
+                                :label="page.name"
+                                rounded="xl"
+                                @click="openPage(page)"
+                            ></widget-apps>
                         </v-col>
                     </v-row>
                 </v-sheet>

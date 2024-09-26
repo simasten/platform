@@ -82,7 +82,7 @@ export default {
         textRight: String,
         maxWidth: {
             type: [String, Number],
-            default: "900",
+            default: "100%",
         },
         userAvatar: Boolean,
     },

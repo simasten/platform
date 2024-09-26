@@ -3,30 +3,27 @@
         <template v-slot:default="{ isHovering, props }">
             <v-sheet
                 v-bind="props"
-                :max-width="maxWidth"
-                class="text-center mx-auto cursor-pointer"
-                rounded="md"
+                class="d-flex flex-column align-center py-2"
                 @click="$emit('click')"
                 flat
             >
-                <v-card-text class="pa-1 text-center">
+                <v-avatar
+                    :color="`${color}`"
+                    :class="[
+                        `text-${highlight}`,
+                        isHovering ? 'elevation-8' : 'elevation-2',
+                    ]"
+                    :rounded="rounded"
+                    class="position-relative d-flex align-center justify-center outer cursor-pointer"
+                    size="72"
+                >
                     <v-avatar
-                        :color="`${color}-lighten-1`"
-                        :class="isHovering ? 'elevation-6' : 'elevation-0'"
                         class="position-relative"
-                        style="font-size: 16px"
-                        size="64"
-                        rounded="pill"
+                        :color="`${color}`"
+                        :rounded="rounded"
+                        size="68"
+                        style="z-index: 1"
                     >
-                        <v-icon
-                            v-if="isHovering"
-                            class="position-absolute"
-                            color="rgba(255, 255, 255, 0.06)"
-                            :icon="icon"
-                            :size="64"
-                            style="z-index: 0"
-                        ></v-icon>
-
                         <v-icon
                             class="position-relative v-icon--wght-250"
                             :color="highlight"
@@ -35,16 +32,14 @@
                             style="z-index: 1"
                         ></v-icon>
                     </v-avatar>
-                </v-card-text>
+                </v-avatar>
 
-                <v-card-text class="pt-2">
-                    <div
-                        class="text-caption font-weight-default d-flex justify-center w-100"
-                        style="line-height: 1.1em"
-                    >
-                        {{ label }}
-                    </div>
-                </v-card-text>
+                <div
+                    class="text-caption font-weight-default d-flex justify-center pt-3 w-100"
+                    style="line-height: 1.1em"
+                >
+                    {{ label }}
+                </div>
             </v-sheet>
         </template>
     </v-hover>
@@ -63,6 +58,10 @@ export default {
             type: String,
             default: "96",
         },
+        rounded: {
+            type: String,
+            default: "pill",
+        },
     },
 
     emits: {
@@ -70,3 +69,60 @@ export default {
     },
 };
 </script>
+
+<style>
+.v-avatar.outer::after {
+    opacity: 0;
+    content: "";
+    position: absolute;
+    display: block;
+    width: 56px;
+    height: 72px;
+    transform: rotate(0deg) translateY(-50%);
+    background: linear-gradient(90deg, transparent, currentColor);
+    transition: opacity 300ms;
+    animation: rotation_9019 3000ms infinite linear;
+    animation-play-state: paused;
+    z-index: 0;
+}
+
+.v-avatar.outer::before {
+    opacity: 0;
+    content: "";
+    position: absolute;
+    display: block;
+    width: 56px;
+    height: 72px;
+    transform: rotate(0deg) translateY(50%);
+    background: linear-gradient(90deg, currentColor, transparent);
+    transition: opacity 300ms;
+    animation: rotation_9018 3000ms infinite linear;
+    animation-play-state: paused;
+    z-index: 0;
+}
+
+.v-avatar.outer:hover::after,
+.v-avatar.outer:hover::before {
+    opacity: 0.6;
+    animation-play-state: running;
+}
+
+@keyframes rotation_9018 {
+    0% {
+        transform: rotate(0deg) translateY(50%);
+    }
+
+    100% {
+        transform: rotate(360deg) translateY(50%);
+    }
+}
+@keyframes rotation_9019 {
+    0% {
+        transform: rotate(0deg) translateY(-50%);
+    }
+
+    100% {
+        transform: rotate(360deg) translateY(-50%);
+    }
+}
+</style>
