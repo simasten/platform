@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes(): void
     {
-        // $domain = Cache::rememberForever('$MODULE_LOWER$-domain', function() {
+        // $domain = Cache::flexible('$MODULE_LOWER$-domain', [60, 3600], function() {
         //    try {
         //        return optional(DB::table('system_modules')->where('slug', '$MODULE_LOWER$')->first())->domain ?: 'backend';
         //    } catch (\Exception $e) {
@@ -50,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
         //    }
         // });
 
-        // $prefix = Cache::rememberForever('$MODULE_LOWER$-prefix', function() {
+        // $prefix = Cache::flexible('$MODULE_LOWER$-prefix', [60, 3600], function() {
         //    try {
         //        return optional(DB::table('system_modules')->where('slug', '$MODULE_LOWER$')->first())->prefix ?: null;
         //    } catch (\Exception $e) {
@@ -74,7 +74,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-        $domain = Cache::rememberForever('$MODULE_LOWER$-domain', function() {
+        $domain = Cache::flexible('$MODULE_LOWER$-domain', [60, 3600], function() {
             try {
                 return optional(DB::table('system_modules')->where('slug', '$MODULE_LOWER$')->first())->domain ?: 'backend';
             } catch (\Exception $e) {
@@ -82,7 +82,7 @@ class RouteServiceProvider extends ServiceProvider
             }
         });
 
-        $prefix = Cache::rememberForever('$MODULE_LOWER$-prefix', function() {
+        $prefix = Cache::flexible('$MODULE_LOWER$-prefix', [60, 3600], function() {
             try {
                 return optional(DB::table('system_modules')->where('slug', '$MODULE_LOWER$')->first())->prefix ?: null;
             } catch (\Exception $e) {

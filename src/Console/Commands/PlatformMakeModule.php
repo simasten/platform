@@ -144,8 +144,8 @@ class PlatformMakeModule extends Command
 
         $this->modulePath = base_path(
             'modules' .
-            DIRECTORY_SEPARATOR .
-            str($this->moduleName)->lower()->toString()
+                DIRECTORY_SEPARATOR .
+                str($this->moduleName)->lower()->toString()
         );
 
         /** GENERATE FOLDER */
@@ -159,7 +159,7 @@ class PlatformMakeModule extends Command
             Cache::forget('modules');
         }
 
-        Cache::rememberForever('modules', function () {
+        Cache::flexible('modules', [60, 3600], function () {
             $modules = [];
 
             /** Scan All-Module Except System */

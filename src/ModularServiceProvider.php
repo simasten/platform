@@ -173,7 +173,7 @@ class ModularServiceProvider extends ServiceProvider
     {
         Cache::forget('modules');
 
-        return Cache::rememberForever('modules', function () {
+        return Cache::flexible('modules', [60, 3600], function () {
             $modules = [];
 
             /** Scan All-Module Except System */
