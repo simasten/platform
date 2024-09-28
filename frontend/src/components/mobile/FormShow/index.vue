@@ -228,18 +228,22 @@
     </v-main>
 
     <form-help mode="show" :withActivityLogs="withActivityLogs">
-        <template v-slot:info>
-            <slot name="info" :theme="theme"></slot>
+        <template v-slot:feed>
+            <slot name="feed" :theme="theme"></slot>
         </template>
 
-        <template v-slot:default>
+        <template v-slot:info>
             <slot
-                name="helpdesk"
+                name="info"
                 :mapResponseData="mapResponseData"
                 :record="record"
                 :theme="theme"
                 :store="store"
             ></slot>
+        </template>
+
+        <template v-slot:icon>
+            <slot name="icon" :theme="theme"></slot>
         </template>
     </form-help>
 </template>

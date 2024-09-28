@@ -21,16 +21,15 @@
 
         <template v-slot:default>
             <v-card-text>
-                <div class="text-overline">Form</div>
-                <v-divider></v-divider>
+                <v-alert border="start" color="green" variant="tonal">
+                    <slot name="feed">
+                        <div class="text-caption text-justify">
+                            Form ini berfungsi untuk menampilkan form data.
+                        </div>
+                    </slot>
+                </v-alert>
 
-                <div class="text-caption text-grey-darken-1 pt-2">
-                    <slot name="info"
-                        >Form ini berfungsi untuk menampilkan form data.</slot
-                    >
-                </div>
-
-                <slot></slot>
+                <slot name="info"></slot>
 
                 <slot name="icon">
                     <widget-icon :mode="mode"></widget-icon>

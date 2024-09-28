@@ -163,12 +163,12 @@
     </v-main>
 
     <form-help mode="show" :withActivityLogs="withActivityLogs">
-        <template v-slot:info>
-            <slot name="info" :theme="theme"></slot>
+        <template v-slot:feed>
+            <slot name="feed" :theme="theme"></slot>
         </template>
 
-        <template v-slot:default>
-            <slot name="help" :theme="theme"></slot>
+        <template v-slot:info>
+            <slot name="info" :theme="theme"></slot>
         </template>
 
         <template v-slot:icon>
