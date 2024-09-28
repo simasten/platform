@@ -171,12 +171,12 @@
             ></slot>
         </template>
 
-        <template v-slot:forminfo>
-            <slot name="forminfo" :store="store" :theme="theme"></slot>
+        <template v-slot:info>
+            <slot name="info" :store="store" :theme="theme"></slot>
         </template>
 
-        <template v-slot:helpdesk>
-            <slot name="helpdesk" :store="store" :theme="theme"></slot>
+        <template v-slot:default>
+            <slot name="help" :store="store" :theme="theme"></slot>
         </template>
 
         <template v-slot:utility>

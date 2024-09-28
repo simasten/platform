@@ -174,12 +174,12 @@
     </v-sheet> -->
 
     <form-help mode="create" :withActivityLogs="withActivityLogs">
-        <template v-slot:forminfo>
-            <slot name="forminfo" :theme="theme"></slot>
+        <template v-slot:info>
+            <slot name="info" :theme="theme"></slot>
         </template>
 
-        <template v-slot:helpdesk>
-            <slot name="helpdesk" :theme="theme"></slot>
+        <template v-slot:default>
+            <slot name="help" :theme="theme"></slot>
         </template>
     </form-help>
 </template>

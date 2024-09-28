@@ -88,13 +88,13 @@
                         <v-divider></v-divider>
 
                         <div class="text-caption text-grey-darken-1 pt-2">
-                            <slot name="forminfo"
+                            <slot name="info"
                                 >Form ini berfungsi untuk menampilkan form
                                 data.</slot
                             >
                         </div>
 
-                        <slot name="helpdesk" :theme="theme"></slot>
+                        <slot name="help" :theme="theme"></slot>
 
                         <widget-icon :mode="mode"></widget-icon>
 

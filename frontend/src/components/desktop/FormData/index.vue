@@ -53,9 +53,13 @@
     </v-app-bar>
 
     <page-filter :withSync="withSync">
-        <template v-slot:syncdata="{ mapResponseData, parent }">
+        <template v-slot:feed>
+            <slot name="feed" :theme="theme"></slot>
+        </template>
+
+        <template v-slot:sync="{ mapResponseData, parent }">
             <slot
-                name="syncdata"
+                name="sync"
                 :mapResponseData="mapResponseData"
                 :params="params"
                 :parent="parent"
@@ -64,16 +68,16 @@
             ></slot>
         </template>
 
-        <template v-slot:forminfo>
-            <slot name="forminfo" :store="store" :theme="theme"></slot>
+        <template v-slot:info>
+            <slot name="info" :store="store" :theme="theme"></slot>
         </template>
 
-        <template v-slot:helpdesk>
-            <slot name="helpdesk" :store="store" :theme="theme"></slot>
+        <template v-slot:filter>
+            <slot name="filter" :store="store" :theme="theme"></slot>
         </template>
 
-        <template v-slot:utility>
-            <slot name="utility" :store="store" :theme="theme"></slot>
+        <template v-slot:icon>
+            <slot name="icon" :store="store" :theme="theme"></slot>
         </template>
     </page-filter>
 

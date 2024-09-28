@@ -102,7 +102,7 @@
     </v-main>
 
     <form-help mode="edit" :withActivityLogs="withActivityLogs">
-        <template v-slot:forminfo>
+        <template v-slot:info>
             <slot
                 name="forminfo"
                 :record="record"
@@ -111,7 +111,7 @@
             ></slot>
         </template>
 
-        <template v-slot:helpdesk>
+        <template v-slot:default>
             <slot
                 name="helpdesk"
                 :record="record"

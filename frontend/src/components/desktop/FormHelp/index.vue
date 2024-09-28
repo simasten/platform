@@ -25,14 +25,16 @@
                 <v-divider></v-divider>
 
                 <div class="text-caption text-grey-darken-1 pt-2">
-                    <slot name="forminfo"
+                    <slot name="info"
                         >Form ini berfungsi untuk menampilkan form data.</slot
                     >
                 </div>
 
-                <slot name="helpdesk"></slot>
+                <slot></slot>
 
-                <widget-icon :mode="mode"></widget-icon>
+                <slot name="icon">
+                    <widget-icon :mode="mode"></widget-icon>
+                </slot>
 
                 <widget-activity v-if="withActivityLogs"></widget-activity>
             </v-card-text>

@@ -100,11 +100,11 @@
     </v-main>
 
     <form-help mode="show" :withActivityLogs="withActivityLogs">
-        <template v-slot:forminfo>
-            <slot name="forminfo" :theme="theme"></slot>
+        <template v-slot:info>
+            <slot name="info" :theme="theme"></slot>
         </template>
 
-        <template v-slot:helpdesk>
+        <template v-slot:default>
             <slot
                 name="helpdesk"
                 :mapResponseData="mapResponseData"

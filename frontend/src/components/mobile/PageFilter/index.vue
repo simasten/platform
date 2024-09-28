@@ -14,31 +14,28 @@
                 </v-btn>
 
                 <v-toolbar-title class="text-white text-overline">
-                    {{ sidehelpState ? "informasi" : "utilitas" }}
+                    {{ helpState ? "INFORMASI" : "FILTER" }}
                 </v-toolbar-title>
 
                 <v-spacer></v-spacer>
 
                 <v-btn
-                    :color="sidehelpState ? 'white' : `${theme}-lighten-3`"
+                    :color="helpState ? 'white' : `${theme}-lighten-3`"
                     icon
                     @click="
-                        sidehelpState = !sidehelpState;
-                        tabSidenav = sidehelpState ? 'helpdesk' : 'filter';
+                        helpState = !helpState;
+                        tabSidenav = helpState ? 'filter' : 'helpdesk';
                     "
                 >
                     <v-icon
                         :style="
-                            sidehelpState
+                            helpState
                                 ? 'transform: rotate(180deg)'
                                 : 'transform: rotate(0deg)'
                         "
-                        >menu_open</v-icon
                     >
-
-                    <v-tooltip activator="parent" location="bottom"
-                        >Informasi</v-tooltip
-                    >
+                        {{ helpState ? "menu_open" : "filter_list" }}
+                    </v-icon>
                 </v-btn>
             </v-toolbar>
 
@@ -62,7 +59,7 @@
                         class="d-flex flex-column align-center justify-center position-relative"
                     >
                         <form-icon
-                            :icon="sidehelpState ? 'menu_open' : 'filter_list'"
+                            :icon="helpState ? 'menu_open' : 'filter_list'"
                         ></form-icon>
 
                         <div
@@ -95,24 +92,97 @@
                         class="overflow-hidden rounded-lg"
                         v-model="tabSidenav"
                     >
-                        <v-tabs-window-item value="filter">
-                            <div
-                                v-if="withSync"
-                                class="text-overline text-grey-darken-3 px-4 mt-1"
-                            >
-                                <small>sync data</small>
-                            </div>
+                        <v-tabs-window-item value="helpdesk">
+                            <v-card-text class="pt-3">
+                                <v-alert
+                                    border="start"
+                                    color="green"
+                                    variant="tonal"
+                                >
+                                    <slot name="feed">
+                                        <div class="text-caption text-justify">
+                                            Form ini berfungsi untuk menampilkan
+                                            semua data dalam tabel.
+                                        </div>
+                                    </slot>
+                                </v-alert>
 
-                            <v-card-text class="flex-grow-1 pt-2 bg-white">
-                                <slot
-                                    name="syncdata"
-                                    :parent="parent"
-                                    :mapResponseData="mapResponseData"
-                                ></slot>
+                                <template v-if="withSync">
+                                    <div class="text-overline mt-6">Sync</div>
+                                    <v-divider></v-divider>
+
+                                    <v-card-text class="mt-3 pa-0">
+                                        <slot
+                                            name="sync"
+                                            :parent="parent"
+                                            :mapResponseData="mapResponseData"
+                                        ></slot>
+                                    </v-card-text>
+                                </template>
+
+                                <slot name="info"></slot>
+
+                                <widget-icon title="Filter">
+                                    <help-list-item
+                                        :theme="theme"
+                                        icon="toggle_off"
+                                        title="Data Mode"
+                                    >
+                                        Filter ini berfungsi untuk beralih ke
+                                        data trashed ON atau OFF, trashed
+                                        berfungsi untuk menampilkan data yang
+                                        telah di hapus sebelumnya.
+                                    </help-list-item>
+
+                                    <help-list-item
+                                        :theme="theme"
+                                        icon="text_fields"
+                                        title="Pencarian"
+                                    >
+                                        Filter ini berfungsi untuk melakukan
+                                        pencarian data berdasarkan input.
+                                    </help-list-item>
+
+                                    <slot name="filter"></slot>
+                                </widget-icon>
+
+                                <widget-icon>
+                                    <help-list-item
+                                        :theme="theme"
+                                        icon="menu"
+                                        title="Rail Mode"
+                                    >
+                                        icon ini berfungsi untuk beralih
+                                        tampilan panel menu ke mode rail ON atau
+                                        OFF.
+                                    </help-list-item>
+
+                                    <help-list-item
+                                        :theme="theme"
+                                        icon="filter_list"
+                                        title="Filter"
+                                    >
+                                        icon ini berfungsi untuk membuka atau
+                                        menutup panel filter, yang berisi
+                                        pencarian atau filter data pada tabel.
+                                    </help-list-item>
+
+                                    <help-list-item
+                                        :theme="theme"
+                                        icon="tune"
+                                        title="Informasi"
+                                    >
+                                        icon ini berfungsi untuk membuka atau
+                                        menutup panel informasi, yang berisi
+                                        petunjuk atas form.
+                                    </help-list-item>
+
+                                    <slot name="icon"></slot>
+                                </widget-icon>
                             </v-card-text>
+                        </v-tabs-window-item>
 
-                            <v-divider v-if="withSync" class="my-2"></v-divider>
-
+                        <v-tabs-window-item value="filter">
                             <div
                                 v-if="usetrash"
                                 class="text-overline text-grey-darken-3 px-4 mt-1"
@@ -306,8 +376,6 @@
                                 </v-card-text>
                             </template>
 
-                            <slot name="utility"></slot>
-
                             <v-card-text class="flex-grow-1 bg-white">
                                 <v-btn
                                     :color="theme"
@@ -318,221 +386,6 @@
                                     @click="applyFilterData"
                                     >terapkan filter</v-btn
                                 >
-                            </v-card-text>
-                        </v-tabs-window-item>
-
-                        <v-tabs-window-item value="helpdesk">
-                            <v-card-text class="pt-3">
-                                <div class="text-overline">Form Data</div>
-                                <v-divider></v-divider>
-
-                                <div
-                                    class="text-caption text-grey-darken-1 pt-2"
-                                >
-                                    <slot name="forminfo"
-                                        >Form ini berfungsi untuk menampilkan
-                                        semua data dalam tabel.</slot
-                                    >
-                                </div>
-
-                                <slot name="helpdesk"></slot>
-
-                                <div class="text-overline mt-6">Utilitas</div>
-                                <v-divider></v-divider>
-
-                                <table
-                                    class="w-100"
-                                    style="border-spacing: 0px"
-                                >
-                                    <colgroup>
-                                        <col width="48px" />
-                                        <col width="auto" />
-                                    </colgroup>
-
-                                    <tbody>
-                                        <tr v-if="usetrash">
-                                            <td
-                                                style="
-                                                    padding-top: 16px;
-                                                    vertical-align: baseline;
-                                                "
-                                            >
-                                                <v-avatar
-                                                    size="32"
-                                                    :color="`${theme}-lighten-1`"
-                                                >
-                                                    <v-icon size="small"
-                                                        >toggle_off</v-icon
-                                                    >
-                                                </v-avatar>
-                                            </td>
-
-                                            <td style="padding-top: 16px">
-                                                <span
-                                                    class="text-caption font-weight-medium"
-                                                    >Data Mode</span
-                                                >
-                                                <span
-                                                    class="d-block text-caption text-grey-darken-1"
-                                                    >utilitas ini berfungsi
-                                                    untuk beralih ke data
-                                                    trashed ON atau OFF, trashed
-                                                    berfungsi untuk menampilkan
-                                                    data yang telah di hapus
-                                                    sebelumnya.</span
-                                                >
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td
-                                                style="
-                                                    padding-top: 16px;
-                                                    vertical-align: baseline;
-                                                "
-                                            >
-                                                <v-avatar
-                                                    size="32"
-                                                    :color="`${theme}-lighten-1`"
-                                                >
-                                                    <v-icon size="small"
-                                                        >text_fields</v-icon
-                                                    >
-                                                </v-avatar>
-                                            </td>
-
-                                            <td style="padding-top: 16px">
-                                                <span
-                                                    class="text-caption font-weight-medium"
-                                                    >Pencarian</span
-                                                >
-                                                <span
-                                                    class="d-block text-caption text-grey-darken-1"
-                                                    >utilitas ini berfungsi
-                                                    untuk melakukan pencarian
-                                                    data berdasarkan
-                                                    input.</span
-                                                >
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="text-overline mt-6">Icon</div>
-                                <v-divider></v-divider>
-
-                                <table
-                                    class="w-100"
-                                    style="border-spacing: 0px"
-                                >
-                                    <colgroup>
-                                        <col width="48px" />
-                                        <col width="auto" />
-                                    </colgroup>
-
-                                    <tbody>
-                                        <tr>
-                                            <td
-                                                style="
-                                                    padding-top: 16px;
-                                                    vertical-align: baseline;
-                                                "
-                                            >
-                                                <v-avatar
-                                                    size="32"
-                                                    :color="`${theme}-lighten-1`"
-                                                >
-                                                    <v-icon size="small"
-                                                        >menu</v-icon
-                                                    >
-                                                </v-avatar>
-                                            </td>
-
-                                            <td style="padding-top: 16px">
-                                                <span
-                                                    class="text-caption font-weight-medium"
-                                                    >Rail Mode</span
-                                                >
-                                                <span
-                                                    class="d-block text-caption text-grey-darken-1"
-                                                    >icon ini berfungsi untuk
-                                                    beralih tampilan panel menu
-                                                    ke mode rail ON atau
-                                                    OFF.</span
-                                                >
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td
-                                                style="
-                                                    padding-top: 16px;
-                                                    vertical-align: baseline;
-                                                "
-                                            >
-                                                <v-avatar
-                                                    size="32"
-                                                    :color="`${theme}-lighten-1`"
-                                                >
-                                                    <v-icon
-                                                        color="white"
-                                                        size="small"
-                                                        >filter_list</v-icon
-                                                    >
-                                                </v-avatar>
-                                            </td>
-
-                                            <td style="padding-top: 16px">
-                                                <span
-                                                    class="text-caption font-weight-medium"
-                                                    >Filter</span
-                                                >
-                                                <span
-                                                    class="d-block text-caption text-grey-darken-1"
-                                                    >icon ini berfungsi untuk
-                                                    membuka atau menutup panel
-                                                    filter, yang berisi
-                                                    pencarian atau filter data
-                                                    pada tabel.</span
-                                                >
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td
-                                                style="
-                                                    padding-top: 16px;
-                                                    vertical-align: baseline;
-                                                "
-                                            >
-                                                <v-avatar
-                                                    size="32"
-                                                    :color="`${theme}-lighten-1`"
-                                                >
-                                                    <v-icon
-                                                        color="white"
-                                                        size="small"
-                                                        >menu_open</v-icon
-                                                    >
-                                                </v-avatar>
-                                            </td>
-
-                                            <td style="padding-top: 16px">
-                                                <span
-                                                    class="text-caption font-weight-medium"
-                                                    >Informasi</span
-                                                >
-                                                <span
-                                                    class="d-block text-caption text-grey-darken-1"
-                                                    >icon ini berfungsi untuk
-                                                    membuka atau menutup panel
-                                                    informasi, yang berisi
-                                                    petunjuk atas form.</span
-                                                >
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </v-card-text>
                         </v-tabs-window-item>
                     </v-tabs-window>
@@ -561,7 +414,7 @@ export default {
         const {
             filters,
             hasSelected,
-            sidehelpState,
+            helpState,
             highlight,
             page,
             params,
@@ -578,7 +431,7 @@ export default {
         return {
             filters,
             hasSelected,
-            sidehelpState,
+            helpState,
             highlight,
             page,
             parent,
