@@ -154,6 +154,14 @@ export const usePageStore = defineStore("pageStore", {
             });
         },
 
+        clearFilters() {
+            this.search = null;
+            this.paramsCache.findBy = null;
+
+            this.filters = {};
+            this.paramsCache.filters = null;
+        },
+
         challenge() {
             let params = this.twoModeCode
                 ? { code: this.twoFactorCode }

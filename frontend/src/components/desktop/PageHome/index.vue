@@ -13,7 +13,14 @@
 
         <v-spacer></v-spacer>
 
-        <slot name="toolbar"></slot>
+        <slot
+            name="toolbar"
+            :combos="combos"
+            :record="record"
+            :statuses="statuses"
+            :store="store"
+            :theme="theme"
+        ></slot>
 
         <v-btn icon @click="gotoAccountDashboard">
             <v-icon>exit_to_app</v-icon>
@@ -23,7 +30,10 @@
     <v-main style="min-height: 100dvh">
         <v-container>
             <page-paper max-width="100%">
-                <div class="d-flex justify-center mt-3">
+                <div
+                    class="d-flex justify-center mt-3"
+                    v-if="dockMenus.length > 0"
+                >
                     <v-chip
                         :color="theme"
                         class="text-white"
@@ -36,6 +46,7 @@
                 </div>
 
                 <v-sheet
+                    v-if="dockMenus.length > 0"
                     class="mx-auto bg-transparent pa-4"
                     :style="
                         $vuetify.display.width >= 1280
@@ -64,7 +75,13 @@
                 </v-sheet>
             </page-paper>
 
-            <slot :record="record" :store="store" :theme="theme"></slot>
+            <slot
+                :combos="combos"
+                :record="record"
+                :statuses="statuses"
+                :store="store"
+                :theme="theme"
+            ></slot>
         </v-container>
     </v-main>
 </template>
@@ -105,12 +122,14 @@ export default {
 
         const {
             auth,
+            combos,
             dockMenus,
             highlight,
             module,
             page,
             railMode,
             record,
+            statuses,
             theme,
         } = storeToRefs(store);
 
@@ -118,12 +137,14 @@ export default {
 
         return {
             auth,
+            combos,
             dockMenus,
             highlight,
             module,
             page,
             railMode,
             record,
+            statuses,
             theme,
 
             getDashboard,

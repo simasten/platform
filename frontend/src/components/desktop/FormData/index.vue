@@ -30,14 +30,6 @@
         <v-spacer></v-spacer>
 
         <v-btn
-            v-if="!disableCreate && !hasSelected"
-            icon
-            @click="openFormCreate"
-        >
-            <v-icon>add</v-icon>
-        </v-btn>
-
-        <v-btn
             icon="folder_open"
             v-if="hasSelected"
             @click="openFormShow"
@@ -82,7 +74,7 @@
     </page-filter>
 
     <v-main style="min-height: 100dvh">
-        <v-container>
+        <v-container class="pt-0 h-100">
             <page-paper max-width="100%">
                 <v-data-table-server
                     v-model="selected"
@@ -92,8 +84,11 @@
                     :items-per-page="itemsPerPage"
                     :loading="loading"
                     density="comfortable"
+                    height="calc(100vh - 222px)"
                     item-value="name"
                     select-strategy="single"
+                    fixed-footer
+                    fixed-header
                     return-object
                     show-select
                     @update:options="loadItems"
@@ -129,6 +124,19 @@
                 </v-data-table-server>
             </page-paper>
         </v-container>
+
+        <v-fab
+            v-if="!disableCreate && !hasSelected"
+            class="me-9"
+            color="deep-orange"
+            icon="add"
+            location="end"
+            size="64"
+            absolute
+            appear
+            style="bottom: 95px"
+            @click="openFormCreate"
+        ></v-fab>
     </v-main>
 </template>
 

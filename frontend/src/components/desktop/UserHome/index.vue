@@ -7,11 +7,20 @@
     >
         <v-app-bar-nav-icon @click="railMode = !railMode"></v-app-bar-nav-icon>
 
-        <v-toolbar-title class="text-body-2 font-weight-medium"
-            >SiMASTEN</v-toolbar-title
-        >
+        <v-toolbar-title class="text-body-2 font-weight-medium">
+            SiMASTEN
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
+
+        <slot
+            name="toolbar"
+            :combos="combos"
+            :record="record"
+            :statuses="statuses"
+            :store="store"
+            :theme="theme"
+        ></slot>
 
         <v-btn icon @click="$emit('click:tasklist')">
             <v-icon>shopping_cart</v-icon>
@@ -61,7 +70,13 @@
 
     <v-main style="min-height: 100dvh">
         <v-container>
-            <slot :record="record" :store="store" :theme="theme"></slot>
+            <slot
+                :combos="combos"
+                :record="record"
+                :statuses="statuses"
+                :store="store"
+                :theme="theme"
+            ></slot>
         </v-container>
     </v-main>
 </template>
@@ -98,11 +113,13 @@ export default {
 
         const {
             auth,
+            combos,
             highlight,
             modules,
             navigationState,
             record,
             railMode,
+            statuses,
             theme,
         } = storeToRefs(store);
 
@@ -110,11 +127,13 @@ export default {
 
         return {
             auth,
+            combos,
             highlight,
             modules,
             navigationState,
             railMode,
             record,
+            statuses,
             theme,
 
             getUserDashboard,

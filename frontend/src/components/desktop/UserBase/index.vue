@@ -25,6 +25,7 @@
                             v-for="(page, index) in appsMenus"
                             :key="index"
                             :to="{ name: page.slug }"
+                            exact
                         >
                             <template v-slot:prepend="{ isActive }">
                                 <v-icon

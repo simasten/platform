@@ -13,7 +13,7 @@ class $CLASSNAME$
     */
     public function before(SystemUser $user, string $ability): bool|null
     {
-        if ($user->hasAbility('$MODULE_LOWER$-superadmin')) {
+        if ($user->hasLicenseAs('$MODULE_LOWER$-superadmin')) {
             return true;
         }
     

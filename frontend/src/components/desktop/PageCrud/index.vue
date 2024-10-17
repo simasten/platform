@@ -9,6 +9,8 @@ export default {
     name: "page-crud",
 
     props: {
+        clearFilters: Boolean,
+
         pagePath: {
             type: String,
             default: null,

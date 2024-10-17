@@ -7,11 +7,20 @@
     >
         <v-app-bar-nav-icon @click="railMode = !railMode"></v-app-bar-nav-icon>
 
-        <v-toolbar-title class="text-body-2 font-weight-medium"
-            >LAYANAN</v-toolbar-title
-        >
+        <v-toolbar-title class="text-body-2 font-weight-medium">
+            LAYANAN
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
+
+        <slot
+            name="toolbar"
+            :combos="combos"
+            :modules="modules"
+            :statuses="statuses"
+            :store="store"
+            :theme="theme"
+        ></slot>
 
         <v-btn
             icon
@@ -28,7 +37,13 @@
 
     <v-main style="min-height: 100dvh">
         <v-container>
-            <slot :modules="modules" :store="store" :theme="theme"></slot>
+            <slot
+                :combos="combos"
+                :modules="modules"
+                :statuses="statuses"
+                :store="store"
+                :theme="theme"
+            ></slot>
         </v-container>
     </v-main>
 </template>
@@ -41,6 +56,8 @@ export default {
     name: "user-apps",
 
     props: {
+        clearFilters: Boolean,
+
         maxWidth: {
             type: [String, Number],
             default: "900",
@@ -67,13 +84,19 @@ export default {
         store.pageName = props.pageName;
         store.pageKey = props.pageKey;
 
+        if (props.clearFilters) {
+            store.clearFilters();
+        }
+
         const {
             auth,
+            combos,
             highlight,
             impersonated,
             modules,
             navigationState,
             railMode,
+            statuses,
             theme,
         } = storeToRefs(store);
 
@@ -81,11 +104,13 @@ export default {
 
         return {
             auth,
+            combos,
             highlight,
             impersonated,
             modules,
             navigationState,
             railMode,
+            statuses,
             theme,
 
             getUserModules,
