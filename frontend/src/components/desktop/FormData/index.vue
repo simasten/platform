@@ -75,7 +75,7 @@
 
     <v-main style="min-height: 100dvh">
         <v-container class="pt-0 h-100">
-            <page-paper max-width="100%">
+            <page-paper :text-left="title" max-width="100%">
                 <v-data-table-server
                     v-model="selected"
                     :headers="headers"

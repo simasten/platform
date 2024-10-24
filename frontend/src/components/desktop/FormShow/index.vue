@@ -151,7 +151,7 @@
 
     <v-main style="min-height: 100dvh">
         <v-container>
-            <page-paper :max-width="maxWidth">
+            <page-paper :text-left="title" :max-width="maxWidth">
                 <slot
                     :combos="combos"
                     :record="record"
@@ -216,6 +216,7 @@ export default {
             softdelete,
             record,
             theme,
+            title,
         } = storeToRefs(store);
 
         const {
@@ -237,6 +238,7 @@ export default {
             record,
             softdelete,
             theme,
+            title,
 
             getPageData,
             openFormData,

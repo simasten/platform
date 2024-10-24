@@ -21,16 +21,11 @@
 
                 <div
                     :class="`text-${theme}-lighten-4`"
-                    class="text-caption text-white position-absolute font-weight-bold text-uppercase text-left"
-                    style="
-                        top: 8px;
-                        left: 0;
-                        font-size: 0.63rem !important;
-                        width: calc(50% - 30px);
-                    "
+                    class="text-caption text-white position-absolute font-weight-medium text-uppercase text-left"
+                    style="top: 8px; left: 0; width: calc(50% - 30px)"
                 >
                     <div
-                        class="d-inline-block text-truncate"
+                        class="d-inline-block text-truncate text-grey-darken-1"
                         style="max-width: 100%"
                     >
                         {{ textLeft }}
