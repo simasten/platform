@@ -41,18 +41,8 @@ class PlatformInstall extends Command
         ]);
 
         $this->call('vendor:publish', [
-            '--tag' => 'simasten-frontend',
-            '--force' => true
-        ]);
-
-        $this->call('vendor:publish', [
             '--tag' => 'simasten-assets',
             '--force' => true
-        ]);
-
-        $this->call('module:clone', [
-            'repository' => 'git@github.com:simasten/mod-system.git',
-            '--directory' => 'system'
         ]);
 
         $this->runComposerUpdate();
@@ -73,12 +63,20 @@ class PlatformInstall extends Command
             File::deleteDirectory(resource_path('css'));
         }
 
+        if (File::isDirectory(resource_path('src'))) {
+            File::deleteDirectory(resource_path('src'));
+        }
+
         if (File::exists(base_path('vite.config.js'))) {
             File::delete(base_path('vite.config.js'));
         }
 
         if (File::isDirectory(app_path('Models'))) {
             File::deleteDirectory(app_path('Models'));
+        }
+
+        if (File::isDirectory(resource_path('views' . DIRECTORY_SEPARATOR . 'welcome.blade.php'))) {
+            File::deleteDirectory(resource_path('views' . DIRECTORY_SEPARATOR . 'welcome.blade.php'));
         }
 
         if (File::isDirectory(database_path('migrations'))) {
@@ -130,10 +128,12 @@ class PlatformInstall extends Command
 
         $content = json_decode(file_get_contents($composerFile), true);
 
-        if (!array_key_exists('repositories', $content)) {
-            $content['repositories'] = [
-                ['type' => 'path', 'url' => 'modules/*']
-            ];
+        if (!array_key_exists('repositories', $content) && $index = array_search('minimum-stability', array_keys($content))) {
+            $content = array_slice($content, 0, $index + 1) + [
+                'repositories' => [
+                    ['type' => 'path', 'url' => 'modules/*']
+                ]
+            ] + $content;
         }
 
         if (array_key_exists('extra', $content) && !array_key_exists('merge-plugin', $content['extra'])) {
@@ -184,7 +184,7 @@ class PlatformInstall extends Command
             );
         }
 
-        if (str_contains($content, 'DB_CONNECTION=sqlite')) {
+        if (str_contains($content, 'DB_CONNECTION=pgsql')) {
             (new Filesystem())->replaceInFile(
                 'DB_CONNECTION=sqlite',
                 'DB_CONNECTION=platform',
@@ -196,6 +196,23 @@ class PlatformInstall extends Command
             (new Filesystem())->replaceInFile(
                 'SESSION_DOMAIN=null',
                 'SESSION_DOMAIN=.devsimasten.test',
+                $envFile,
+            );
+        }
+
+        if (str_contains($content, 'VITE_APP_NAME="${APP_NAME}"') && !str_contains($content, 'AUTH_MODEL=Module\System\Models\SystemUser')) {
+            (new Filesystem())->replaceInFile(
+                'VITE_APP_NAME="${APP_NAME}"',
+                'VITE_APP_NAME="${APP_NAME}"' . PHP_EOL .
+                    'AUTH_MODEL=Module\System\Models\SystemUser' . PHP_EOL .
+                    'AUTH_PASSWORD_RESET_TOKEN_TABLE=system_password_reset_tokens' . PHP_EOL .
+                    'DB_CACHE_TABLE=system_cache' . PHP_EOL .
+                    'DB_QUEUE_TABLE=system_jobs' . PHP_EOL .
+                    'DB_QUEUE_BATCH_TABLE=system_job_batches' . PHP_EOL .
+                    'DB_QUEUE_FAILED_TABLE=system_failded_jobs' . PHP_EOL .
+                    'SESSION_TABLE=system_sessions' . PHP_EOL .
+                    'GITBASE=git@github.com:simasten' . PHP_EOL .
+                    'MODULES="mod-system.git|system,mod-reference.git|reference,mod-governance.git|governance"',
                 $envFile,
             );
         }

@@ -1,29 +1,40 @@
 import Vue from "@vitejs/plugin-vue";
 import Vuetify from "vite-plugin-vuetify";
-import basicSsl from "@vitejs/plugin-basic-ssl";
+import laravel from "laravel-vite-plugin";
 import { defineConfig } from "vite";
 import { fileURLToPath, URL } from "node:url";
-import { transformAssetUrls } from "vite-plugin-vuetify";
+// import { viteStaticCopy } from "vite-plugin-static-copy";
 // import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
-	root: "resources",
-
-	build: {
-		rollupOptions: {
-			input: {
-				app: fileURLToPath(new URL("./resources/index.html", import.meta.url)),
-
-				mobile: fileURLToPath(new URL("./resources/mobile.html", import.meta.url)),
+	css: {
+		preprocessorOptions: {
+			scss: {
+				api: "modern", // or "modern"
+				silenceDeprecations: ["legacy-js-api"],
 			},
 		},
 	},
-
 	plugins: [
-		basicSsl(),
+		laravel({
+			input: ["resources/src/desktop.js", "resources/src/mobile.js"],
+			refresh: true,
+			detectTls: "devsimasten.test",
+		}),
+		// viteStaticCopy({
+		//     targets: [
+		//         {
+		//             src: "public/assets/pwa-192x192.png",
+		//             dest: "assets",
+		//         },
+		//     ],
+		// }),
 		Vue({
 			template: {
-				transformAssetUrls,
+				transformAssetUrls: {
+					base: null,
+					includeAbsolute: false,
+				},
 			},
 		}),
 		Vuetify({
@@ -47,34 +58,25 @@ export default defineConfig({
 		//     registerType: "autoUpdate",
 
 		//     manifest: {
-		//         name: "SiMASTEN",
-		//         short_name: "SiMASTEN",
-		//         description: "Sistem Terintegrasi Manajemen ASN",
+		//         name: "simasten",
+		//         short_name: "simasten",
+		//         description: "Sistem Terintegrasi Manajemen ASN Provinsi Banten",
 		//         icons: [
 		//             {
-		//                 src: "assets/pwa-maskable-512x512.png",
-		//                 sizes: "512x512",
-		//                 type: "image/png",
-		//                 purpose: "maskable",
-		//             },
-
-		//             {
-		//                 src: "assets/pwa-512x512.png",
-		//                 sizes: "512x512",
+		//                 src: "assets/pwa-96x96.png",
+		//                 sizes: "96x96",
 		//                 type: "image/png",
 		//                 purpose: "any",
 		//             },
-
-		//             {
-		//                 src: "assets/pwa-maskable-192x192.png",
-		//                 sizes: "192x192",
-		//                 type: "image/png",
-		//                 purpose: "maskable",
-		//             },
-
 		//             {
 		//                 src: "assets/pwa-192x192.png",
 		//                 sizes: "192x192",
+		//                 type: "image/png",
+		//                 purpose: "any",
+		//             },
+		//             {
+		//                 src: "assets/pwa-512x512.png",
+		//                 sizes: "512x512",
 		//                 type: "image/png",
 		//                 purpose: "any",
 		//             },
@@ -95,17 +97,20 @@ export default defineConfig({
 	define: { "process.env": {} },
 	resolve: {
 		alias: {
-			"@components": fileURLToPath(new URL("./resources/src/components", import.meta.url)),
+			"@components": fileURLToPath(
+				new URL("./resources/src/components", import.meta.url)
+			),
 			"@modules": fileURLToPath(new URL("./modules", import.meta.url)),
-			"@plugins": fileURLToPath(new URL("./resources/src/plugins", import.meta.url)),
-			"@pinia": fileURLToPath(new URL("./resources/src/plugins/pinia", import.meta.url)),
-			"@styles": fileURLToPath(new URL("./resources/src/styles", import.meta.url)),
+			"@plugins": fileURLToPath(
+				new URL("./resources/src/plugins", import.meta.url)
+			),
+			"@pinia": fileURLToPath(
+				new URL("./resources/src/plugins/pinia", import.meta.url)
+			),
+			"@styles": fileURLToPath(
+				new URL("./resources/src/styles", import.meta.url)
+			),
 		},
 		extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
-	},
-	server: {
-		host: "hmr.devsimasten.test",
-		https: true,
-		port: 3000,
 	},
 });
