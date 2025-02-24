@@ -186,7 +186,7 @@ class PlatformInstall extends Command
 
         if (str_contains($content, 'DB_CONNECTION=pgsql')) {
             (new Filesystem())->replaceInFile(
-                'DB_CONNECTION=sqlite',
+                'DB_CONNECTION=pgsql',
                 'DB_CONNECTION=platform',
                 $envFile,
             );
@@ -212,7 +212,7 @@ class PlatformInstall extends Command
                     'DB_QUEUE_FAILED_TABLE=system_failded_jobs' . PHP_EOL .
                     'SESSION_TABLE=system_sessions' . PHP_EOL .
                     'GITBASE=git@github.com:simasten' . PHP_EOL .
-                    'MODULES="mod-system.git|system,mod-reference.git|reference,mod-governance.git|governance"',
+                    'MODULES="mod-system.git|system,mod-reference.git|reference,mod-governance.git|governance,mod-document.git|document,mod-profile.git|profile,mod-mydocument.git|mydocument,mod-myprofile.git|myprofile,mod-salary.git|salary,mod-mysalary.git|mysalary"',
                 $envFile,
             );
         }

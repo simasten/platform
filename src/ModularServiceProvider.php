@@ -54,6 +54,7 @@ class ModularServiceProvider extends ServiceProvider
             __DIR__ . '/../config/database.php' => config_path('database.php'),
             __DIR__ . '/../config/cors.php' => config_path('cors.php'),
             __DIR__ . '/../config/queue.php' => config_path('queue.php'),
+            __DIR__ . '/../config/filesystems.php' => config_path('filesystems.php'),
             __DIR__ . '/../modules' => base_path('modules'),
             __DIR__ . '/../routes' => base_path('routes'),
             __DIR__ . '/../seeders' => database_path('seeders'),
@@ -64,7 +65,7 @@ class ModularServiceProvider extends ServiceProvider
             __DIR__ . '/../avatars' => public_path('avatars'),
             __DIR__ . '/../images' => public_path('images'),
             __DIR__ . '/../pdfjs' => public_path('pdfjs'),
-            __DIR__ . '/../views' => resource_path('views'),
+            __DIR__ . '/../frontend/views' => resource_path('views'),
         ], 'simasten-assets');
     }
 
